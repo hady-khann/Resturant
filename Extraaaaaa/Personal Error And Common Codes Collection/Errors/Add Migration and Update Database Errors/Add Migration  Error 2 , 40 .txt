@@ -1,0 +1,34 @@
+1 - Sql Server Configuration Manager\sql server network configuration\ ==> Enable all 3 tcp,pipes,shared
+2 - in continiue to num 1 ==> tcp/right click\Go to the last entry IP All and mention TCP Port 1433.
+3 - add allow port 1433 in firewall
+
+4 - enable remote connections to SQL Server
+5 - reset name instances in services
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/troubleshoot-connecting-to-the-sql-server-database-engine?view=sql-server-ver15

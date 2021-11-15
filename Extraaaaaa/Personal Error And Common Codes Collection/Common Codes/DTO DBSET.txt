@@ -1,0 +1,2 @@
+            modelBuilder.Entity<FintechUserQuery>().ToView("FintechUserQuery").HasNoKey();
+             public virtual DbSet<ActiveInDTO> ActiveInDTOModels { get; set; }

@@ -1,0 +1,9 @@
+https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
+
+https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
+
+https://jasonwatmore.com/post/2019/10/11/aspnet-core-3-jwt-authentication-tutorial-with-example-api
+
+https://www.google.com/search?q=source+code+of+login+page+authentication+jwt+asp.net+core&rlz=1C1GCEU_enIR959IR959&sxsrf=AOaemvK1t5c5QnU3_VkYpmtjX8YlKPCEvA%3A1636866142932&ei=XpiQYeC2OMaAgQa-gJSYDg&oq=source+code+of+login+page+authentication+jwt+asp&gs_lcp=Cgdnd3Mtd2l6EAMYATIFCCEQoAEyBQghEKABMgUIIRCgAToHCAAQRxCwA0oECEEYAFC1AljPFWCCJmgBcAJ4AIAB-wKIAaYJkgEFMi0zLjGYAQCgAQHIAQjAAQE&sclient=gws-wiz
+
+source code of login page authentication jwt asp.net core

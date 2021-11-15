@@ -1,0 +1,16 @@
+Scaff Local ===> Scaffold-DbContext "Server=.;Database=...DB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
+
+Scaff DB ===> Scaffold-DbContext "Server=192.168.1.1\test;Database=TestProject;User Id=Testuser;password=testpass*;MultipleActiveResultSets=False;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
+
+Scaff DB ===> Scaffold-DbContext "Server=.;Database=Resturant;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir C:\Users\Hady_Khann\source\repos\hady-khann\Resturant\Resturant.Core\Models -f
+
+
+
+Add-Migration MyMigrationName -context DataContextName
+Add-Migration FirstBuildMigration -OutputDir "C:\Users\khanmohamad.m\Desktop\Code\Resturant\Resturant\Resturant.Core\Migrations\"
+
+update-database -context AccountDBContext
+
+
+
+modelBuilder.Entity<VennDiagramModel>().ToView("VennDiagramModel");

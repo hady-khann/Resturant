@@ -1,0 +1,9 @@
+ builder.ConfigureServices((context, services) =>
+            {
+                services.AddAuthentication();
+                services.AddDbContext<pdn1Context>(options =>
+                    options.UseSqlServer(
+                        context.Configuration.GetConnectionString(ContextConnection")));
+
+
+            });

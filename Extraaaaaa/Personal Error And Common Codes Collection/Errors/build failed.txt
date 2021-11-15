@@ -1,0 +1,1 @@
+Build Failed  === > Most probabely Other Errors in solution   ==>   Run project and Fix Errors

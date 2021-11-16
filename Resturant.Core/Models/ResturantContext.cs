@@ -25,6 +25,35 @@ namespace Resturant.Core.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserOrder> UserOrders { get; set; }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -36,6 +65,39 @@ namespace Resturant.Core.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            ///////////////////////////   ME
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ///////////////////////////////////  SYSTEM
             modelBuilder.HasAnnotation("Relational:Collation", "Persian_100_CI_AI");
 
             modelBuilder.Entity<Food>(entity =>

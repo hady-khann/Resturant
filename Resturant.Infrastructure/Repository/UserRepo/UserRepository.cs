@@ -1,4 +1,5 @@
-﻿using Resturant.Core.Models;
+﻿using AutoMapper;
+using Resturant.Core.Models;
 using Resturant.Infrastructure.DTO.Auth;
 using System;
 using System.Collections.Generic;
@@ -10,45 +11,27 @@ namespace Resturant.Infrastructure.Repository.UserRepo
 {
     public class UserRepository : IUserRepository
     {
-        private readonly List<UserDTO> users = new List<UserDTO>();
-
-        public UserRepository()
+        private readonly ResturantContext _context;
+        private readonly IMapper _mapper;
+        public UserRepository(IMapper mapper , ResturantContext context)
         {
-            users.Add(new UserDTO
-            {
-                UserName = "joydipkanjilal",
-                Password = "joydip123",
-                Role = "manager"
-            });
-            users.Add(new UserDTO
-            {
-                UserName = "michaelsanders",
-                Password = "michael321",
-                Role = "developer"
-            });
-            users.Add(new UserDTO
-            {
-                UserName = "stephensmith",
-                Password = "stephen123",
-                Role = "tester"
-            });
-            users.Add(new UserDTO
-            {
-                UserName = "rodpaddock",
-                Password = "rod123",
-                Role = "admin"
-            });
-            users.Add(new UserDTO
-            {
-                UserName = "rexwills",
-                Password = "rex321",
-                Role = "admin"
-            });
+            _context = context;
+            _mapper = mapper;
         }
+
+        public IEnumerable<User> GetAllUsersINFO(int page, int Records_count)
+        {
+            return _context.Users.Skip(page * Records_count).Take(Records_count);
+        }
+
         public UserDTO GetUser(User userModel)
         {
-            return users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower()
-                && x.Password == userModel.PassWord).FirstOrDefault();
+            User resualt_User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.PassWord).FirstOrDefault();
+            
+            UserDTO Usr = _mapper.Map<UserDTO>(resualt_User);
+
+            return Usr;
+
         }
     }
 }

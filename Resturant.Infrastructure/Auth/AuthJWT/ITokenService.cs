@@ -1,4 +1,5 @@
-﻿using Resturant.Infrastructure.DTO.Auth;
+﻿using Resturant.Core.Models;
+using Resturant.Infrastructure.DTO.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
 {
     public interface ITokenService
     {
-        string BuildToken(string key, string issuer, UserDTO user);
-        bool ValidateToken(string key, string issuer, string audience, string token);
+        string AuthenticateUser(string key, string issuer, UserDTO userDTO);
+        //string GenerateJSONWebToken(string key, string issuer, UserDTO user);
+        bool IsTokenValid(string key, string issuer, string token);
     }
 }

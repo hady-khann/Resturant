@@ -13,9 +13,11 @@ using Microsoft.OpenApi.Models;
 using Resturant.Infrastructure.Auth.AuthJWT;
 using Resturant.Infrastructure.Repository.UserRepo;
 using System;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoMapper;
 using System.Threading.Tasks;
 
 namespace Resturant.WebAPI
@@ -32,15 +34,20 @@ namespace Resturant.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSession();
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resturant.WebAPI", Version = "v1" });
             });
 
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            })
+            .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -50,8 +57,9 @@ namespace Resturant.WebAPI
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey (Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
+            
             });
 
             services.AddTransient<IUserRepository, UserRepository>();
@@ -68,7 +76,10 @@ namespace Resturant.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Resturant.WebAPI v1"));
             }
+
+
             app.UseSession();
+
             app.Use(async (context, next) =>
             {
                 var token = context.Session.GetString("Token");
@@ -78,9 +89,16 @@ namespace Resturant.WebAPI
                 }
                 await next();
             });
+
             app.UseStaticFiles();
+
+
             app.UseRouting();
+
+
             app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

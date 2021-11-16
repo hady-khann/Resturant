@@ -10,6 +10,9 @@ namespace Resturant.Infrastructure.Repository.UserRepo
 {
     public interface IUserRepository
     {
-        UserDTO GetUser(User userMode);
+        IEnumerable<User> GetAllUsersINFO(int page , int Records_count);
+        UserDTO GetUser(User userModel);
+
+
     }
 }

@@ -28,7 +28,7 @@ namespace Resturant.Infrastructure.Repository.UserRepo
         {
             User resualt_User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.PassWord).FirstOrDefault();
             
-            UserDTO Usr = _mapper.Map<UserDTO>(resualt_User);
+            
 
             return Usr;
 

@@ -1,0 +1,22 @@
+   public async Task<IEnumerable<ChildFintechRisksChart>> GetRisksChart(string year, string month)
+        {
+            var cIdParam = new Microsoft.Data.SqlClient.SqlParameter("cId", Guid.Parse("E027DCCE-434F-4FA9-8A7E-08D7682611A9"));
+            var yearParam = new Microsoft.Data.SqlClient.SqlParameter("year", year);
+            var monthParam = new Microsoft.Data.SqlClient.SqlParameter("month", month);
+            //TODO: Second
+            var queryStr = @" Select TMain.Name,TMain.Count,TMain.groupId,TMain.GroupName, [dbo].[GetGroupCount](@cid,@year,@month,TMain.groupId) as GroupCount from (
+                              SELECT cuo.CustomValue as Name, COUNT(ch.Id) as [Count], fg.Id as groupId, fg.Name as GroupName
+
+                                FROM [ControlProject].[dbo].[CustomFieldValues] as cuv
+                                left join ChildFintechs as ch on ch.Id = cuv.Owner
+                                left join FintechGroups as fg on fg.Id = ch.GroupId
+                                left join CustomFields cu on cu.Id = @cId
+                                left join CustomFieldOptions as cuo on cuo.[key] = cuv.NumberValue 
+                                where cuv.CustomFieldId = @cId and ch.Year = @year and ch.Month = @month and ch.IsDeleted = 0 and cuo.CustomFieldId = @cId
+                                and fg.IsDeleted = 0
+                                group by cuo.CustomValue, fg.Id, fg.Name
+
+								) as TMain";
+            var query = await ControlProjectDbContext.ChildFintechRisksChartQuery.FromSqlRaw(queryStr, cIdParam, yearParam, monthParam).ToListAsync();
+            return query;
+        }

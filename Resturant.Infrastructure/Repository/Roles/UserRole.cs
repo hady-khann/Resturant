@@ -22,9 +22,9 @@ namespace Resturant.Infrastructure.Repository.Roles
             return roles;
         }
 
-        public Role GetUserRole(Guid User_Role_guid)
+        public string GetUserRoleBYID(Guid User_Role_guid)
         {
-            var UserRole = _context.Roles.FirstOrDefault(x=>x.Id==User_Role_guid);
+            var UserRole = _context.Roles.Where(x=>x.Id==User_Role_guid).FirstOrDefault().RoleName;
             return UserRole;
         }
     }

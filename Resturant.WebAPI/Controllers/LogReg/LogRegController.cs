@@ -10,7 +10,7 @@ using Resturant.Core.Models;
 using Resturant.Infrastructure.Auth.AuthJWT;
 using Resturant.Infrastructure.DTO.Auth;
 using Resturant.WebAPI.MyServices;
-using Resturant.Infrastructure.Repository.UserRepo;
+using Resturant.Infrastructure.Repository.User_Repo;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,15 +32,15 @@ namespace Resturant.WebAPI.Controllers.LogReg
         [HttpPost]
         public IActionResult Login(User user)
         {
-            var Token_Login_Resualt = _Srvc_LogReg.Login(user);
+            var Login_Resualt_Token = _Srvc_LogReg.Login(user);
 
-            if (Token_Login_Resualt == "Empty" || Token_Login_Resualt == "Unauthorized" || Token_Login_Resualt == "Null")
+            if (Login_Resualt_Token == "Empty" || Login_Resualt_Token == "Unauthorized" || Login_Resualt_Token == "Null")
             {
-                return BadRequest();
+                return BadRequest(Login_Resualt_Token);
             }
             else
             {
-                HttpContext.Session.SetString("Token", Token_Login_Resualt);
+                //HttpContext.Session.SetString("Token", Login_Resualt_Token);
                 return null;
             }
         }

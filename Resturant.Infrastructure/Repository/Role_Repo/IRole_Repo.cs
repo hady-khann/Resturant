@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.Repository.Roles
+namespace Resturant.Infrastructure.Repository.Role_Repo
 {
-    interface IUserRole
+    public  interface IRole_Repo
     {
         string GetUserRoleBYID(Guid guid);
         IEnumerable<Role> GetAllRoles();

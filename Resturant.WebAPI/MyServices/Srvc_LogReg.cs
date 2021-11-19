@@ -1,43 +1,53 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Resturant.Core.Models;
-using Resturant.Infrastructure.Auth.AuthJWT;
-using Resturant.Infrastructure.DTO.Auth;
-using Resturant.Infrastructure.Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Resturant.Core.Models;
+using Resturant.Infrastructure.Auth.AuthJWT;
+using Resturant.Infrastructure.DTO.Auth;
+using Resturant.Infrastructure.Repository.User_Repo;
+using Resturant.Infrastructure.Services.Srvs_UserRole;
+
+
+
+
 namespace Resturant.WebAPI.MyServices
 {
     public class Srvc_LogReg
     {
         private readonly IConfiguration _config;
-        private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUserRepository userRepository)
+        private readonly IUser_Repo _User;
+        private readonly IUserRoleService _userroleservice;
+
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice)
         {
             _config = config;
             _tokenService = tokenService;
-            _userRepository = userRepository;
+            _User = userRepository;
+            _userroleservice = userroleservice;
         }
-
-
 
         public string Login(User user)
         {
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PassWord))
             {
-                return "Please Enter UserName And PassWord Empty";
+                return "Please Enter UserName And PassWord";
             }
 
-            var validUser = _userRepository.GetUser(user);
+            var Confirm_User_In_DB = _User.GetUserINFO(user);
 
-            if (validUser != null)
+
+
+            if (Confirm_User_In_DB != null)
             {
-                var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), validUser);
+
+                UserDTO userDTO = _userroleservice.GetUserRoleDTO(user);
+                var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), userDTO);
 
                 if (generatedToken != null)
                 {
@@ -45,12 +55,12 @@ namespace Resturant.WebAPI.MyServices
                 }
                 else
                 {
-                    return "Wrong Username and Password";
+                    return "User doesn't exists ";
                 }
             }
             else
             {
-                return "User doesn't exists ";
+                return "Wrong Username Or Password";
             }
 
         }

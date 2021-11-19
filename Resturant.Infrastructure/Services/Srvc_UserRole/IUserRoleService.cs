@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Resturant.Core.Models;
 using Resturant.Infrastructure.DTO.Auth;
-using Resturant.Infrastructure.Repository.UserRepo;
+using Resturant.Infrastructure.Repository.User_Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.Services
+namespace Resturant.Infrastructure.Services.Srvs_UserRole
 {
-    public interface IRoleService
+    public interface IUserRoleService
     {
-        Task<UserDTO> GetUserDTOAsync(Guid userId);
+        UserDTO GetUserRoleDTO(User usermodel);
     }
 }

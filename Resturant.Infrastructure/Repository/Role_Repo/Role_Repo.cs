@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.Repository.Roles
+namespace Resturant.Infrastructure.Repository.Role_Repo
 {
-    class UserRole : IUserRole
+    public  class Role_Repo : IRole_Repo
     {
         private readonly ResturantContext _context;
 
-        public UserRole(ResturantContext context)
+        public Role_Repo(ResturantContext context)
         {
             _context = context;
         }

@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
 using Resturant.Core.Models;
 using Resturant.Infrastructure.DTO.Auth;
+using Resturant.Infrastructure.Repository.Role_Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.Repository.UserRepo
+namespace Resturant.Infrastructure.Repository.User_Repo
 {
-    public class UserRepository : IUserRepository
+    public class User_Repo : IUser_Repo
     {
         private readonly ResturantContext _context;
-        private readonly IMapper _mapper;
-        public UserRepository(IMapper mapper , ResturantContext context)
+        public User_Repo(ResturantContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public IEnumerable<User> GetAllUsersINFO(int page, int Records_count)
@@ -24,13 +23,13 @@ namespace Resturant.Infrastructure.Repository.UserRepo
             return _context.Users.Skip(page * Records_count).Take(Records_count);
         }
 
-        public UserDTO GetUser(User userModel)
+        public User GetUserINFO(User userModel)
         {
-            User resualt_User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.PassWord).FirstOrDefault();
-            
-            
 
-            return Usr;
+            //get user as UserModel
+            User User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.PassWord).FirstOrDefault();
+           
+            return User;
 
         }
     }

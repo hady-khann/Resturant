@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Resturant.Core.Models;
 
-namespace Resturant.Infrastructure.Repository.UserRepo
+namespace Resturant.Infrastructure.Repository.User_Repo
 {
-    public interface IUserRepository
+    public interface IUser_Repo
     {
         IEnumerable<User> GetAllUsersINFO(int page , int Records_count);
-        UserDTO GetUser(User userModel);
+        User GetUserINFO(User userModel);
 
 
     }

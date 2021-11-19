@@ -10,15 +10,21 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Resturant.Infrastructure.Auth.AuthJWT;
-using Resturant.Infrastructure.Repository.UserRepo;
 using System;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AutoMapper;
 using System.Threading.Tasks;
+using Resturant.Infrastructure.Auth.AuthJWT;
+using Resturant.Infrastructure.Repository;
+using Resturant.Infrastructure.DTO;
+using Resturant.Infrastructure.Services;
+using Resturant.Infrastructure.Repository.User_Repo;
+using Resturant.Infrastructure.Repository.Role_Repo;
+using Resturant.Infrastructure.Services.Srvs_UserRole;
+using Resturant.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Resturant.WebAPI
 {
@@ -34,7 +40,17 @@ namespace Resturant.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
+
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
@@ -62,8 +78,15 @@ namespace Resturant.WebAPI
             
             });
 
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<ITokenService, TokenService>();
+
+            services.AddDbContext<ResturantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<IUser_Repo, User_Repo>();
+            services.AddScoped<IRole_Repo, Role_Repo>();
+
+            services.AddScoped<IUserRoleService, UserRoleService>();
 
         }
 

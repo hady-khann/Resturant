@@ -4,6 +4,8 @@ Scaff DB ===> Scaffold-DbContext "Server=192.168.1.1\test;Database=TestProject;U
 
 Scaff DB ===> Scaffold-DbContext "Server=.;Database=Resturant;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir C:\Users\Hady_Khann\source\repos\hady-khann\Resturant\Resturant.Core\Models -f
 
+Scaffold-DbContext "Server=.;Database=Resturant;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "C:\Users\khanmohamad.m\source\repos\hady-khann\Resturant\Resturant.Core\Models\" -F
+
 
 
 Add-Migration MyMigrationName -context DataContextName

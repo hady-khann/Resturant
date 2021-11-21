@@ -23,12 +23,13 @@ namespace Resturant.WebAPI.MyServices
         private readonly IRole_Repo _Role;
         private readonly IUserRoleService _userroleservice;
 
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice)
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice , IRole_Repo Role)
         {
             _config = config;
             _tokenService = tokenService;
             _User = userRepository;
             _userroleservice = userroleservice;
+            _Role = Role;
         }
 
         public string Login(User user)

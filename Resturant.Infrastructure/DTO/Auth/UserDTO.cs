@@ -33,6 +33,21 @@ namespace Resturant.Infrastructure.DTO.Auth
 
             };
         }
+
+        public static explicit operator UserDTO (User model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            return new UserDTO
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                Password = model.PassWord,
+                Role=model.Role.RoleName,
+            };
+        }
         #endregion
     }
 }

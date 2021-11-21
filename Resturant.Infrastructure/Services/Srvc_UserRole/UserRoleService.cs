@@ -13,32 +13,22 @@ namespace Resturant.Infrastructure.Services.Srvs_UserRole
     public  class UserRoleService : IUserRoleService, IDisposable
     {
         private readonly IRole_Repo _Roles;
+        private readonly ResturantContext _context;
+  
 
-        public UserRoleService(IRole_Repo roles)
+        public UserRoleService(IRole_Repo roles, ResturantContext context)
         {
+            _context = context;
             _Roles = roles;
         }
 
 
         public UserDTO GetUserRoleDTO(User usr)
         {
-          
-            var User_Role = _Roles.GetRoleBYID(usr.Id);
 
-            UserDTO UserDTO_OBJ = new UserDTO
-            {
-                //UserID = Guid.NewGuid(),
-                //UserName = "Hady_Khann",
-                //Role = "admin",
-                UserID = usr.Id,
-                Email = usr.Email,
-                UserName = usr.UserName,
-                Role = User_Role,
-            };
+            User User = _context.Users.Where(x => x.UserName.ToLower() == usr.UserName.ToLower() && x.PassWord == usr.PassWord).Include(u => u.Role).FirstOrDefault();
 
-
-
-            return UserDTO_OBJ;
+            return (UserDTO) User;
         }
 
 

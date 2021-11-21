@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Resturant.Core.Enums;
 using Resturant.Core.Models;
 using Resturant.Infrastructure.DTO.Auth;
 using Resturant.Infrastructure.Repository.Role_Repo;
@@ -27,6 +26,8 @@ namespace Resturant.Infrastructure.Repository.User_Repo
         {
 
             //get user as UserModel
+
+
             User User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.PassWord).FirstOrDefault();
 
             return User;

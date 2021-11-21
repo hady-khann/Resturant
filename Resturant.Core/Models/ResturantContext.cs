@@ -138,8 +138,8 @@ namespace Resturant.Core.Models
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -157,9 +157,7 @@ namespace Resturant.Core.Models
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(200);
+                entity.Property(e => e.Address).HasMaxLength(200);
 
                 entity.Property(e => e.Email)
                     .IsRequired()

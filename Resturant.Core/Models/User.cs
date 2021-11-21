@@ -23,7 +23,5 @@ namespace Resturant.Core.Models
 
         public virtual Role Role { get; set; }
         public virtual ICollection<UserOrder> UserOrders { get; set; }
-
-        
     }
 }

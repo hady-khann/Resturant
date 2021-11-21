@@ -25,35 +25,6 @@ namespace Resturant.Core.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserOrder> UserOrders { get; set; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -65,39 +36,6 @@ namespace Resturant.Core.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ///////////////////////////   ME
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            ///////////////////////////////////  SYSTEM
             modelBuilder.HasAnnotation("Relational:Collation", "Persian_100_CI_AI");
 
             modelBuilder.Entity<Food>(entity =>
@@ -208,8 +146,6 @@ namespace Resturant.Core.Models
                     .HasMaxLength(10)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.ParentId).HasColumnName("ParentID");
-
                 entity.Property(e => e.RoleName)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -218,8 +154,6 @@ namespace Resturant.Core.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
-
-                entity.HasIndex(e => e.RoleId, "IX_User_RoleID");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -234,8 +168,6 @@ namespace Resturant.Core.Models
                 entity.Property(e => e.PassWord)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
                 entity.Property(e => e.UserName)
                     .IsRequired()

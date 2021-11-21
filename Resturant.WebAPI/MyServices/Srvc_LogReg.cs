@@ -55,12 +55,12 @@ namespace Resturant.WebAPI.MyServices
                 }
                 else
                 {
-                    return "User doesn't exists ";
+                return "Wrong Username Or Password";
                 }
             }
             else
             {
-                return "Wrong Username Or Password";
+                    return "User doesn't exists";
             }
 
         }

@@ -34,49 +34,38 @@ namespace Resturant.WebAPI.Controllers.LogReg
         {
             var Login_Resualt_Token = _Srvc_LogReg.Login(user);
 
+            if (Login_Resualt_Token == "Please Enter UserName And PassWord" || 
+                Login_Resualt_Token == "Wrong Username Or Password" ||
+                Login_Resualt_Token == "User doesn't exists")
+            {
+                return BadRequest(Login_Resualt_Token);
+            }
+            else
+            {
+                HttpContext.Session.SetString("Token", Login_Resualt_Token);
+                return null;
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Register")]
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            var Login_Resualt_Token = _Srvc_LogReg.Login(user);
+
             if (Login_Resualt_Token == "Empty" || Login_Resualt_Token == "Unauthorized" || Login_Resualt_Token == "Null")
             {
                 return BadRequest(Login_Resualt_Token);
             }
             else
             {
-                //HttpContext.Session.SetString("Token", Login_Resualt_Token);
+                HttpContext.Session.SetString("Token", Login_Resualt_Token);
                 return null;
             }
         }
 
 
 
-        // GET: api/<LogRegController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<LogRegController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<LogRegController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<LogRegController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<LogRegController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

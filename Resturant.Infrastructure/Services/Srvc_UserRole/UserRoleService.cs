@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.Infrastructure.Services.Srvs_UserRole
 {
-    public  class UserRoleService : IUserRoleService
+    public  class UserRoleService : IUserRoleService, IDisposable
     {
         private readonly IRole_Repo _Roles;
 
@@ -19,30 +19,35 @@ namespace Resturant.Infrastructure.Services.Srvs_UserRole
             _Roles = roles;
         }
 
+
         public UserDTO GetUserRoleDTO(User usr)
         {
-            //var resualt = await _context.Users.Include(x => x.Role).Where(u => u.Id == userId).Select(userId => new UserDTO
-            //{
-            //    UserName = userId.UserName,
-            //    Role = userId.Role.RoleName
-            //}).FirstOrDefaultAsync();
-
-
-            var User_Role = _Roles.GetUserRoleBYID(usr.Id);
+          
+            var User_Role = _Roles.GetRoleBYID(usr.Id);
 
             UserDTO UserDTO_OBJ = new UserDTO
             {
-                UserID = Guid.NewGuid(),
-                UserName = "Hady_Khann",
-                Role = "admin",
-                //UserID = usr.Id,
-                //UserName = usr.UserName,
-                //Role = User_Role,
+                //UserID = Guid.NewGuid(),
+                //UserName = "Hady_Khann",
+                //Role = "admin",
+                UserID = usr.Id,
+                Email = usr.Email,
+                UserName = usr.UserName,
+                Role = User_Role,
             };
 
 
 
             return UserDTO_OBJ;
+        }
+
+
+
+
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

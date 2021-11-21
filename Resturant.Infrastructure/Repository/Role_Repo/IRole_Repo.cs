@@ -9,8 +9,10 @@ namespace Resturant.Infrastructure.Repository.Role_Repo
 {
     public  interface IRole_Repo
     {
-        string GetUserRoleBYID(Guid guid);
         IEnumerable<Role> GetAllRoles();
+        string GetRoleBYID(Guid guid);
+
+        Guid GetRoleByName(String Name);
 
     }
 }

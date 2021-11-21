@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.Infrastructure.Auth.AuthJWT
 {
-    public class TokenService : ITokenService
+    public class TokenService : ITokenService, IDisposable
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
@@ -31,6 +31,8 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
                 expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+
         //public string GenerateJSONWebToken(string key, string issuer, UserDTO user)
         //{
         //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -66,6 +68,10 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
                 return false;
             }
             return true;
+        }
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,16 +11,22 @@ using Resturant.Infrastructure.Auth.AuthJWT;
 using Resturant.Infrastructure.DTO.Auth;
 using Resturant.WebAPI.MyServices;
 using Resturant.Infrastructure.Repository.User_Repo;
+using System.Net;
+using Resturant.Infrastructure.DTO;
+using Resturant.WebAPI.Controllers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Resturant.WebAPI.Controllers.LogReg
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LogRegController : ControllerBase
+    
+    public class LogRegController : BaseController
     {
+
+
         private readonly Srvc_LogReg _Srvc_LogReg;
+
+
         public LogRegController(Srvc_LogReg _srvc_LogReg)
         {
             this._Srvc_LogReg = _srvc_LogReg;
@@ -30,38 +36,43 @@ namespace Resturant.WebAPI.Controllers.LogReg
         [AllowAnonymous]
         [Route("login")]
         [HttpPost]
-        public IActionResult Login(User user)
+        public Global_Response_DTO<string> Login(User user)
         {
             var Login_Resualt_Token = _Srvc_LogReg.Login(user);
 
-            if (Login_Resualt_Token == "Please Enter UserName And PassWord" || 
-                Login_Resualt_Token == "Wrong Username Or Password" ||
-                Login_Resualt_Token == "User doesn't exists")
+
+            if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
             {
-                return BadRequest(Login_Resualt_Token);
+                return Global_Controller_Result<String>(null, Login_Resualt_Token,false);
             }
             else
             {
                 HttpContext.Session.SetString("Token", Login_Resualt_Token);
-                return null;
+                return Global_Controller_Result<String>(null, "Success", true);
+
+
             }
         }
 
         [AllowAnonymous]
         [Route("Register")]
         [HttpPost]
-        public IActionResult Register(User user)
+        public Global_Response_DTO<string> Register(UserDTO user)
         {
-            var Login_Resualt_Token = _Srvc_LogReg.Login(user);
+            var Reg_Resualt = _Srvc_LogReg.Register(user);
 
-            if (Login_Resualt_Token == "Empty" || Login_Resualt_Token == "Unauthorized" || Login_Resualt_Token == "Null")
+            if (Reg_Resualt == "EmptyField" || Reg_Resualt == "UserExists")
             {
-                return BadRequest(Login_Resualt_Token);
+                return Global_Controller_Result<String>(null, "Fail", false);
+
+            }
+            else if (Reg_Resualt == "Register")
+            {
+                return Global_Controller_Result<String>(null, "Success", true);
             }
             else
             {
-                HttpContext.Session.SetString("Token", Login_Resualt_Token);
-                return null;
+                return Global_Controller_Result<String>(null, "Unknown", false);
             }
         }
 

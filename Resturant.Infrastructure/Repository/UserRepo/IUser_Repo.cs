@@ -10,8 +10,14 @@ namespace Resturant.Infrastructure.Repository.User_Repo
 {
     public interface IUser_Repo
     {
-        IEnumerable<User> GetAllUsersINFO(int page , int Records_count);
-        User GetUserINFO(User userModel);
+        IEnumerable<User> GetAllUsersINFOAsync(int page , int Records_count);
+        User GetUserINFOAsync(User userModel);
+
+        string FindUsername(UserDTO userModel);
+
+        void AddUserAsync(UserDTO userModel);
+
+
 
 
     }

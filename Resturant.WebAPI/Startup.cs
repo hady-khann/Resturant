@@ -25,6 +25,8 @@ using Resturant.Infrastructure.Repository.Role_Repo;
 using Resturant.Infrastructure.Services.Srvs_UserRole;
 using Resturant.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Resturant.WebAPI.MyServices;
+using Resturant.WebAPI.Controllers;
 
 namespace Resturant.WebAPI
 {
@@ -87,6 +89,11 @@ namespace Resturant.WebAPI
             services.AddScoped<IRole_Repo, Role_Repo>();
 
             services.AddScoped<IUserRoleService, UserRoleService>();
+
+            services.AddScoped<Srvc_LogReg>();
+
+
+
 
         }
 

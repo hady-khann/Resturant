@@ -11,9 +11,7 @@ using Resturant.Infrastructure.Auth.AuthJWT;
 using Resturant.Infrastructure.DTO.Auth;
 using Resturant.Infrastructure.Repository.User_Repo;
 using Resturant.Infrastructure.Services.Srvs_UserRole;
-
-
-
+using Resturant.Infrastructure.Repository.Role_Repo;
 
 namespace Resturant.WebAPI.MyServices
 {
@@ -22,6 +20,7 @@ namespace Resturant.WebAPI.MyServices
         private readonly IConfiguration _config;
         private readonly ITokenService _tokenService;
         private readonly IUser_Repo _User;
+        private readonly IRole_Repo _Role;
         private readonly IUserRoleService _userroleservice;
 
         public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice)
@@ -36,17 +35,17 @@ namespace Resturant.WebAPI.MyServices
         {
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PassWord))
             {
-                return "Please Enter UserName And PassWord";
+                return "EmptyField";
             }
 
-            var Confirm_User_In_DB = _User.GetUserINFO(user);
+            var Confirm_User_In_DB = _User.GetUserINFOAsync(user);
 
 
 
             if (Confirm_User_In_DB != null)
             {
 
-                UserDTO userDTO = _userroleservice.GetUserRoleDTO(user);
+                UserDTO userDTO = _userroleservice.GetUserRoleDTO(Confirm_User_In_DB);
                 var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), userDTO);
 
                 if (generatedToken != null)
@@ -55,16 +54,45 @@ namespace Resturant.WebAPI.MyServices
                 }
                 else
                 {
-                return "Wrong Username Or Password";
+                    return "Wrong";
                 }
             }
             else
             {
-                    return "User doesn't exists";
+                    return "NullDB";
             }
 
         }
 
+        public string Register(UserDTO user)
+        {
+            if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.Email))
+            {
+                return "EmptyField";
+            }
+
+            var Find_Username_In_DB = _User.FindUsername(user);
+
+
+
+            if (Find_Username_In_DB != null)
+            {
+                return "UserExists";
+            }
+            else
+            {
+                Reg_Operation(user);
+                return "Register";
+            }
+
+        }
+
+
+        private void Reg_Operation(UserDTO user)
+        {
+            user.Role = _Role.GetRoleByName("Guest").ToString();
+            _User.AddUserAsync(user);
+        }
 
 
     }

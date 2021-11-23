@@ -72,7 +72,7 @@ namespace Resturant.WebAPI.MyServices
                 return "EmptyField";
             }
 
-            var Find_Username_In_DB = _User.FindUsername(user);
+            var Find_Username_In_DB = _User.IsUserExists(user);
 
 
 

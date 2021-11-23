@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.Infrastructure.Auth.AuthJWT
 {
-    public class TokenService : ITokenService, IDisposable
+    public class TokenService : ITokenService
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
@@ -68,10 +68,6 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
                 return false;
             }
             return true;
-        }
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }

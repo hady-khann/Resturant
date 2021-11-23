@@ -61,18 +61,15 @@ namespace Resturant.WebAPI.Controllers.LogReg
         {
             var Reg_Resualt = _Srvc_LogReg.Register(user);
 
-            if (Reg_Resualt == "EmptyField" || Reg_Resualt == "UserExists")
-            {
-                return Global_Controller_Result<String>(null, "Fail", false);
-
-            }
-            else if (Reg_Resualt == "Register")
+           
+            if (Reg_Resualt == "Register")
             {
                 return Global_Controller_Result<String>(null, "Success", true);
             }
             else
             {
-                return Global_Controller_Result<String>(null, "Unknown", false);
+                return Global_Controller_Result<String>(null, Reg_Resualt, false);
+
             }
         }
 

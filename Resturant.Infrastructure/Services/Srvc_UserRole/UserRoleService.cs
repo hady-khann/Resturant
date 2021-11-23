@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.Infrastructure.Services.Srvs_UserRole
 {
-    public  class UserRoleService : IUserRoleService, IDisposable
+    public  class UserRoleService : IUserRoleService
     {
         private readonly IRole_Repo _Roles;
         private readonly ResturantContext _context;
@@ -31,13 +31,5 @@ namespace Resturant.Infrastructure.Services.Srvs_UserRole
             return (UserDTO) User;
         }
 
-
-
-
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

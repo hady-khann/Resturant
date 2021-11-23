@@ -24,6 +24,7 @@ namespace Resturant.Infrastructure.DTO.Auth
             }
             return new User
             {
+                Id=model.UserID,
                 UserName = model.UserName,
                 PassWord = model.Password,
                 Email = model.Email,

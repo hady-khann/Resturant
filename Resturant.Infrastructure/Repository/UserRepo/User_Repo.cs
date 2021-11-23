@@ -23,13 +23,13 @@ namespace Resturant.Infrastructure.Repository.User_Repo
             return _context.Users.Skip(page * Records_count).Take(Records_count).AsNoTracking();
         }
 
-        public User GetUserINFOAsync(User userModel)
+        public User GetUserINFOAsync(UserDTO userModel)
         {
 
             //get user as UserModel
 
 
-            User User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.PassWord).AsNoTracking().FirstOrDefault();
+            User User = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower() && x.PassWord == userModel.Password).AsNoTracking().FirstOrDefault();
 
             return User;
 

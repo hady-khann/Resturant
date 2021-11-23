@@ -12,8 +12,10 @@ using Resturant.Infrastructure.DTO.Auth;
 using Resturant.WebAPI.MyServices;
 using Resturant.Infrastructure.Repository.User_Repo;
 using System.Net;
+using Microsoft.AspNetCore.Identity;
 using Resturant.Infrastructure.DTO;
 using Resturant.WebAPI.Controllers;
+using System.IdentityModel.Tokens.Jwt;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,7 +38,7 @@ namespace Resturant.WebAPI.Controllers.LogReg
         [AllowAnonymous]
         [Route("login")]
         [HttpPost]
-        public Global_Response_DTO<string> Login(User user)
+        public Global_Response_DTO<string> Login(UserDTO user)
         {
             var Login_Resualt_Token = _Srvc_LogReg.Login(user);
 
@@ -47,8 +49,8 @@ namespace Resturant.WebAPI.Controllers.LogReg
             }
             else
             {
-                HttpContext.Session.SetString("Token", Login_Resualt_Token);
-                return Global_Controller_Result<String>(null, "Success", true);
+               Request.HttpContext.Session.SetString("Token", Login_Resualt_Token);
+                return Global_Controller_Result<String>(Login_Resualt_Token, "Success", true);
 
 
             }
@@ -61,7 +63,7 @@ namespace Resturant.WebAPI.Controllers.LogReg
         {
             var Reg_Resualt = _Srvc_LogReg.Register(user);
 
-           
+
             if (Reg_Resualt == "Register")
             {
                 return Global_Controller_Result<String>(null, "Success", true);
@@ -71,6 +73,21 @@ namespace Resturant.WebAPI.Controllers.LogReg
                 return Global_Controller_Result<String>(null, Reg_Resualt, false);
 
             }
+        }
+
+        [Authorize]
+        [Route("test")]
+        [HttpPost]
+        public UserDTO test()
+        {
+          var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            var x = _Srvc_LogReg.GetUserFromToken(Request.HttpContext, token);
+
+            return x;
+        
+
+
         }
 
 

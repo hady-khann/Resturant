@@ -1,9 +1,53 @@
-https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
+ public UserToken GenerateUserSecurityToken(User user)
+        {
+            var scuritySec = config.GetSection("Security");
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(scuritySec["portal_public_key"]);
 
-https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
+            ClaimsIdentity subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.user_name),
+                    new Claim(ClaimTypes.Name, user.user_name),
+                    new Claim("firstName",user.firstName),
+                    new Claim("lastName",user.lastName),
+                    new Claim("aud",user.aud[0]),
+                    new Claim("aud",user.aud[1]),
+                    new Claim("user_name",user.user_name),
+                    new Claim("scope",user.scope[0]),
+                    new Claim("scope",user.scope[1]),
+                    new Claim("scope",user.scope[2]),
+                    new Claim("client_id",user.client_id),
+                    new Claim("windowsUsername",user.windowsUsername)
+                });
 
-https://jasonwatmore.com/post/2019/10/11/aspnet-core-3-jwt-authentication-tutorial-with-example-api
 
-https://www.google.com/search?q=source+code+of+login+page+authentication+jwt+asp.net+core&rlz=1C1GCEU_enIR959IR959&sxsrf=AOaemvK1t5c5QnU3_VkYpmtjX8YlKPCEvA%3A1636866142932&ei=XpiQYeC2OMaAgQa-gJSYDg&oq=source+code+of+login+page+authentication+jwt+asp&gs_lcp=Cgdnd3Mtd2l6EAMYATIFCCEQoAEyBQghEKABMgUIIRCgAToHCAAQRxCwA0oECEEYAFC1AljPFWCCJmgBcAJ4AIAB-wKIAaYJkgEFMi0zLjGYAQCgAQHIAQjAAQE&sclient=gws-wiz
+            //
+            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(scuritySec["portal_public_key"]));
+            //var audience = scuritySec["audience"];
+            //var issuer = scuritySec["issuer"];
 
-source code of login page authentication jwt asp.net core
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = subject,
+                Expires = DateTime.UtcNow.AddMinutes(double.Parse(userTokenExpirationInMinutes)),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var refreshTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = subject,
+                Expires = DateTime.UtcNow.AddMinutes(double.Parse(userRefreshTokenExpirationInMinutes)),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var refreshToken = tokenHandler.CreateToken(refreshTokenDescriptor);
+
+            UserToken result = new UserToken
+            {
+                Token = tokenHandler.WriteToken(token),
+                RefreshToken = tokenHandler.WriteToken(refreshToken),
+            };
+
+            return result;
+        }

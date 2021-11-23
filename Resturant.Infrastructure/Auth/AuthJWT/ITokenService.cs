@@ -1,4 +1,5 @@
-﻿using Resturant.Core.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Resturant.Core.Models;
 using Resturant.Infrastructure.DTO.Auth;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
         string AuthenticateUser(string key, string issuer, UserDTO userDTO);
         //string GenerateJSONWebToken(string key, string issuer, UserDTO user);
         bool IsTokenValid(string key, string issuer, string token);
+        void WriteJwtSessionToHttpContext(HttpContext context, string key, string issuer, string token);
     }
 }

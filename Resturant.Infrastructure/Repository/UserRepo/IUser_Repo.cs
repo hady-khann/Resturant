@@ -11,7 +11,7 @@ namespace Resturant.Infrastructure.Repository.User_Repo
     public interface IUser_Repo
     {
         IEnumerable<User> GetAllUsersINFOAsync(int page , int Records_count);
-        User GetUserINFOAsync(User userModel);
+        User GetUserINFOAsync(UserDTO userModel);
         string IsUserExists(UserDTO userModel);
         Task AddUserAsync(UserDTO userModel);
 

@@ -80,6 +80,7 @@ namespace Resturant.WebAPI
             
             });
 
+           // services.AddSingleton<IHttpContextAccessor>();
 
             services.AddDbContext<ResturantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 

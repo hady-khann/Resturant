@@ -32,9 +32,9 @@ namespace Resturant.WebAPI.MyServices
             _Role = Role;
         }
 
-        public string Login(User user)
+        public string Login(UserDTO user)
         {
-            if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PassWord))
+            if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Password))
             {
                 return "EmptyField";
             }
@@ -94,6 +94,19 @@ namespace Resturant.WebAPI.MyServices
             user.Role = _Role.GetRoleByName("Guest").ToString();
             _User.AddUserAsync(user);
         }
+
+        public UserDTO GetUserFromToken(HttpContext httpContextAccessor,String Token)
+        {
+            _tokenService.WriteJwtSessionToHttpContext(httpContextAccessor, _config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),Token);
+
+            var usrDTO = httpContextAccessor.Items["UserInfo"] as UserDTO;
+
+
+            return usrDTO;
+
+
+        }
+
 
 
     }

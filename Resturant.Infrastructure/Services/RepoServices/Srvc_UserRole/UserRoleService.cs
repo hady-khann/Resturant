@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.Services.Srvs_UserRole
+namespace Resturant.Infrastructure.Services.RepoServices.Srvs_UserRole
 {
     public  class UserRoleService : IUserRoleService
     {

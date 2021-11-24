@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.Auth.AuthJWT
+namespace Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT
 {
     public interface ITokenService
     {

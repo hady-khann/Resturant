@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Resturant.Core.Models;
-using Resturant.Infrastructure.Auth.AuthJWT;
+using Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT;
 using Resturant.Infrastructure.DTO.Auth;
 using Resturant.Infrastructure.Repository.User_Repo;
-using Resturant.Infrastructure.Services.Srvs_UserRole;
+using Resturant.Infrastructure.Services.RepoServices.Srvs_UserRole;
 using Resturant.Infrastructure.Repository.Role_Repo;
 
 namespace Resturant.WebAPI.MyServices

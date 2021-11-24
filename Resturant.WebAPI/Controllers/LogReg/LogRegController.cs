@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Resturant.Core.Models;
-using Resturant.Infrastructure.Auth.AuthJWT;
+using Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT;
 using Resturant.Infrastructure.DTO.Auth;
 using Resturant.WebAPI.MyServices;
 using Resturant.Infrastructure.Repository.User_Repo;

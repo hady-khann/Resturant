@@ -6,13 +6,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Resturant.Infrastructure.Auth.AuthJWT;
+using Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Resturant.Infrastructure.Auth.AuthJWT
+namespace Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT
 {
     public class TokenService : ITokenService
     {

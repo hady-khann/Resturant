@@ -39,59 +39,83 @@ namespace Resturant.WebAPI.Controllers.LogReg
 
         [AllowAnonymous]
         [Route("login")]
+        [AutoValidateAntiforgeryToken]
         [HttpPost]
         public Global_Response_DTO<string> Login(UserDTO user)
         {
-            var Login_Resualt_Token = _Srvc_LogReg.Login(user);
-            var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
-            user.UserID = FullUserINFO.Id;
-
-            if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
+            try
             {
-                return Global_Controller_Result<String>(null, Login_Resualt_Token,false);
+                var Login_Resualt_Token = _Srvc_LogReg.Login(user);
+                var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
+                user.UserID = FullUserINFO.Id;
+
+                if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
+                {
+                    return Global_Controller_Result<String>(null, Login_Resualt_Token, false);
+                }
+                else
+                {
+                    _httpContextAccessor.HttpContext.Session.SetString("Token", Login_Resualt_Token.ToString());
+                    return Global_Controller_Result<String>(Login_Resualt_Token, "Success", true);
+
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _httpContextAccessor.HttpContext.Session.SetString("Token", Login_Resualt_Token.ToString());
-                return Global_Controller_Result<String>(Login_Resualt_Token, "Success", true);
-
-
+                return Global_Controller_Result<String>(null, "ERROR : " + ex , false);
             }
         }
 
         [AllowAnonymous]
         [Route("Register")]
+        [AutoValidateAntiforgeryToken]
         [HttpPost]
         public Global_Response_DTO<string> Register(UserDTO user)
         {
-            var Reg_Resualt = _Srvc_LogReg.Register(user);
-
-
-            if (Reg_Resualt == "Register")
+            try
             {
-                return Global_Controller_Result<String>(null, "Success", true);
+                var Reg_Resualt = _Srvc_LogReg.Register(user);
+
+
+                if (Reg_Resualt == "Register")
+                {
+                    return Global_Controller_Result<String>(null, "Success", true);
+                }
+                else
+                {
+                    return Global_Controller_Result<String>(null, Reg_Resualt, false);
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Global_Controller_Result<String>(null, Reg_Resualt, false);
-
+                return Global_Controller_Result<String>(null, "ERROR : " + ex, false);
             }
         }
+       
 
         [Authorize(Roles = "Guest")]
         [Route("test")]
         [HttpPost]
-        public UserDTO test()
+        public Global_Response_DTO<UserDTO> test()
         {
-            var token = _httpContextAccessor.HttpContext.Session.GetString("Token");
-            
-            //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-          
+            try
+            {
+                var token = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
-            var x = _Srvc_LogReg.GetUserFromToken(_httpContextAccessor, token);
+                //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            return x;
-        
+
+                var UserFromcontext = _Srvc_LogReg.GetUserFromToken(_httpContextAccessor, token);
+
+                return Global_Controller_Result<UserDTO>(UserFromcontext, "Success", true);
+            }
+            catch (Exception ex)
+            {
+                return Global_Controller_Result<UserDTO>(null, "ERROR : " + ex, false);
+            }
+
 
 
         }

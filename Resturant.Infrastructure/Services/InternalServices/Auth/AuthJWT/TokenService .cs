@@ -20,22 +20,29 @@ namespace Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT
         private const double EXPIRY_DURATION_MINUTES = 30;
         public string AuthenticateUser(string key, string issuer, UserDTO userDTO)
         {
-            var claims = new[] {
-                new Claim(ClaimTypes.NameIdentifier,userDTO.UserName),
-                new Claim(ClaimTypes.Name, userDTO.UserName),
-                new Claim(ClaimTypes.Role, userDTO.Role),
-                new Claim("Id",userDTO.UserID.ToString()),
-                new Claim("Name", userDTO.UserName),
-                new Claim("Email", userDTO.Email),
-                new Claim("Role", userDTO.Role)
-            };
+            try
+            {
+                    var claims = new[] {
+                    new Claim(ClaimTypes.NameIdentifier,userDTO.UserName),
+                    new Claim(ClaimTypes.Name, userDTO.UserName),
+                    new Claim(ClaimTypes.Role, userDTO.Role),
+                    new Claim("Id",userDTO.UserID.ToString()),
+                    new Claim("Name", userDTO.UserName),
+                    new Claim("Email", userDTO.Email),
+                    new Claim("Role", userDTO.Role)
+                    };
 
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-            var tokenDescriptor = new JwtSecurityToken(issuer, issuer, claims,
-                expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+                var tokenDescriptor = new JwtSecurityToken(issuer, issuer, claims,
+                    expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
+                return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
 
@@ -53,12 +60,12 @@ namespace Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT
         //}
         public bool IsTokenValid(string key, string issuer, string token)
         {
+            try
+            {
             var mySecret = Encoding.UTF8.GetBytes(key);
             var mySecurityKey = new SymmetricSecurityKey(mySecret);
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            try
-            {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -107,7 +114,7 @@ namespace Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT
             }
             catch (Exception ex)
             {
-               
+
             }
         }
 

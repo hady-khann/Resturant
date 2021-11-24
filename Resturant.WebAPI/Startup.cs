@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT;
+using Resturant.Infrastructure.Services.InternalServices.Auth.Hasher;
 using Resturant.Infrastructure.Repository;
 using Resturant.Infrastructure.DTO;
 using Resturant.Infrastructure.Services;
@@ -92,6 +93,7 @@ namespace Resturant.WebAPI
             services.AddScoped<IUserRoleService, UserRoleService>();
 
             services.AddScoped<Srvc_LogReg>();
+            services.AddScoped<IHasher, Hasher>();
 
             services.AddSingleton<HttpContextAccessor>();
             services.AddHttpContextAccessor();

@@ -26,9 +26,16 @@ namespace Resturant.Infrastructure.Services.RepoServices.Srvs_UserRole
         public UserDTO GetUserRoleDTO(User usr)
         {
 
-            User User = _context.Users.Where(x => x.UserName.ToLower() == usr.UserName.ToLower() && x.PassWord == usr.PassWord).Include(u => u.Role).FirstOrDefault();
+            try
+            {
+                User User = _context.Users.Where(x => x.UserName.ToLower() == usr.UserName.ToLower() && x.PassWord == usr.PassWord).Include(u => u.Role).FirstOrDefault();
 
-            return (UserDTO) User;
+                return (UserDTO)User;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
     }

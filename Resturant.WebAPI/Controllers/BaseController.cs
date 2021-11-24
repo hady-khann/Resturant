@@ -13,12 +13,19 @@ namespace Resturant.WebAPI.Controllers
     {
         internal Global_Response_DTO<T> Global_Controller_Result<T>(T data, string message,bool Success)
         {
-            return new Global_Response_DTO<T>
+            try
             {
-                Data = data,
-                Message = message,
-                Success = true
-            };
+                return new Global_Response_DTO<T>
+                {
+                    Data = data,
+                    Message = message,
+                    Success = true
+                };
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

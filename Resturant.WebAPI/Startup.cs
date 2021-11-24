@@ -48,7 +48,7 @@ namespace Resturant.WebAPI
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -93,6 +93,9 @@ namespace Resturant.WebAPI
 
             services.AddScoped<Srvc_LogReg>();
 
+            services.AddSingleton<HttpContextAccessor>();
+            services.AddHttpContextAccessor();
+
 
 
 
@@ -129,6 +132,8 @@ namespace Resturant.WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+           
 
 
             app.UseEndpoints(endpoints =>

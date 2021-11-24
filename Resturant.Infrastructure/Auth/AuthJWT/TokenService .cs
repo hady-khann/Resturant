@@ -18,13 +18,16 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key,string issuer, UserDTO userDTO)
+        public string AuthenticateUser(string key, string issuer, UserDTO userDTO)
         {
-            var claims = new List<Claim> {
-                new Claim(ClaimTypes.NameIdentifier,userDTO.UserID.ToString()),
+            var claims = new[] {
+                new Claim(ClaimTypes.NameIdentifier,userDTO.UserName),
                 new Claim(ClaimTypes.Name, userDTO.UserName),
-                new Claim(ClaimTypes.Email, userDTO.Email),
-                new Claim(ClaimTypes.Role, userDTO.Role)
+                new Claim(ClaimTypes.Role, userDTO.Role),
+                new Claim("Id",userDTO.UserID.ToString()),
+                new Claim("Name", userDTO.UserName),
+                new Claim("Email", userDTO.Email),
+                new Claim("Role", userDTO.Role)
             };
 
 
@@ -73,7 +76,7 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
             return true;
         }
 
-        public void WriteJwtSessionToHttpContext(HttpContext context, string key, string issuer, string token)
+        public void WriteJwtSessionToHttpContext(HttpContextAccessor httpContextAccessor, string key, string issuer, string token)
         {
             try
             {
@@ -82,34 +85,32 @@ namespace Resturant.Infrastructure.Auth.AuthJWT
                 var mySecret = Encoding.UTF8.GetBytes(key);
                 var mySecurityKey = new SymmetricSecurityKey(mySecret);
 
-                    tokenHandler.ValidateToken(token, new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidIssuer = issuer,
-                        ValidAudience = issuer,
-                        IssuerSigningKey = mySecurityKey,
-                    }, out SecurityToken validatedToken);
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = issuer,
+                    ValidAudience = issuer,
+                    IssuerSigningKey = mySecurityKey,
+                }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
 
-
-                context.Items["UserInfo"] = new UserDTO
+                httpContextAccessor.HttpContext.Items["UserInfo"] = new UserDTO
                 {
-                 UserID= Guid.Parse(jwtToken.Claims.First(x => x.Type == "NameIdentifier").Value),
-                 UserName= jwtToken.Claims.First(x => x.Type == "Name").Value,
-                Email=jwtToken.Claims.First(x => x.Type == "Email").Value,
-                Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
+                    UserID = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value),
+                    UserName = jwtToken.Claims.First(x => x.Type == "Name").Value,
+                    Email = jwtToken.Claims.First(x => x.Type == "Email").Value,
+                    Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                 };
             }
             catch (Exception ex)
             {
-                // do nothing if jwt validation fails
-                // user is not attached to context so request won't have access to secure routes
+               
             }
         }
 
-        
+
     }
 }

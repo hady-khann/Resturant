@@ -27,11 +27,13 @@ namespace Resturant.WebAPI.Controllers.LogReg
 
 
         private readonly Srvc_LogReg _Srvc_LogReg;
+        private readonly HttpContextAccessor _httpContextAccessor;
 
 
-        public LogRegController(Srvc_LogReg _srvc_LogReg)
+        public LogRegController(Srvc_LogReg _srvc_LogReg , HttpContextAccessor httpContextAccessor)
         {
             this._Srvc_LogReg = _srvc_LogReg;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -41,7 +43,8 @@ namespace Resturant.WebAPI.Controllers.LogReg
         public Global_Response_DTO<string> Login(UserDTO user)
         {
             var Login_Resualt_Token = _Srvc_LogReg.Login(user);
-
+            var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
+            user.UserID = FullUserINFO.Id;
 
             if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
             {
@@ -49,7 +52,7 @@ namespace Resturant.WebAPI.Controllers.LogReg
             }
             else
             {
-               Request.HttpContext.Session.SetString("Token", Login_Resualt_Token);
+                _httpContextAccessor.HttpContext.Session.SetString("Token", Login_Resualt_Token.ToString());
                 return Global_Controller_Result<String>(Login_Resualt_Token, "Success", true);
 
 
@@ -75,14 +78,17 @@ namespace Resturant.WebAPI.Controllers.LogReg
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Guest")]
         [Route("test")]
         [HttpPost]
         public UserDTO test()
         {
-          var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var token = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            
+            //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+          
 
-            var x = _Srvc_LogReg.GetUserFromToken(Request.HttpContext, token);
+            var x = _Srvc_LogReg.GetUserFromToken(_httpContextAccessor, token);
 
             return x;
         

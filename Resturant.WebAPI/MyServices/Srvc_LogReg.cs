@@ -22,14 +22,18 @@ namespace Resturant.WebAPI.MyServices
         private readonly IUser_Repo _User;
         private readonly IRole_Repo _Role;
         private readonly IUserRoleService _userroleservice;
+        private readonly HttpContextAccessor _httpContextAccessor;
 
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice , IRole_Repo Role)
+
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice ,
+            IRole_Repo Role, HttpContextAccessor httpContextAccessor)
         {
             _config = config;
             _tokenService = tokenService;
             _User = userRepository;
             _userroleservice = userroleservice;
             _Role = Role;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public string Login(UserDTO user)
@@ -47,6 +51,9 @@ namespace Resturant.WebAPI.MyServices
             {
 
                 UserDTO userDTO = _userroleservice.GetUserRoleDTO(Confirm_User_In_DB);
+                userDTO.UserID = Confirm_User_In_DB.Id;
+
+
                 var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), userDTO);
 
                 if (generatedToken != null)
@@ -89,21 +96,29 @@ namespace Resturant.WebAPI.MyServices
         }
 
 
+
+        public UserDTO GetUserFromToken(HttpContextAccessor httpContextAccessor,String Token)
+        {
+            _tokenService.WriteJwtSessionToHttpContext(httpContextAccessor, _config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),Token);
+
+            var usrDTO = _httpContextAccessor.HttpContext.Items["UserInfo"] as UserDTO;
+
+
+            return usrDTO;
+
+
+        }
         private void Reg_Operation(UserDTO user)
         {
             user.Role = _Role.GetRoleByName("Guest").ToString();
             _User.AddUserAsync(user);
         }
 
-        public UserDTO GetUserFromToken(HttpContext httpContextAccessor,String Token)
+        public User GetUserInfo(UserDTO user)
         {
-            _tokenService.WriteJwtSessionToHttpContext(httpContextAccessor, _config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),Token);
+            var User = _User.GetUserINFOAsync(user);
 
-            var usrDTO = httpContextAccessor.Items["UserInfo"] as UserDTO;
-
-
-            return usrDTO;
-
+            return User;
 
         }
 

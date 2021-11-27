@@ -30,7 +30,7 @@ namespace Resturant.Infrastructure.Repository.User_Repo
             }
         }
 
-        public User GetUserINFOAsync(UserDTO userModel)
+        public User CheckUserPass(UserDTO userModel)
         {
 
             //get user as UserModel
@@ -51,36 +51,29 @@ namespace Resturant.Infrastructure.Repository.User_Repo
 
         public string IsUserExists(UserDTO userModel)
         {
-            try
-            {
-                //get user as UserModel
-                User usrName = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower()).AsNoTracking().FirstOrDefault();
-                User usrEmail = _context.Users.Where(x => x.UserName.ToLower() == userModel.Email.ToLower()).AsNoTracking().FirstOrDefault();
+            //get user as UserModel
+            User usrName = _context.Users.Where(x => x.UserName.ToLower() == userModel.UserName.ToLower()).AsNoTracking().FirstOrDefault();
+            User usrEmail = _context.Users.Where(x => x.UserName.ToLower() == userModel.Email.ToLower()).AsNoTracking().FirstOrDefault();
 
+            if (usrName != null)
+            {
+                if (usrEmail != null)
+                {
+                    return "UserName And Email Exixts";
+                }
+                return "UserName Exixts";
+            }
+            else if (usrEmail != null)
+            {
                 if (usrName != null)
                 {
-                    if (usrEmail != null)
-                    {
-                        return "UserName And Email Exixts";
-                    }
-                    return "UserName Exixts";
+                    return "UserName And Email Exixts";
                 }
-                else if (usrEmail != null)
-                {
-                    if (usrName != null)
-                    {
-                        return "UserName And Email Exixts";
-                    }
-                    return "Email Exixts";
-                }
-                else
-                {
-                    return null;
-                }
+                return "Email Exixts";
             }
-            catch (Exception)
+            else
             {
-
+                return null;
             }
         }
 

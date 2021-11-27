@@ -87,8 +87,7 @@ namespace Resturant.WebAPI
 
             services.AddScoped<ITokenService, TokenService>();
 
-            services.AddScoped<IUser_Repo, User_Repo>();
-            services.AddScoped<IRole_Repo, Role_Repo>();
+            services.AddScoped<IUOW, UOW>();
 
             services.AddScoped<IUserRoleService, UserRoleService>();
 

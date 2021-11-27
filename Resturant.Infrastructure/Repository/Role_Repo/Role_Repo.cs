@@ -18,12 +18,6 @@ namespace Resturant.Infrastructure.Repository.Role_Repo
         }
 
 
-        public IEnumerable<Role> GetAllRoles()
-        {
-            var roles = _context.Roles.AsNoTracking();
-            return roles;
-        }
-
         public string GetRoleBYID(Guid User_Role_guid)
         {
             var UserRole = _context.Roles.Where(x=>x.Id==User_Role_guid).AsNoTracking().FirstOrDefault().RoleName;

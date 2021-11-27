@@ -112,7 +112,7 @@ namespace Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

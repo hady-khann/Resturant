@@ -7,13 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Resturant.Core.Models;
-using Resturant.Infrastructure.Services.InternalServices.Auth;
 using Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT;
 using Resturant.Infrastructure.Services.InternalServices.Auth.Hasher;
 using Resturant.Infrastructure.DTO.Auth;
-using Resturant.Infrastructure.Repository.User_Repo;
 using Resturant.Infrastructure.Services.RepoServices.Srvs_UserRole;
-using Resturant.Infrastructure.Repository.Role_Repo;
+using Resturant.Infrastructure.Repository;
 
 namespace Resturant.WebAPI.MyServices
 {
@@ -21,22 +19,20 @@ namespace Resturant.WebAPI.MyServices
     {
         private readonly IConfiguration _config;
         private readonly ITokenService _tokenService;
-        private readonly IUser_Repo _User;
-        private readonly IRole_Repo _Role;
         private readonly IHasher _hasher;
+        private readonly UOW _UOW;
         private readonly IUserRoleService _userroleservice;
         private readonly HttpContextAccessor _httpContextAccessor;
 
 
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUser_Repo userRepository, IUserRoleService userroleservice, IHasher hasher,
-            IRole_Repo Role, HttpContextAccessor httpContextAccessor)
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, UOW uow ,
+            IUserRoleService userroleservice, IHasher hasher,HttpContextAccessor httpContextAccessor)
         {
             _config = config;
-            _tokenService = tokenService;
-            _User = userRepository;
-            _userroleservice = userroleservice;
-            _Role = Role;
             _hasher = hasher;
+            _UOW = uow;
+            _tokenService = tokenService;
+            _userroleservice = userroleservice;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -49,7 +45,7 @@ namespace Resturant.WebAPI.MyServices
                     return "EmptyField";
                 }
                 //checks if User Exists in DB
-                var Find_Username_In_DB = _User.IsUserExists(user);
+                var Find_Username_In_DB = _UOW._User.IsUserExists(user);
 
 
 
@@ -86,15 +82,15 @@ namespace Resturant.WebAPI.MyServices
                     return "Hashing Fail";
                 user.Password = hash;
 
-                var Confirm_User_In_DB = _User.GetUserINFOAsync(user);
+                var Confirm_User_Pass = _UOW._User.CheckUserPass(user);
 
 
 
-                if (Confirm_User_In_DB != null)
+                if (Confirm_User_Pass != null)
                 {
 
-                    UserDTO userDTO = _userroleservice.GetUserRoleDTO(Confirm_User_In_DB);
-                    userDTO.UserID = Confirm_User_In_DB.Id;
+                    UserDTO userDTO = _userroleservice.GetUserRoleDTO(Confirm_User_Pass);
+                    userDTO.UserID = Confirm_User_Pass.Id;
 
 
                     var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), userDTO);
@@ -132,7 +128,7 @@ namespace Resturant.WebAPI.MyServices
                 return usrDTO;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -152,11 +148,11 @@ namespace Resturant.WebAPI.MyServices
 
 
                 //Get RoleID From Roles
-                user.Role = _Role.GetRoleByName("Guest").ToString();
+                user.Role = _UOW._Role.GetRoleByName("Guest").ToString();
                 //Insert User
-                _User.AddUserAsync(user);
+                _UOW._Base<User>().Insert((User)user);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -166,7 +162,7 @@ namespace Resturant.WebAPI.MyServices
         {
             try
             {
-                var User = _User.GetUserINFOAsync(user);
+                var User = _UOW._User.CheckUserPass(user);
 
                 return User;
             }

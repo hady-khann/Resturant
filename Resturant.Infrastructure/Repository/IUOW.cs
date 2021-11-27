@@ -18,7 +18,8 @@ namespace Resturant.Infrastructure.Repository
         IUser_Repo _User { get; }
         IRole_Repo _Role { get; }
 
-        Task SaveDB();
+        Task SaveDBAsync();
+        void SaveDB();
 
     }
 }

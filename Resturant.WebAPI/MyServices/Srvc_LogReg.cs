@@ -20,12 +20,12 @@ namespace Resturant.WebAPI.MyServices
         private readonly IConfiguration _config;
         private readonly ITokenService _tokenService;
         private readonly IHasher _hasher;
-        private readonly UOW _UOW;
+        private readonly IUOW _UOW;
         private readonly IUserRoleService _userroleservice;
         private readonly HttpContextAccessor _httpContextAccessor;
 
 
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, UOW uow ,
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUOW uow ,
             IUserRoleService userroleservice, IHasher hasher,HttpContextAccessor httpContextAccessor)
         {
             _config = config;
@@ -144,6 +144,7 @@ namespace Resturant.WebAPI.MyServices
                 if (hash == null)
                     return;
 
+                user.UserID = Guid.NewGuid();
                 user.Password = hash;
 
 
@@ -151,6 +152,7 @@ namespace Resturant.WebAPI.MyServices
                 user.Role = _UOW._Role.GetRoleByName("Guest").ToString();
                 //Insert User
                 _UOW._Base<User>().Insert((User)user);
+                _UOW.SaveDB();
             }
             catch (Exception)
             {

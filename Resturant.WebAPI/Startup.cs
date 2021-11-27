@@ -87,12 +87,15 @@ namespace Resturant.WebAPI
 
             services.AddScoped<ITokenService, TokenService>();
 
-            services.AddScoped<IUOW, UOW>();
+            services.AddTransient<IRole_Repo,Role_Repo>();
+            services.AddTransient<IUser_Repo, User_Repo>();
 
-            services.AddScoped<IUserRoleService, UserRoleService>();
+            services.AddTransient<IUOW, UOW>();
 
+            services.AddTransient<IUserRoleService, UserRoleService>();
+
+            services.AddTransient<IHasher, Hasher>();
             services.AddScoped<Srvc_LogReg>();
-            services.AddScoped<IHasher, Hasher>();
 
             services.AddSingleton<HttpContextAccessor>();
             services.AddHttpContextAccessor();

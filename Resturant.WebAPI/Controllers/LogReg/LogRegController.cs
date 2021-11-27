@@ -39,7 +39,6 @@ namespace Resturant.WebAPI.Controllers.LogReg
 
         [AllowAnonymous]
         [Route("login")]
-        [AutoValidateAntiforgeryToken]
         [HttpPost]
         public Global_Response_DTO<string> Login(UserDTO user)
         {
@@ -69,7 +68,6 @@ namespace Resturant.WebAPI.Controllers.LogReg
 
         [AllowAnonymous]
         [Route("Register")]
-        [AutoValidateAntiforgeryToken]
         [HttpPost]
         public Global_Response_DTO<string> Register(UserDTO user)
         {

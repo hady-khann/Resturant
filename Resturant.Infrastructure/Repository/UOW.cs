@@ -55,9 +55,14 @@ namespace Resturant.Infrastructure.Repository
         }
 
 
-        public async Task SaveDB()
+        public async Task SaveDBAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public void SaveDB()
+        {
+            _context.SaveChanges();
         }
     }
 }

@@ -1,7 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\Resturant.DataAccess\Resturant.DataAccess.csproj" />
+		<ProjectReference Include="..\Resturant.Repository\Resturant.Repository.csproj" />
+		<ProjectReference Include="..\Resturant.Services\Resturant.Services.csproj" />
+		<ProjectReference Include="..\Resturant.Utilities\Resturant.Utilities.csproj" />
+	</ItemGroup>
 </Project>

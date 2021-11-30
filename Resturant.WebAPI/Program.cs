@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Resturant.WebAPI
+namespace Resturant.WebAPI.Auth
 {
     public class Program
     {

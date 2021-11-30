@@ -3,5 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\Resturant.Middlewares\Resturant.Middlewares.csproj" />
+		<ProjectReference Include="..\Resturant.StartupConfiguration\Resturant.StartupConfiguration.csproj" />
+		<ProjectReference Include="..\Resturant.Utilities\Resturant.Utilities.csproj" />
+	</ItemGroup>
 </Project>

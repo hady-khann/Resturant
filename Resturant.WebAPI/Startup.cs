@@ -16,20 +16,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Resturant.Infrastructure.Services.InternalServices.Auth.AuthJWT;
-using Resturant.Infrastructure.Services.InternalServices.Auth.Hasher;
-using Resturant.Infrastructure.Repository;
-using Resturant.Infrastructure.DTO;
-using Resturant.Infrastructure.Services;
-using Resturant.Infrastructure.Repository.User_Repo;
-using Resturant.Infrastructure.Repository.Role_Repo;
-using Resturant.Infrastructure.Services.RepoServices.Srvs_UserRole;
-using Resturant.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using Resturant.WebAPI.MyServices;
-using Resturant.WebAPI.Controllers;
 
-namespace Resturant.WebAPI
+
+
+
+using Resturant.DataAccess.Context;
+using Resturant.Services.Auth.JWT;
+using Resturant.Repository;
+using Resturant.Interfaces;
+using Resturant.Infrastructure.UOW;
+using Resturant.Repository.UOW;
+using Resturant.Services.Interfaces;
+using Resturant.Services.Implements;
+using Resturant.Services.Auth.Hasher;
+using Resturant.WebAPI.Auth.Srvc_Controller;
+
+namespace Resturant.WebAPI.Auth
 {
     public class Startup
     {
@@ -55,7 +58,7 @@ namespace Resturant.WebAPI
             });
 
             services.AddControllers();
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resturant.WebAPI", Version = "v1" });

@@ -1,24 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <StartupObject>Resturant.WebAPI.Program</StartupObject>
+    <StartupObject>Resturant.WebAPI.Auth.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
@@ -27,9 +14,13 @@
     <Folder Include="OuterServices\" />
   </ItemGroup>
 
-		<ItemGroup>
-		<ProjectReference Include="..\Resturant.Core\Resturant.DataAccess.csproj" />
-		<ProjectReference Include="..\Resturant.Infrastructure\Resturant.Repository.csproj" />
+	<ItemGroup>
+		<ProjectReference Include="..\Resturant.Middlewares\Resturant.Middlewares.csproj" />
+		<ProjectReference Include="..\Resturant.DBModels\Resturant.DBModels.csproj" />
+		<ProjectReference Include="..\Resturant.Repository\Resturant.Repository.csproj" />
+		<ProjectReference Include="..\Resturant.Services\Resturant.Services.csproj" />
+		<ProjectReference Include="..\Resturant.CoreBase\Resturant.CoreBase.csproj" />
+		<ProjectReference Include="..\Resturant.StartupConfiguration\Resturant.StartupConfiguration.csproj" />
 	</ItemGroup>
 
 

@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <StartupObject>Resturant.WebAPI.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
@@ -19,16 +19,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InterFaces\" />
-    <Folder Include="Business\" />
+    <Folder Include="OuterServices\" />
   </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Resturant.Core\Resturant.Core.csproj" />
+		<ItemGroup>
+		<ProjectReference Include="..\Resturant.Core\Resturant.DataAccess.csproj" />
+		<ProjectReference Include="..\Resturant.Infrastructure\Resturant.Repository.csproj" />
 	</ItemGroup>
-	
+
 
 </Project>

@@ -1,6 +1,6 @@
 using System;
 
-namespace Resturant.WebAPI
+namespace Resturant.WebAPI.Guest
 {
     public class WeatherForecast
     {

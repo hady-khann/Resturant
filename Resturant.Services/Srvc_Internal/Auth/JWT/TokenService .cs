@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Resturant.DBModels.DTO.Auth;
 
-namespace Resturant.Services.Auth.JWT
+namespace Resturant.Services.Srvc_Internal.Auth.JWT
 
 {
     public class TokenService : ITokenService

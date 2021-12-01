@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 
 using Resturant.DataAccess.Context;
-using Resturant.Interfaces;
+using Resturant.Repository.Interfaces;
 using Resturant.Repository.Base;
 
 namespace Resturant.Repository.UOW

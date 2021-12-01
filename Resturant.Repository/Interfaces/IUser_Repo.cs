@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
 
-namespace Resturant.Interfaces
+namespace Resturant.Repository.Interfaces
 {
     public interface IUser_Repo
     {

@@ -17,25 +17,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Business Logic", "3. Bus
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Endpoints", "4. Endpoints", "{00C5E180-55CB-475C-BD67-4A8685F2ADF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.CoreBase", "Resturant.CoreBase\Resturant.CoreBase.csproj", "{BCA56487-FC82-42F2-99BD-4067317CF321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.CoreBase", "Resturant.CoreBase\Resturant.CoreBase.csproj", "{BCA56487-FC82-42F2-99BD-4067317CF321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.Middlewares", "Resturant.Middlewares\Resturant.Middlewares.csproj", "{C6B0E404-5992-4EC7-A91F-AA3C5FDA5A15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.Middlewares", "Resturant.Middlewares\Resturant.Middlewares.csproj", "{C6B0E404-5992-4EC7-A91F-AA3C5FDA5A15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.Resources", "Resturant.Resources\Resturant.Resources.csproj", "{E1100917-A0D4-42DF-AD85-5E3C960E4332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.Resources", "Resturant.Resources\Resturant.Resources.csproj", "{E1100917-A0D4-42DF-AD85-5E3C960E4332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.StartupConfiguration", "Resturant.StartupConfiguration\Resturant.StartupConfiguration.csproj", "{BA991248-B296-4392-990E-283FA6EED649}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.StartupConfiguration", "Resturant.StartupConfiguration\Resturant.StartupConfiguration.csproj", "{BA991248-B296-4392-990E-283FA6EED649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.DBModels", "Resturant.DBModels\Resturant.DBModels.csproj", "{4BA54CAF-440F-4631-B86B-4864481EC17B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.DBModels", "Resturant.DBModels\Resturant.DBModels.csproj", "{4BA54CAF-440F-4631-B86B-4864481EC17B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.Services", "Resturant.Services\Resturant.Services.csproj", "{F8DCA60E-648B-4D99-8FFA-875DB4C82E6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.Services", "Resturant.Services\Resturant.Services.csproj", "{F8DCA60E-648B-4D99-8FFA-875DB4C82E6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.WebAPI.Guest", "Resturant.WebAPI.Guest\Resturant.WebAPI.Guest.csproj", "{79C2F1A8-DF24-41B8-B6A4-2B601C699BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.WebAPI.Guest", "Resturant.WebAPI.Guest\Resturant.WebAPI.Guest.csproj", "{79C2F1A8-DF24-41B8-B6A4-2B601C699BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.DataAccess", "Resturant.DataAccess\Resturant.DataAccess.csproj", "{87496DA2-629E-445D-BB26-848228D129AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.DataAccess", "Resturant.DataAccess\Resturant.DataAccess.csproj", "{87496DA2-629E-445D-BB26-848228D129AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.Repository", "Resturant.Repository\Resturant.Repository.csproj", "{782BEF45-1D3E-4171-B7DA-03DDC9D56767}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.Repository", "Resturant.Repository\Resturant.Repository.csproj", "{782BEF45-1D3E-4171-B7DA-03DDC9D56767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant.Utilities", "Resturant.Utilities\Resturant.Utilities.csproj", "{7FF1F52B-8529-4E6A-BD1E-33E663DFEFB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resturant.Utilities", "Resturant.Utilities\Resturant.Utilities.csproj", "{7FF1F52B-8529-4E6A-BD1E-33E663DFEFB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Resturant.DataAccess.Context;
-using Resturant.Interfaces;
+using Resturant.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -2,14 +2,14 @@
 using Resturant.DataAccess.Context;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
-using Resturant.Services.Interfaces;
+using Resturant.Services.Srvc_repo.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Services.Implements
+namespace Resturant.Services.Srvc_repo.Implements
 {
     public  class UserRoleService : IUserRoleService
     {

@@ -2,7 +2,7 @@
 using Resturant.DataAccess.Context;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
-using Resturant.Interfaces;
+using Resturant.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

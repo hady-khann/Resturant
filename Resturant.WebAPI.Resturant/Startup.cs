@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
+using Resturant.StartupConfiguration.StartupInstaller;
+
 namespace Resturant.WebAPI.Resturant
 {
     public class Startup
@@ -32,6 +35,10 @@ namespace Resturant.WebAPI.Resturant
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resturant.WebAPI.Resturant", Version = "v1" });
             });
+
+            StartupConfigurationInstaller.Install_Configure_Services(services,Configuration);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,11 +51,7 @@ namespace Resturant.WebAPI.Resturant
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Resturant.WebAPI.Resturant v1"));
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
+            StartupConfigurationInstaller.Install_Configure(app);
 
             app.UseEndpoints(endpoints =>
             {

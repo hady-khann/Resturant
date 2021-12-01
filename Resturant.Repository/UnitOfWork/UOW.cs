@@ -1,16 +1,15 @@
 ﻿
 using Resturant.DataAccess.Context;
-using Resturant.Interfaces;
+using Resturant.Repository.Interfaces;
 using Resturant.Repository;
 using Resturant.Repository.Base;
-using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Infrastructure.UOW
+namespace Resturant.Repository.UOW
 {
     public class UOW : IUOW
     {

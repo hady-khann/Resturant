@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Services.Interfaces
+namespace Resturant.Services.Srvc_repo.Interfaces
 {
     public interface IUserRoleService
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Resturant.Services.Auth.Hasher;
+using Resturant.Services.Srvc_Internal.Auth.Hasher;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Services.Auth.Hasher
+namespace Resturant.Services.Srvc_Internal.Auth.Hasher
 {
     public class Hasher : IHasher
     {

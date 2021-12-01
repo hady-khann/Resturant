@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Services.Auth.Hasher
+namespace Resturant.Services.Srvc_Internal.Auth.Hasher
 {
     public interface IHasher
     {

@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+  </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Resturant.DataAccess\Resturant.DataAccess.csproj" />
 		<ProjectReference Include="..\Resturant.Repository\Resturant.Repository.csproj" />

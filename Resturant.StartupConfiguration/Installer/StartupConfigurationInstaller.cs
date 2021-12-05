@@ -2,16 +2,15 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-
+using Resturant.DataAccess.Context;
+using Resturant.Middlewares;
 
 namespace Resturant.StartupConfiguration.StartupInstaller
 {
     public static class StartupConfigurationInstaller
     {
         public static void Install_Configure_Services(IServiceCollection services, IConfiguration configuration)
-        {
-            DataAccess.Installer.DataAccessInstaller.Install(services, configuration);
+        {           DataAccess.Installer.DataAccessInstaller.Install(services, configuration);
             Repository.Installer.RepossitoryInstaller.Install(services, configuration);
             Services.Installer.ServicesInstaller.Install(services, configuration);
             Utilities.Installer.ApiInstaller.Install(services, configuration);
@@ -19,7 +18,6 @@ namespace Resturant.StartupConfiguration.StartupInstaller
 
             ApiInstaller.ApiInstaller.Install(services, configuration);
 
-           
 
 
         }

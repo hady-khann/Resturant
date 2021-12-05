@@ -9,7 +9,7 @@ namespace Resturant.CoreBase.WebAPIResponse
 {
     public class Response
     {
-        public Global_Response_DTO<T> Global_Controller_Result<T>(T data, string message, bool Success)
+        public Global_Response_DTO<T> Global_Controller_Result<T>(T data, string message, bool Success=false)
         {
             try
             {
@@ -17,7 +17,7 @@ namespace Resturant.CoreBase.WebAPIResponse
                 {
                     Data = data,
                     Message = message,
-                    Success = true
+                    Success = Success
                 };
             }
             catch (Exception)

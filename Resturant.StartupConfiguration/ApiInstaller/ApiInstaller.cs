@@ -2,6 +2,7 @@
 using Resturant.Repository.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Resturant.CoreBase.WebAPIResponse;
 
 namespace Resturant.StartupConfiguration.ApiInstaller
 {
@@ -12,7 +13,7 @@ namespace Resturant.StartupConfiguration.ApiInstaller
         {
 
             services.AddDistributedMemoryCache();
-
+            services.AddScoped<Response>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(100);

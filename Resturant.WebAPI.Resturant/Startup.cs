@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 
 using Resturant.StartupConfiguration.StartupInstaller;
+using Resturant.Middlewares;
 
 namespace Resturant.WebAPI.Resturant
 {
@@ -52,6 +53,8 @@ namespace Resturant.WebAPI.Resturant
             }
 
             StartupConfigurationInstaller.Install_Configure(app);
+            app.UseMWjwt();
+
 
             app.UseEndpoints(endpoints =>
             {

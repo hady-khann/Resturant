@@ -7,12 +7,14 @@ using Resturant.DBModels.DTO.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace Resturant.WebAPI.Admin.Controllers
+namespace Resturant.WebAPI.Resturant.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly HttpContext _httpContext;
         private readonly Response _response;
 
@@ -23,8 +25,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")] //Admin
-        [Route("Admin/Test")]
+
+        [Authorize(Roles = "Guest")] //Resturant
+        [Route("Resturant/Test")]
         [HttpPost]
         public Global_Response_DTO<UserDTO> test()
         {

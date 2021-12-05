@@ -4,10 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
-
-
-
+using Resturant.CoreBase;
+using Resturant.Middlewares;
 using Resturant.StartupConfiguration.StartupInstaller;
 
 using Resturant.WebAPI.Auth.Srvc_Controller;
@@ -39,9 +37,9 @@ namespace Resturant.WebAPI.Auth
             #endregion
 
 
-
             #region Internal Injections
             services.AddScoped<Srvc_LogReg>(); 
+            
             #endregion
 
         }
@@ -51,13 +49,18 @@ namespace Resturant.WebAPI.Auth
         {
             if (env.IsDevelopment())
             {
-            StartupConfigurationInstaller.Install_Configure(app);
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Resturant.WebAPI v1"));
             }
 
+            
+
             StartupConfigurationInstaller.Install_Configure(app);
+            app.UseMWjwt();
+
+
+
 
             app.UseEndpoints(endpoints =>
             {

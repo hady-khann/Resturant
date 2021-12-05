@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
@@ -86,7 +87,6 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 var Confirm_User_Pass = _UOW._User.CheckUserPass(user);
 
 
-
                 if (Confirm_User_Pass != null)
                 {
 
@@ -117,24 +117,6 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
         }
 
-        public UserDTO GetUserFromToken(HttpContextAccessor httpContextAccessor, String Token)
-        {
-            try
-            {
-                _tokenService.WriteJwtSessionToHttpContext(httpContextAccessor, _config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), Token);
-
-                var usrDTO = _httpContextAccessor.HttpContext.Items["UserInfo"] as UserDTO;
-
-
-                return usrDTO;
-
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-        }
         private void Reg_Operation(UserDTO user)
         {
             try
@@ -147,7 +129,6 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
                 user.UserID = Guid.NewGuid();
                 user.Password = hash;
-
 
                 //Get RoleID From Roles
                 user.Role = _UOW._Role.GetRoleByName("Guest").ToString();

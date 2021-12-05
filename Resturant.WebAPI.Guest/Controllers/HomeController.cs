@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Resturant.WebAPI.Admin.Controllers
+namespace Resturant.WebAPI.Guest.Controllers
 {
     public class HomeController : Controller
     {
@@ -23,8 +23,8 @@ namespace Resturant.WebAPI.Admin.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")] //Admin
-        [Route("Admin/Test")]
+        [Authorize(Roles = "Guest")] //Guest
+        [Route("Guest/Test")]
         [HttpPost]
         public Global_Response_DTO<UserDTO> test()
         {
@@ -39,7 +39,6 @@ namespace Resturant.WebAPI.Admin.Controllers
                 return _response.Global_Controller_Result<UserDTO>(null, "Error : " + ex, false);
             }
         }
-
 
 
         // GET: HomeController

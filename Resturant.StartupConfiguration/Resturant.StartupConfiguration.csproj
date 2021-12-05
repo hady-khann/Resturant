@@ -9,8 +9,11 @@
   </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Resturant.DataAccess\Resturant.DataAccess.csproj" />
+		<ProjectReference Include="..\Resturant.Middlewares\Resturant.Middlewares.csproj" />
 		<ProjectReference Include="..\Resturant.Repository\Resturant.Repository.csproj" />
 		<ProjectReference Include="..\Resturant.Services\Resturant.Services.csproj" />
 		<ProjectReference Include="..\Resturant.Utilities\Resturant.Utilities.csproj" />
+		<ProjectReference Include="..\Resturant.CoreBase\Resturant.CoreBase.csproj" />
+
 	</ItemGroup>
 </Project>

@@ -15,7 +15,8 @@ using System.Threading.Tasks;
 
 
 using Resturant.StartupConfiguration.StartupInstaller;
-
+using Resturant.Middlewares;
+using Microsoft.AspNetCore.Http;
 
 namespace Resturant.WebAPI.Guest
 {
@@ -33,6 +34,7 @@ namespace Resturant.WebAPI.Guest
         {
 
             services.AddControllers();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resturant.WebAPI.Guest", Version = "v1" });
@@ -51,6 +53,9 @@ namespace Resturant.WebAPI.Guest
             }
 
             StartupConfigurationInstaller.Install_Configure(app);
+            app.UseMWjwt();
+
+
 
             app.UseEndpoints(endpoints =>
             {

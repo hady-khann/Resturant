@@ -79,7 +79,7 @@ namespace Resturant.Middlewares
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                 }; 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes

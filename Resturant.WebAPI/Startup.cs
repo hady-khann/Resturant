@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Resturant.CoreBase;
 using Resturant.Middlewares;
+using Resturant.Services.Srvc_Internal.Auth.Hasher;
+using Resturant.Services.Srvc_Internal.Auth.JWT;
 using Resturant.StartupConfiguration.StartupInstaller;
 
 using Resturant.WebAPI.Auth.Srvc_Controller;
@@ -38,8 +40,9 @@ namespace Resturant.WebAPI.Auth
 
 
             #region Internal Injections
-            services.AddScoped<Srvc_LogReg>(); 
-            
+            services.AddScoped<Srvc_LogReg>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddTransient<IHasher, Hasher>();
             #endregion
 
         }

@@ -21,6 +21,7 @@ namespace Resturant.Middlewares
 
         private readonly RequestDelegate _next;
         private IConfiguration _config;
+        
         private IUOW _UOW;
 
         public MWjwt(RequestDelegate next)
@@ -28,13 +29,11 @@ namespace Resturant.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IConfiguration config ,IUOW uow )
+        public async Task Invoke(HttpContext context, IConfiguration config ,IUOW uow)
         {
             _config = config;
             _UOW = uow;
-            //var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var token = context.Session.GetString("Token");
-
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
 
             if (token != null)
@@ -69,7 +68,7 @@ namespace Resturant.Middlewares
 
 
                 var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value);
-                var getUser = await _UOW._Base<User>().FindByID(userId.ToString());
+                var getUser = await _UOW._Base<User>().FindByID((Guid)userId);
 
 
                 context.Items["UserInfo"] = new UserDTO
@@ -78,9 +77,9 @@ namespace Resturant.Middlewares
                     UserName = jwtToken.Claims.First(x => x.Type == "Name").Value,
                     Email = jwtToken.Claims.First(x => x.Type == "Email").Value,
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
-                };
+                }; 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
@@ -90,9 +89,9 @@ namespace Resturant.Middlewares
 
     public static class MWjwtExtension
     {
-        public static IApplicationBuilder UseMWjwt(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseMWjwt(this IApplicationBuilder app)
         {
-            return builder.UseMiddleware<MWjwt>();
+            return app.UseMiddleware<MWjwt>();
         }
     }
 

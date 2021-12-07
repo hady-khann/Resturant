@@ -13,26 +13,26 @@ namespace Resturant.WebAPI.Guest.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContext;
         private readonly Response _response;
 
-        public HomeController(Response response, HttpContext httpContext)
+        public HomeController(Response response, IHttpContextAccessor httpContext)
         {
             _httpContext = httpContext;
             _response = response;
         }
 
 
-        [Authorize(Roles = "Guest")] //Guest
+        [Authorize(Roles = "Guest,Resturant,Admin")] //Guest
         [Route("Guest/Test")]
         [HttpPost]
         public Global_Response_DTO<UserDTO> test()
         {
             try
             {
-                //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.Items["UserInfo"] as UserDTO;
-                return _response.Global_Controller_Result<UserDTO>(UserFromcontext, User.Identity.Name + "  :  " + User.Claims, true);
+                var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var UserFromcontext = _httpContext.HttpContext.Items["UserInfo"] as UserDTO;
+                return _response.Global_Controller_Result<UserDTO>(UserFromcontext,"token   : " + token + "  email : " + UserFromcontext.Email + "   role: " + UserFromcontext.Role+ "   uid  : " + UserFromcontext.UserID+ "  un : " + UserFromcontext.UserName, true);
             }
             catch (Exception ex)
             {

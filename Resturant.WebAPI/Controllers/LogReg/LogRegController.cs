@@ -24,10 +24,10 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
 
         private readonly Srvc_LogReg _Srvc_LogReg;
-        private readonly HttpContextAccessor _httpContext;
+        private readonly IHttpContextAccessor _httpContext;
         private readonly Response _response;
 
-        public LogRegController(Srvc_LogReg _srvc_LogReg,Response response, HttpContextAccessor httpContext)
+        public LogRegController(Srvc_LogReg _srvc_LogReg,Response response, IHttpContextAccessor httpContext)
         {
             this._Srvc_LogReg = _srvc_LogReg;
             _httpContext = httpContext;
@@ -79,10 +79,9 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 }
                 else
                 {
-                    _httpContext.HttpContext.Session.SetString("Token", Login_Resualt_Token.ToString());
+                    _httpContext.HttpContext.Request.Headers["Authorization"] = Login_Resualt_Token;
+                    _httpContext.HttpContext.Session.SetString("Token",Login_Resualt_Token);
                     return _response.Global_Controller_Result<String>(Login_Resualt_Token, "Success", true);
-
-
                 }
             }
             catch (Exception ex)

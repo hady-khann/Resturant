@@ -15,10 +15,10 @@ namespace Resturant.WebAPI.Resturant.Controllers
     public class HomeController : Controller
     {
 
-        private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContext;
         private readonly Response _response;
 
-        public HomeController(Response response, HttpContext httpContext)
+        public HomeController(Response response, IHttpContextAccessor httpContext)
         {
             _httpContext = httpContext;
             _response = response;
@@ -26,7 +26,7 @@ namespace Resturant.WebAPI.Resturant.Controllers
 
 
 
-        [Authorize(Roles = "Guest")] //Resturant
+        [Authorize(Roles = "Resturant,Admin")] //Resturant
         [Route("Resturant/Test")]
         [HttpPost]
         public Global_Response_DTO<UserDTO> test()
@@ -34,7 +34,7 @@ namespace Resturant.WebAPI.Resturant.Controllers
             try
             {
                 //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.Items["UserInfo"] as UserDTO;
+                var UserFromcontext = _httpContext.HttpContext.Items["UserInfo"] as UserDTO;
                 return _response.Global_Controller_Result<UserDTO>(UserFromcontext, User.Identity.Name + "  :  " + User.Claims, true);
             }
             catch (Exception ex)

@@ -6,7 +6,7 @@ using System;
 
 namespace Resturant.Utilities.Installer
 {
-    public class ApiInstaller
+    public class UtilitiesInstaller
     {
         public static void Install(IServiceCollection services, IConfiguration configuration)
         {

@@ -10,10 +10,11 @@ namespace Resturant.StartupConfiguration.StartupInstaller
     public static class StartupConfigurationInstaller
     {
         public static void Install_Configure_Services(IServiceCollection services, IConfiguration configuration)
-        {           DataAccess.Installer.DataAccessInstaller.Install(services, configuration);
+        {
+            DataAccess.Installer.DataAccessInstaller.Install(services, configuration);
             Repository.Installer.RepossitoryInstaller.Install(services, configuration);
             Services.Installer.ServicesInstaller.Install(services, configuration);
-            Utilities.Installer.ApiInstaller.Install(services, configuration);
+            Utilities.Installer.UtilitiesInstaller.Install(services, configuration);
 
 
             ApiInstaller.ApiInstaller.Install(services, configuration);
@@ -32,7 +33,7 @@ namespace Resturant.StartupConfiguration.StartupInstaller
                 {
                     context.Request.Headers.Add("Authorization", "Bearer " + token);
                 }
-                await next();
+                await next.Invoke();
             });
             app.UseStaticFiles();
             app.UseRouting();

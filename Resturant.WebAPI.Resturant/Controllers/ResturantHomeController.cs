@@ -7,24 +7,27 @@ using Resturant.DBModels.DTO.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace Resturant.WebAPI.Admin.Controllers
+namespace Resturant.WebAPI.Resturant.Controllers
 {
-    public class HomeController : Controller
+    public class ResturantHomeController : Controller
     {
+
         private readonly IHttpContextAccessor _httpContext;
         private readonly Response _response;
 
-        public HomeController(Response response, IHttpContextAccessor httpContext)
+        public ResturantHomeController(Response response, IHttpContextAccessor httpContext)
         {
             _httpContext = httpContext;
             _response = response;
         }
 
 
-        [Authorize(Roles = "Admin")] //Admin
-        [Route("Admin/Test")]
+
+        [Authorize(Roles = "Resturant,Admin")] //Resturant
+        [Route("Resturant/Test")]
         [HttpPost]
         public Global_Response_DTO<UserDTO> test()
         {
@@ -42,25 +45,25 @@ namespace Resturant.WebAPI.Admin.Controllers
 
 
 
-        // GET: HomeController
+        // GET: ResturantHomeController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: HomeController/Details/5
+        // GET: ResturantHomeController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: HomeController/Create
+        // GET: ResturantHomeController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: HomeController/Create
+        // POST: ResturantHomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -75,13 +78,13 @@ namespace Resturant.WebAPI.Admin.Controllers
             }
         }
 
-        // GET: HomeController/Edit/5
+        // GET: ResturantHomeController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: HomeController/Edit/5
+        // POST: ResturantHomeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -96,13 +99,13 @@ namespace Resturant.WebAPI.Admin.Controllers
             }
         }
 
-        // GET: HomeController/Delete/5
+        // GET: ResturantHomeController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: HomeController/Delete/5
+        // POST: ResturantHomeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

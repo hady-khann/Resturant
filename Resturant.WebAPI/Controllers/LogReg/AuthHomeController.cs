@@ -19,7 +19,7 @@ using Resturant.DBModels.DTO;
 
 namespace Resturant.WebAPI.Auth.Srvc_Controller
 {
-    public class LogRegController:ControllerBase
+    public class AuthHomeController:ControllerBase
     {
 
 
@@ -27,7 +27,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
         private readonly IHttpContextAccessor _httpContext;
         private readonly Response _response;
 
-        public LogRegController(Srvc_LogReg _srvc_LogReg,Response response, IHttpContextAccessor httpContext)
+        public AuthHomeController(Srvc_LogReg _srvc_LogReg,Response response, IHttpContextAccessor httpContext)
         {
             this._Srvc_LogReg = _srvc_LogReg;
             _httpContext = httpContext;

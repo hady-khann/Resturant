@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Resturant.WebAPI.Guest.Controllers
 {
-    public class HomeController : Controller
+    public class GuestHomeController : Controller
     {
         private readonly IHttpContextAccessor _httpContext;
         private readonly Response _response;
 
-        public HomeController(Response response, IHttpContextAccessor httpContext)
+        public GuestHomeController(Response response, IHttpContextAccessor httpContext)
         {
             _httpContext = httpContext;
             _response = response;
@@ -41,25 +41,25 @@ namespace Resturant.WebAPI.Guest.Controllers
         }
 
 
-        // GET: HomeController
+        // GET: GuestHomeController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: HomeController/Details/5
+        // GET: GuestHomeController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: HomeController/Create
+        // GET: GuestHomeController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: HomeController/Create
+        // POST: GuestHomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -74,13 +74,13 @@ namespace Resturant.WebAPI.Guest.Controllers
             }
         }
 
-        // GET: HomeController/Edit/5
+        // GET: GuestHomeController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: HomeController/Edit/5
+        // POST: GuestHomeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -95,13 +95,13 @@ namespace Resturant.WebAPI.Guest.Controllers
             }
         }
 
-        // GET: HomeController/Delete/5
+        // GET: GuestHomeController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: HomeController/Delete/5
+        // POST: GuestHomeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

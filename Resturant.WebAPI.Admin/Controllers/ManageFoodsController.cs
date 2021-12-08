@@ -1,4 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Resturant.DBModels.DTO;
+using Resturant.DBModels.DTO.Auth;
+using Resturant.DBModels.Entities;
+using Resturant.Repository.Base;
+using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +17,34 @@ namespace Resturant.WebAPI.Admin.Controllers
     [ApiController]
     public class ManageFoodsController : ControllerBase
     {
-        // GET: api/<ManageFoodsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IUOW _UOW;
+
+        public ManageFoodsController(IUOW uOW)
         {
-            return new string[] { "value1", "value2" };
+            _UOW = uOW;
         }
+
+
+
+        // GET
+        [HttpGet]
+        public Task<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
+        {
+            var FullUsersInfo = _UOW._Base<User>().FindAllAsync_Pagination(pagination);
+            return FullUsersInfo;
+        }
+        [HttpGet]
+
+        public Task<IEnumerable<User>> GetUserByID()
+        {
+            var FullUsersInfo = _UOW._Base<User>().FindAllAsync();
+            return FullUsersInfo;
+
+        }
+
+
+
+
 
         // GET api/<ManageFoodsController>/5
         [HttpGet("{id}")]

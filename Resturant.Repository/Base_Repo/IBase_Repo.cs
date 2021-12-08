@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resturant.DBModels.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -15,8 +16,9 @@ namespace Resturant.Repository.Base
 
 
 
+        Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination);
         Task<IEnumerable<TEntity>> FindAllAsync();
-        Task<TEntity> FindByID(Object id);
+        Task<TEntity> FindByID(Guid id);
 
 
 

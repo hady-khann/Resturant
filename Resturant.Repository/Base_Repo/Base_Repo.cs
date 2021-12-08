@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Resturant.DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,12 +53,18 @@ namespace Resturant.Repository.Base
 
 
 
+        public async Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination)
+        {
+            var skip = pagination.PageNumber * pagination.RowNumber;
+            var take = pagination.RowNumber;
 
+            return await contextDB.Skip(skip).Take(take).ToListAsync();
+        }
         public async Task<IEnumerable<TEntity>> FindAllAsync()
         {
             return await contextDB.ToListAsync();
         }
-        public async Task<TEntity> FindByID(object id)
+        public async Task<TEntity> FindByID(Guid id)
         {
             return await contextDB.FindAsync(id);
 

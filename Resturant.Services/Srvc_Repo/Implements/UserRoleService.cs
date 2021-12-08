@@ -27,11 +27,11 @@ namespace Resturant.Services.Srvc_repo.Implements
 
             try
             {
-                User User = _context.Users.Where(x => x.UserName.ToLower() == usr.UserName.ToLower() && x.PassWord == usr.PassWord).Include(u => u.Role).FirstOrDefault();
+                var User = _context.Users.Where(x => x.UserName.ToLower() == usr.UserName.ToLower() && x.PassWord == usr.PassWord).Include(u => u.Role).FirstOrDefault();
 
                 return (UserDTO)User;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

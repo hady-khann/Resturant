@@ -35,23 +35,13 @@ namespace Resturant.WebAPI.Admin.Controllers
         }
         [HttpGet]
 
-        public Task<IEnumerable<User>> GetUserByID()
+        public Task<User> GetUserByID(Guid Id)
         {
-            var FullUsersInfo = _UOW._Base<User>().FindAllAsync();
-            return FullUsersInfo;
+            var UserInfo = _UOW._Base<User>().FindByID(Id);
+            return UserInfo;
 
         }
 
-
-
-
-
-        // GET api/<ManageFoodsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<ManageFoodsController>
         [HttpPost]

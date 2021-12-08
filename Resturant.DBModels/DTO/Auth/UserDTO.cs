@@ -11,7 +11,9 @@ namespace Resturant.DBModels.DTO.Auth
         public string Email { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public bool Status { get; set; }
         public string Role { get; set; }
+        public int? Level { get; set; }
 
 
         #region Explicit
@@ -42,10 +44,13 @@ namespace Resturant.DBModels.DTO.Auth
             }
             return new UserDTO
             {
+                UserID = model.Id,
                 UserName = model.UserName,
                 Email = model.Email,
                 Password = model.PassWord,
+                Status = model.Status,
                 Role=model.Role.RoleName,
+                Level=model.Role.AccessLevel,
             };
         }
         #endregion

@@ -76,7 +76,9 @@ namespace Resturant.Middlewares
                     UserID = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value),
                     UserName = jwtToken.Claims.First(x => x.Type == "Name").Value,
                     Email = jwtToken.Claims.First(x => x.Type == "Email").Value,
+                    Status =(jwtToken.Claims.First(x => x.Type == "Status").Value)=="True"?true:false,
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
+                    Level = int.Parse(jwtToken.Claims.First(x => x.Type == "Level").Value),
                 }; 
             }
             catch (Exception)

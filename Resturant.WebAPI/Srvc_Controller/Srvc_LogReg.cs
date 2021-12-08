@@ -91,7 +91,6 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 {
 
                     UserDTO userDTO = _userroleservice.GetUserRoleDTO(Confirm_User_Pass);
-                    userDTO.UserID = Confirm_User_Pass.Id;
 
 
                     var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), userDTO);

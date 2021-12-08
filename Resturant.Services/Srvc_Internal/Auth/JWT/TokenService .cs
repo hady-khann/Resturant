@@ -22,14 +22,16 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
         {
             try
             {
-                    var claims = new[] {
+                var claims = new[] {
                     new Claim(ClaimTypes.NameIdentifier,userDTO.UserName),
                     new Claim(ClaimTypes.Name, userDTO.UserName),
                     new Claim(ClaimTypes.Role, userDTO.Role),
                     new Claim("Id",userDTO.UserID.ToString()),
                     new Claim("Name", userDTO.UserName),
                     new Claim("Email", userDTO.Email),
-                    new Claim("Role", userDTO.Role)
+                    new Claim("Role", userDTO.Role),
+                    new Claim("Level", userDTO.Level.ToString()),
+                    new Claim("Status", userDTO.Status.ToString()),
                     };
 
 

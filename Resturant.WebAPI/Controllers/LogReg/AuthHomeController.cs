@@ -47,17 +47,17 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
                 if (Reg_Resualt == "Register")
                 {
-                    return _response.Global_Controller_Result<String>(null, "Success", true);
+                    return _response.Global_Result<String>(null, "Success", true);
                 }
                 else
                 {
-                    return _response.Global_Controller_Result<String>(null, Reg_Resualt, false);
+                    return _response.Global_Result<String>(null, Reg_Resualt, false);
 
                 }
             }
             catch (Exception ex)
             {
-                return _response.Global_Controller_Result<String>(null, "ERROR : " + ex, false);
+                return _response.Global_Result<String>(null, "ERROR : " + ex, false);
             }
         }
 
@@ -75,18 +75,18 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
                 if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
                 {
-                    return _response.Global_Controller_Result<String>(null, Login_Resualt_Token, false);
+                    return _response.Global_Result<String>(null, Login_Resualt_Token, false);
                 }
                 else
                 {
                     _httpContext.HttpContext.Request.Headers["Authorization"] = Login_Resualt_Token;
                     _httpContext.HttpContext.Session.SetString("Token",Login_Resualt_Token);
-                    return _response.Global_Controller_Result<String>(Login_Resualt_Token, "Success", true);
+                    return _response.Global_Result<String>(Login_Resualt_Token, "Success", true);
                 }
             }
             catch (Exception ex)
             {
-                return _response.Global_Controller_Result<String>(null, "ERROR : " + ex, false);
+                return _response.Global_Result<String>(null, "ERROR : " + ex, false);
             }
         }
 
@@ -102,11 +102,11 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             {
                 //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 var UserFromcontext = _httpContext.HttpContext.Items["UserInfo"] as UserDTO;
-                return _response.Global_Controller_Result<UserDTO>(UserFromcontext, "Success", true);
+                return _response.Global_Result<UserDTO>(UserFromcontext, "Success", true);
             }
             catch (Exception ex)
             {
-                return _response.Global_Controller_Result<UserDTO>(null, "Error : " + ex, false);
+                return _response.Global_Result<UserDTO>(null, "Error : " + ex, false);
             }
         }
 

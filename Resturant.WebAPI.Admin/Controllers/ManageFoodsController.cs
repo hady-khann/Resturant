@@ -26,21 +26,23 @@ namespace Resturant.WebAPI.Admin.Controllers
 
 
 
-        // GET
-        [HttpGet]
-        public Task<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
-        {
-            var FullUsersInfo = _UOW._Base<User>().FindAllAsync_Pagination(pagination);
-            return FullUsersInfo;
-        }
-        [HttpGet]
 
-        public Task<User> GetUserByID(Guid Id)
-        {
-            var UserInfo = _UOW._Base<User>().FindByID(Id);
-            return UserInfo;
+        /// /////////////////////////////////////////////////////////////   CHANGE WRONGE
+        //// GET
+        //[HttpGet]
+        //public Task<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
+        //{
+        //    var FullUsersInfo = _UOW._Base<User>().FindAllAsync_Pagination(pagination);
+        //    return FullUsersInfo;
+        //}
+        //[HttpGet]
 
-        }
+        //public Task<User> GetUserByID(Guid Id)
+        //{
+        //    var UserInfo = _UOW._Base<User>().FindByID(Id);
+        //    return UserInfo;
+
+        //}
 
 
         // POST api/<ManageFoodsController>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Resturant.DataAccess.Context;
+using Resturant.DBModels.DTO;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
 using Resturant.Repository.Interfaces;
@@ -22,9 +23,29 @@ namespace Resturant.Repository
         {
             _context = context;
         }
-        public IEnumerable<User> GetAllUsersINFOAsync(int page, int Records_count)
+        public IEnumerable<User> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel)
         {
-            return _context.Users.Skip(page * Records_count).Take(Records_count).AsNoTracking(); 
+            var skip = pagination.PageNumber * pagination.RowNumber;
+            var take = pagination.RowNumber;
+
+            var result = _context.Users.Where(x => x.Role.AccessLevel >= AccessLevel).Include(R => R.Role.RoleName).Skip(skip).Take(take);
+            return result.ToList(); ;
+
+
+
+            //var Level = new Microsoft.Data.SqlClient.SqlParameter("Level", AccessLevel);
+            //var queryStr = @"    select
+            //                     [User].Id,[User].RoleId,[User].UserName,[User].Email,[User].Wallet,
+            //                     [User].[Address],[User].[Status],[Roles].RoleName
+
+            //                     from [User]
+            //                     INNER JOIN  Roles
+            //                     ON [dbo].[User].RoleId = Roles.ID where Roles.AccessLevel>=@Level          ";
+            //var query = _context.Users.FromSqlRaw(queryStr,Level).Skip(skip).Take(take).ToList();
+            //return query;
+
+
+
         }
 
         public User CheckUserPass(UserDTO userModel)

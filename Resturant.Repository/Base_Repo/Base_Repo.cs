@@ -55,7 +55,7 @@ namespace Resturant.Repository.Base
 
         public async Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination)
         {
-            var skip = pagination.PageNumber * pagination.RowNumber;
+            var skip = (pagination.PageNumber-1) * pagination.RowNumber;
             var take = pagination.RowNumber;
 
             return await contextDB.Skip(skip).Take(take).ToListAsync();

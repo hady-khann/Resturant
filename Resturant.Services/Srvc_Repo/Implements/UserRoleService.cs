@@ -31,7 +31,7 @@ namespace Resturant.Services.Srvc_repo.Implements
 
                 return (UserDTO)User;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.WebAPI.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("Admin/[controller]")]
     [ApiController]
     public class ManageRolesController : ControllerBase
     {

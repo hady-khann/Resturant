@@ -22,7 +22,4 @@
 		<ProjectReference Include="..\Resturant.DBModels\Resturant.DBModels.csproj" />
 		<ProjectReference Include="..\Resturant.Utilities\Resturant.Utilities.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Migrations\" />
-	</ItemGroup>
 </Project>

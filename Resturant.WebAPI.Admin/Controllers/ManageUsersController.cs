@@ -35,15 +35,15 @@ namespace Resturant.WebAPI.Admin.Controllers
 
 
         // GET: api/<ManageUsersController>
-        [HttpGet]
-        [Route("GetAllUserslInfo")]
-        public  Global_Response_DTO<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
-        {
-            var UserInfo = _ContextAccessor.HttpContext.Items["UserInfo"] as UserDTO;
-            var FullUsersInfo = _UOW._User.GetAllUsersINFO(pagination , UserInfo.Level.Value);
-            return _response.Global_Result<IEnumerable<User>>(FullUsersInfo,"Success",true);
+        //[HttpGet]
+        //[Route("GetAllUserslInfo")]
+        //public  Global_Response_DTO<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
+        //{
+        //    var UserInfo = _ContextAccessor.HttpContext.Items["UserInfo"] as UserDTO;
+        //    var FullUsersInfo = _UOW._User.GetAllUsersINFO(pagination , UserInfo.Level.Value);
+        //    return _response.Global_Result<IEnumerable<User>>(FullUsersInfo,"Success",true);
 
-        }
+        //}
         [HttpGet]
         [Route("GetUserByID")]
 

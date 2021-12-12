@@ -4,7 +4,6 @@ using System.Collections.Generic;
 #nullable disable
 
 namespace Resturant.DBModels.Entities
-
 {
     public partial class Role
     {

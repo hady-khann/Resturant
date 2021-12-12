@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Resturant.DBModels.Entities;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using Resturant.DBModels.Entities;
 
 #nullable disable
 
@@ -21,11 +20,12 @@ namespace Resturant.DataAccess.Context
 
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
-        public virtual DbSet<Resturant.DBModels.Entities.Resturant> Resturants { get; set; }
+        public virtual DbSet<DBModels.Entities.Resturant> Resturants { get; set; }
         public virtual DbSet<ResturantsFood> ResturantsFoods { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserOrder> UserOrders { get; set; }
+        public virtual DbSet<UsersInfo> UsersInfos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,8 +45,8 @@ namespace Resturant.DataAccess.Context
                 entity.HasIndex(e => e.TypeId, "IX_Foods_TypeID");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -75,23 +75,23 @@ namespace Resturant.DataAccess.Context
                 entity.ToTable("FoodType");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Resturant.DBModels.Entities.Resturant>(entity =>
+            modelBuilder.Entity<DBModels.Entities.Resturant>(entity =>
             {
                 entity.ToTable("Resturant");
 
                 entity.HasIndex(e => e.ResturantType, "IX_Resturant_ResturantType");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -117,8 +117,8 @@ namespace Resturant.DataAccess.Context
                 entity.HasIndex(e => e.ResturantId, "IX_ResturantsFoods_ResturantID");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                    .HasColumnName("ID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.FoodId).HasColumnName("FoodID");
 
@@ -145,8 +145,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.RoleName)
                     .IsRequired()
@@ -157,7 +156,7 @@ namespace Resturant.DataAccess.Context
             {
                 entity.ToTable("User");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Address).HasMaxLength(200);
 
@@ -167,7 +166,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.PassWord)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(44);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
@@ -188,7 +187,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.HasIndex(e => e.UserId, "IX_UserOrders_UserId");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.FoodId).HasColumnName("FoodID");
 
@@ -211,6 +210,27 @@ namespace Resturant.DataAccess.Context
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserOrders_User");
+            });
+
+            modelBuilder.Entity<UsersInfo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("UsersInfo");
+
+                entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.RoleName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

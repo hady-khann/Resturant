@@ -9,7 +9,7 @@ Scaffold-DbContext "Server=.;Database=Resturant;Trusted_Connection=True;" Micros
 
 
 Add-Migration MyMigrationName -context DataContextName
-Add-Migration FirstBuildMigration -OutputDir "C:\Users\khanmohamad.m\Desktop\Code\Resturant\Resturant\Resturant.Core\Migrations\"
+Scaffold-DbContext "Server=.;Database=Resturant;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "C:\Users\khanmohamad.m\source\repos\hady-khann\Resturant\Resturant.DBModels\Entities\" -F
 
 update-database -context AccountDBContext
 

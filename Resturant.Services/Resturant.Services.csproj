@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
@@ -28,5 +30,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Srvc_External\" />
+	  <Folder Include="Srvc_Repo\Implements\" />
+	  <Folder Include="Srvc_Repo\Interfaces\" />
 	</ItemGroup>
 </Project>

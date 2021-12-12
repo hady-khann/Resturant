@@ -8,18 +8,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Resturant.Repository.Implements;
+using AutoMapper;
 
 namespace Resturant.Repository.UOW
 {
     public class UOW : IUOW
     {
         public ResturantContext _context { get; }
+        private readonly IMapper _Mapper;
         private IUser_Repo _UserRep;
         private IRole_Repo _RoleRep;
+        private IUserInfo_Repo _UserInfoRep;
 
-        public UOW(ResturantContext context)
+        public UOW(ResturantContext context,IMapper Mapper)
         {
             this._context = context;
+            _Mapper = Mapper;
         }
 
 
@@ -36,7 +41,7 @@ namespace Resturant.Repository.UOW
             {
                 if (_UserRep == null)
                 {
-                    _UserRep = new User_Repo(_context);
+                    _UserRep = new User_Repo(_context,_Mapper);
                 }
 
                 return _UserRep;
@@ -53,6 +58,19 @@ namespace Resturant.Repository.UOW
                 }
 
                 return _RoleRep;
+            }
+        }
+
+        public IUserInfo_Repo _UserInfo
+        {
+            get
+            {
+                if (_UserInfoRep == null)
+                {
+                    _UserInfoRep = new UserInfo_Repo(_context,_Mapper);
+                }
+
+                return _UserInfoRep;
             }
         }
 

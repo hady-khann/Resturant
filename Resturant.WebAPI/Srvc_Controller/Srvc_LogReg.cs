@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Resturant.DBModels.DTO;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
 using Resturant.Repository.UOW;
 using Resturant.Services.Srvc_Internal.Auth.Hasher;
 using Resturant.Services.Srvc_Internal.Auth.JWT;
-using Resturant.Services.Srvc_repo.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +24,17 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
         private readonly ITokenService _tokenService;
         private readonly IHasher _hasher;
         private readonly IUOW _UOW;
-        private readonly IUserRoleService _userroleservice;
+        private readonly IMapper _Mapper;
         private readonly HttpContextAccessor _httpContextAccessor;
 
 
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUOW uow ,
-            IUserRoleService userroleservice, IHasher hasher,HttpContextAccessor httpContextAccessor)
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, IUOW uow , IMapper Mapper , IHasher hasher,HttpContextAccessor httpContextAccessor)
         {
             _config = config;
             _hasher = hasher;
             _UOW = uow;
+            _Mapper = Mapper;
             _tokenService = tokenService;
-            _userroleservice = userroleservice;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -89,11 +89,11 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
                 if (Confirm_User_Pass != null)
                 {
+                    var UserId =(Guid) Confirm_User_Pass.Id;
+                    var userInfoDTO = _UOW._UserInfo.GetUsersINFOByID(UserId);
 
-                    UserDTO userDTO = _userroleservice.GetUserRoleDTO(Confirm_User_Pass);
 
-
-                    var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), userDTO);
+                    var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<UserInfoDTO>(userInfoDTO));
 
                     if (generatedToken != null)
                     {
@@ -126,13 +126,13 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 if (hash == null)
                     return;
 
-                user.UserID = Guid.NewGuid();
+                user.Id = Guid.NewGuid();
                 user.Password = hash;
 
                 //Get RoleID From Roles
                 user.Role = _UOW._Role.GetRoleByName("Guest").ToString();
                 //Insert User
-                _UOW._Base<User>().Insert((User)user);
+                _UOW._Base<User>().Insert(_Mapper.Map<User>(user));
                 _UOW.SaveDB();
             }
             catch (Exception)

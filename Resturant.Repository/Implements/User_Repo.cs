@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Resturant.DataAccess.Context;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.DTO.Auth;
@@ -19,33 +20,12 @@ namespace Resturant.Repository
     public class User_Repo : IUser_Repo
     {
         private readonly ResturantContext _context;
-        public User_Repo(ResturantContext context)
+        private readonly IMapper _Mapper;
+
+        public User_Repo(ResturantContext context, IMapper mapper)
         {
             _context = context;
-        }
-        public IEnumerable<User> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel)
-        {
-            var skip = pagination.PageNumber * pagination.RowNumber;
-            var take = pagination.RowNumber;
-
-            var result = _context.Users.Where(x => x.Role.AccessLevel >= AccessLevel).Include(R => R.Role.RoleName).Skip(skip).Take(take);
-            return result.ToList(); ;
-
-
-
-            //var Level = new Microsoft.Data.SqlClient.SqlParameter("Level", AccessLevel);
-            //var queryStr = @"    select
-            //                     [User].Id,[User].RoleId,[User].UserName,[User].Email,[User].Wallet,
-            //                     [User].[Address],[User].[Status],[Roles].RoleName
-
-            //                     from [User]
-            //                     INNER JOIN  Roles
-            //                     ON [dbo].[User].RoleId = Roles.ID where Roles.AccessLevel>=@Level          ";
-            //var query = _context.Users.FromSqlRaw(queryStr,Level).Skip(skip).Take(take).ToList();
-            //return query;
-
-
-
+            _Mapper = mapper;
         }
 
         public User CheckUserPass(UserDTO userModel)
@@ -99,8 +79,8 @@ namespace Resturant.Repository
         {
             try
             {
-                usr.UserID = Guid.NewGuid();
-                await _context.Users.AddAsync((User)usr);
+                usr.Id = Guid.NewGuid();
+                await _context.Users.AddAsync(_Mapper.Map<User>(usr));
                 _context.SaveChanges();
             }
             catch (Exception)

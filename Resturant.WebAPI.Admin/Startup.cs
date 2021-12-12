@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 
 using Resturant.StartupConfiguration.StartupInstaller;
 using Resturant.Middlewares;
+using Resturant.CoreBase.Global_Methods;
 
 namespace Resturant.WebAPI.Admin
 {
@@ -39,7 +40,14 @@ namespace Resturant.WebAPI.Admin
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resturant.WebAPI.Admin", Version = "v1" });
             });
-            StartupConfigurationInstaller.Install_Configure_Services(services,Configuration);
+            StartupConfigurationInstaller.Install_Configure_Services(services, Configuration);
+
+
+            #region Internal Injections
+            services.AddScoped<GlobalMethods>();
+            services.AddAutoMapper(typeof(Startup));
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

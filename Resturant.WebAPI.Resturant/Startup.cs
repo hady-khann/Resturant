@@ -38,6 +38,8 @@ namespace Resturant.WebAPI.Resturant
             });
 
             StartupConfigurationInstaller.Install_Configure_Services(services,Configuration);
+            services.AddAutoMapper(typeof(Startup));
+
 
 
         }

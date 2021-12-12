@@ -71,7 +71,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             {
                 var Login_Resualt_Token = _Srvc_LogReg.Login(user);
                 var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
-                user.UserID = FullUserINFO.Id;
+                user.Id = FullUserINFO.Id;
 
                 if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
                 {
@@ -101,7 +101,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             try
             {
                 //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.HttpContext.Items["UserInfo"] as UserDTO;
+                var UserFromcontext = _httpContext.HttpContext.Items["UserInfoDTO"] as UserDTO;
                 return _response.Global_Result<UserDTO>(UserFromcontext, "Success", true);
             }
             catch (Exception ex)

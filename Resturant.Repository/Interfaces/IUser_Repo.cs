@@ -11,7 +11,6 @@ namespace Resturant.Repository.Interfaces
 {
     public interface IUser_Repo
     {
-        IEnumerable<User> GetAllUsersINFO(PaginationDTO pagination, int Level);
         User CheckUserPass(UserDTO userModel);
         string IsUserExists(UserDTO userModel);
         Task AddUserAsync(UserDTO userModel);

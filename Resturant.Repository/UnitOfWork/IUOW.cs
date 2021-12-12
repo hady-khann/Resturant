@@ -21,6 +21,8 @@ namespace Resturant.Repository.UOW
         IUser_Repo _User { get; }
         IRole_Repo _Role { get; }
 
+        IUserInfo_Repo _UserInfo { get; }
+
         Task SaveDBAsync();
         void SaveDB();
 

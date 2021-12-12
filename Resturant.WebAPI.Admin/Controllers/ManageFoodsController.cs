@@ -39,8 +39,8 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         //public Task<User> GetUserByID(Guid Id)
         //{
-        //    var UserInfo = _UOW._Base<User>().FindByID(Id);
-        //    return UserInfo;
+        //    var UserInfoDTO = _UOW._Base<User>().FindByID(Id);
+        //    return UserInfoDTO;
 
         //}
 

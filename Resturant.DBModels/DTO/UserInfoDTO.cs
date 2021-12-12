@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Resturant.DBModels.Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace Resturant.DBModels.Entities
-{ 
-    public partial class UsersInfo
+namespace Resturant.DBModels.DTO
+{
+    public class UserInfoDTO
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }

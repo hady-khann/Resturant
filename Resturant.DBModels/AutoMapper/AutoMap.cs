@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Resturant.DBModels.DTO;
 
 namespace Resturant.DBModels.AutoMapper
 {
@@ -14,6 +15,11 @@ namespace Resturant.DBModels.AutoMapper
         public AutoMap()
         {
             CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, User>();
+
+            CreateMap<UsersInfo, UserInfoDTO>();
+            CreateMap<UserInfoDTO, UsersInfo>();
+
         }
     }
 }

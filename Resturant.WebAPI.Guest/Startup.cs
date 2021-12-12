@@ -39,7 +39,12 @@ namespace Resturant.WebAPI.Guest
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resturant.WebAPI.Guest", Version = "v1" });
             });
+
+
+
             StartupConfigurationInstaller.Install_Configure_Services(services,Configuration);
+            services.AddAutoMapper(typeof(Startup));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +59,7 @@ namespace Resturant.WebAPI.Guest
 
             StartupConfigurationInstaller.Install_Configure(app);
             app.UseMWjwt();
+
 
 
 

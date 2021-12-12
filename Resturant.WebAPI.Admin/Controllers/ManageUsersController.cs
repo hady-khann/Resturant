@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Resturant.CoreBase.Global_Methods;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,33 +24,38 @@ namespace Resturant.WebAPI.Admin.Controllers
     {
         private readonly IHttpContextAccessor _ContextAccessor;
         private readonly Response _response;
+        private GlobalMethods _GMethods;
 
         private IUOW _UOW;
 
-        public ManageUsersController(IUOW uOW, Response res, IHttpContextAccessor contextAccessor)
+        public ManageUsersController(IHttpContextAccessor contextAccessor, Response response, GlobalMethods gMethods, IUOW uOW)
         {
-            _UOW = uOW;
-            _response = res;
             _ContextAccessor = contextAccessor;
+            _response = response;
+            _GMethods = gMethods;
+            _UOW = uOW;
         }
 
 
 
-        // GET: api/<ManageUsersController>
-        //[HttpGet]
-        //[Route("GetAllUserslInfo")]
-        //public  Global_Response_DTO<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
-        //{
-        //    var UserInfo = _ContextAccessor.HttpContext.Items["UserInfo"] as UserDTO;
-        //    var FullUsersInfo = _UOW._User.GetAllUsersINFO(pagination , UserInfo.Level.Value);
-        //    return _response.Global_Result<IEnumerable<User>>(FullUsersInfo,"Success",true);
 
-        //}
+
+        // GET: api/<ManageUsersController>
+        [HttpGet]
+        [Route("GetAllUserslInfo")]
+        public Global_Response_DTO<IEnumerable<UserInfoDTO>> GetAllUserslInfo(PaginationDTO pagination)
+        {
+            var CurrentUser = _GMethods.GETCurrentUser();
+            var FullUsersInfo = _UOW._UserInfo.GetAllUsersINFO(pagination, CurrentUser.Level.Value);
+            return _response.Global_Result<IEnumerable<UserInfoDTO>>(FullUsersInfo, "Success", true);
+
+        }
         [HttpGet]
         [Route("GetUserByID")]
 
         public Task<User> GetUserByID(Guid Id)
         {
+            var CurrentUser = _GMethods.GETCurrentUser();
             var UserInfo = _UOW._Base<User>().FindByID(Id);
             return UserInfo;
 

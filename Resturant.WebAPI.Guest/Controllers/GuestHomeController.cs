@@ -31,8 +31,8 @@ namespace Resturant.WebAPI.Guest.Controllers
             try
             {
                 var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.HttpContext.Items["UserInfo"] as UserDTO;
-                return _response.Global_Result<UserDTO>(UserFromcontext,"token   : " + token + "  email : " + UserFromcontext.Email + "   role: " + UserFromcontext.Role+ "   uid  : " + UserFromcontext.UserID+ "  un : " + UserFromcontext.UserName, true);
+                var UserFromcontext = _httpContext.HttpContext.Items["UserInfoDTO"] as UserDTO;
+                return _response.Global_Result<UserDTO>(UserFromcontext,"token   : " + token + "  email : " + UserFromcontext.Email + "   role: " + UserFromcontext.Role+ "   uid  : " + UserFromcontext.Id + "  un : " + UserFromcontext.UserName, true);
             }
             catch (Exception ex)
             {

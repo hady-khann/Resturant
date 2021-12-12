@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Resturant.DBModels.DTO.Auth;
+using Resturant.DBModels.DTO;
 
 namespace Resturant.Services.Srvc_Internal.Auth.JWT
 
@@ -18,20 +19,20 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key, string issuer, UserDTO userDTO)
+        public string AuthenticateUser(string key, string issuer, UserInfoDTO userInfoDTO)
         {
             try
             {
                 var claims = new[] {
-                    new Claim(ClaimTypes.NameIdentifier,userDTO.UserName),
-                    new Claim(ClaimTypes.Name, userDTO.UserName),
-                    new Claim(ClaimTypes.Role, userDTO.Role),
-                    new Claim("Id",userDTO.UserID.ToString()),
-                    new Claim("Name", userDTO.UserName),
-                    new Claim("Email", userDTO.Email),
-                    new Claim("Role", userDTO.Role),
-                    new Claim("Level", userDTO.Level.ToString()),
-                    new Claim("Status", userDTO.Status.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier,userInfoDTO.UserName),
+                    new Claim(ClaimTypes.Name, userInfoDTO.UserName),
+                    new Claim(ClaimTypes.Role, userInfoDTO.RoleName),
+                    new Claim("Id",userInfoDTO.Id.ToString()),
+                    new Claim("Name", userInfoDTO.UserName),
+                    new Claim("Email", userInfoDTO.Email),
+                    new Claim("Role", userInfoDTO.RoleName),
+                    new Claim("Level", userInfoDTO.AccessLevel.ToString()),
+                    new Claim("Status", userInfoDTO.Status.ToString()),
                     };
 
 

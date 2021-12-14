@@ -13,6 +13,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Resturant.CoreBase.Global_Methods;
 using AutoMapper;
+using Resturant.WebAPI.Admin.Srvc_Controller;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,7 +28,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         private readonly Response _response;
         private GlobalMethods _GMethods;
         private readonly IMapper _Mapper;
-
+        private Srvc_Users _Srvc;
         private IUOW _UOW;
 
         public ManageUsersController(IHttpContextAccessor contextAccessor, Response response, GlobalMethods gMethods, IMapper mapper, IUOW uOW)
@@ -44,6 +45,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
 
 
+        #region GetUser
 
         // GET: api/<ManageUsersController>
         [HttpGet]
@@ -58,31 +60,35 @@ namespace Resturant.WebAPI.Admin.Controllers
         }
         [HttpGet]
         [Route("GetUserByID")]
-
-        public Global_Response_DTO<UserInfoDTO> GetUserByID(Guid Id)
+        public async Task<Global_Response_DTO<UserInfoDTO>> GetUserByID(Guid Id)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var UserInfo = _Mapper.Map<UserInfoDTO>(_UOW._UserInfo.GetUsersINFOByID(Id));
+            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<UserInfoDTO>().FindByID(Id));
             return _response.Global_Result<UserInfoDTO>(UserInfo);
 
         }
-
-        // POST api/<ManageUsersController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet]
+        [Route("GetRoles")]
+        public async Task<Global_Response_DTO<IEnumerable<Role>>> GetRoles()
         {
+           return _response.Global_Result<IEnumerable<Role>>(await _UOW._Base<Role>().FindAllAsync());
         }
+        #endregion
 
         // PUT api/<ManageUsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        [Route("Update")]
+        public void Update([FromBody] UserInfoDTO UserInfoDTO)
         {
+            _Srvc.PutUpdate(UserInfoDTO);
         }
 
         // DELETE api/<ManageUsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async void Delete([FromBody] UserInfoDTO UserInfoDTO)
         {
+            _UOW._Base<UserInfoDTO>().Delete(UserInfoDTO);
+            await _UOW.SaveDBAsync();
         }
     }
 }

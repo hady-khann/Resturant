@@ -22,7 +22,8 @@ namespace Resturant.StartupConfiguration.ApiInstaller
             services.AddScoped<Response>();
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(1);
+                // todo : Change Token LifeTime
+                options.IdleTimeout = TimeSpan.FromDays(1000);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

@@ -40,11 +40,11 @@ namespace Resturant.DBModels.DTO.Auth
         //#endregion
     }
 
-    //public class UserAccount
+    //public class useraccount
     //{
-    //    public Guid Id { get; set; }
-    //    public string Email { get; set; }
-    //    public string UserName { get; set; }
+    //    public guid id { get; set; }
+    //    public string email { get; set; }
+    //    public string username { get; set; }
     //}
 
 }

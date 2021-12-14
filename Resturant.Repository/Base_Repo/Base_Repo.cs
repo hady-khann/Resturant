@@ -64,9 +64,10 @@ namespace Resturant.Repository.Base
         {
             return await contextDB.ToListAsync();
         }
-        public async Task<TEntity> FindByID(Guid id)
+        public async Task<TEntity> FindByID(object id)
         {
-              var t =  await contextDB.FindAsync(id);
+            Guid IID = (Guid)id;
+              var t =  await contextDB.FindAsync(IID);
             return t;
 
         }

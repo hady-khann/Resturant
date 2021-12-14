@@ -35,11 +35,11 @@ namespace Resturant.WebAPI.Resturant.Controllers
             {
                 //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 var UserFromcontext = _httpContext.HttpContext.Items["UserInfoDTO"] as UserDTO;
-                return _response.Global_Result<UserDTO>(UserFromcontext, User.Identity.Name + "  :  " + User.Claims, true);
+                return _response.Global_Result<UserDTO>(UserFromcontext, User.Identity.Name + "  :  " + User.Claims);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return _response.Global_Result<UserDTO>(null, "Error : " + ex, false);
+                return _response.Global_Result<UserDTO>(null);
             }
         }
 

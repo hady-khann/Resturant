@@ -20,6 +20,9 @@ namespace Resturant.DBModels.AutoMaping
             CreateMap<UsersInfo, UserInfoDTO>();
             CreateMap<UserInfoDTO, UsersInfo>();
 
+
+
+
         }
     }
 }

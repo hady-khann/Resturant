@@ -22,7 +22,7 @@ namespace Resturant.StartupConfiguration.ApiInstaller
             services.AddScoped<Response>();
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(1000);
+                options.IdleTimeout = TimeSpan.FromSeconds(1);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

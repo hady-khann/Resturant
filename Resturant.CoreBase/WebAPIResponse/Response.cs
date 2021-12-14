@@ -9,16 +9,35 @@ namespace Resturant.CoreBase.WebAPIResponse
 {
     public class Response
     {
-        public Global_Response_DTO<T> Global_Result<T>(T data, string message, bool Success=false)
+        public Global_Response_DTO<T> Global_Result<T>(T data, string message = "No Message")
         {
             try
             {
-                return new Global_Response_DTO<T>
+                if (message == "No Message" && data == null)
+                    message = "Fail";
+                if (message == "No Message" && data != null)
+                    message = "Success";
+
+
+                if (data == null)
                 {
-                    Data = data,
-                    Message = message,
-                    Success = Success
-                };
+                    return new Global_Response_DTO<T>
+                        {
+                            Data = data,
+                            Message = message,
+                            Success = false
+                        };
+                }
+                else
+                {
+                    return new Global_Response_DTO<T>
+                    {
+                        Data = data,
+                        Message = message,
+                        Success = true
+                    };
+                }
+
             }
             catch (Exception)
             {

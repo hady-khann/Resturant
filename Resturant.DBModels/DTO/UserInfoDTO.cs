@@ -12,7 +12,6 @@ namespace Resturant.DBModels.DTO
         public Guid Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string PassWord { get; set; }
         public int Wallet { get; set; }
         public string Address { get; set; }
         public bool Status { get; set; }

@@ -18,7 +18,7 @@ namespace Resturant.Repository.Base
 
         Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination);
         Task<IEnumerable<TEntity>> FindAllAsync();
-        Task<TEntity> FindByID(Guid id);
+        Task<TEntity> FindByID(Object id);
 
 
 

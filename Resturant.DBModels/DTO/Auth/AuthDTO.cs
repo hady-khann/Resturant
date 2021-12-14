@@ -17,26 +17,26 @@ namespace Resturant.DBModels.DTO.Auth
         public int? Level { get; set; }
 
 
-        #region Explicit
+        //#region Explicit
      
-        public static explicit operator UserDTO (User model)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-            return new UserDTO
-            {
-                Id = model.Id,
-                RoleId = model.RoleId,
-                UserName = model.UserName,
-                Email = model.Email,
-                Password = model.PassWord,
-                Status = model.Status,
-                Role=model.Role.RoleName,
-                Level=model.Role.AccessLevel,
-            };
-        }
-        #endregion
+        //public static explicit operator UserDTO (User model)
+        //{
+        //    if (model == null)
+        //    {
+        //        return null;
+        //    }
+        //    return new UserDTO
+        //    {
+        //        Id = model.Id,
+        //        RoleId = model.RoleId,
+        //        UserName = model.UserName,
+        //        Email = model.Email,
+        //        Password = model.PassWord,
+        //        Status = model.Status,
+        //        Role=model.Role.RoleName,
+        //        Level=model.Role.AccessLevel,
+        //    };
+        //}
+        //#endregion
     }
 }

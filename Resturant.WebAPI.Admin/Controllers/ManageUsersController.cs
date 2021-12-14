@@ -46,8 +46,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         public Global_Response_DTO<IEnumerable<UserInfoDTO>> GetAllUserslInfo(PaginationDTO pagination)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var FullUsersInfo = _UOW._UserInfo.GetAllUsersINFO(pagination, CurrentUser.Level.Value);
-            return _response.Global_Result<IEnumerable<UserInfoDTO>>(FullUsersInfo, "Success", true);
+            var AllUsersInfo = _UOW._UserInfo.GetAllUsersINFO(pagination, CurrentUser.Level.Value);
+
+            return _response.Global_Result<IEnumerable<UserInfoDTO>>(AllUsersInfo, "Success", true);
 
         }
         [HttpGet]

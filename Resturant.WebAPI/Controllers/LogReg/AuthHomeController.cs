@@ -93,7 +93,8 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
 
 
-        [Authorize(Roles = "Guest")]
+        //[Authorize(Roles = "Guest")]
+        [AllowAnonymous]
         [Route("Auth/Test")]
         [HttpPost]
         public Global_Response_DTO<UserDTO> test()

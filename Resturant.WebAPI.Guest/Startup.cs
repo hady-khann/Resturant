@@ -43,7 +43,6 @@ namespace Resturant.WebAPI.Guest
 
 
             StartupConfigurationInstaller.Install_Configure_Services(services,Configuration);
-            services.AddAutoMapper(typeof(Startup));
 
         }
 

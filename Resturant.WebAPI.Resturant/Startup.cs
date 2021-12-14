@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 
 using Resturant.StartupConfiguration.StartupInstaller;
 using Resturant.Middlewares;
+using Resturant.DBModels.AutoMaping;
+using AutoMapper;
 
 namespace Resturant.WebAPI.Resturant
 {
@@ -38,9 +40,6 @@ namespace Resturant.WebAPI.Resturant
             });
 
             StartupConfigurationInstaller.Install_Configure_Services(services,Configuration);
-            services.AddAutoMapper(typeof(Startup));
-
-
 
         }
 

@@ -42,8 +42,6 @@ namespace Resturant.WebAPI.Auth
             services.AddScoped<Srvc_LogReg>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddTransient<IHasher, Hasher>();
-            services.AddAutoMapper(typeof(Startup));
-
             #endregion
 
         }

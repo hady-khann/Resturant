@@ -45,8 +45,6 @@ namespace Resturant.WebAPI.Admin
 
             #region Internal Injections
             services.AddScoped<GlobalMethods>();
-            services.AddAutoMapper(typeof(Startup));
-
             #endregion
         }
 

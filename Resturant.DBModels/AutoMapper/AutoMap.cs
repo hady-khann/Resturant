@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Resturant.DBModels.DTO;
 
-namespace Resturant.DBModels.AutoMapper
+namespace Resturant.DBModels.AutoMaping
 {
-    class AutoMap : Profile
+    public class AutoMaping : Profile
     {
-        public AutoMap()
+        public AutoMaping()
         {
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();

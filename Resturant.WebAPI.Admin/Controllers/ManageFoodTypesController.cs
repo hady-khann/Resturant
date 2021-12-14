@@ -1,4 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.Global_Methods;
+using Resturant.CoreBase.WebAPIResponse;
+using Resturant.DBModels.DTO;
+using Resturant.DBModels.Entities;
+using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +17,56 @@ namespace Resturant.WebAPI.Admin.Controllers
     [ApiController]
     public class ManageFoodTypesController : ControllerBase
     {
-        // GET: api/<ManageFoodTypesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly Response _response;
+        private GlobalMethods _GMethods;
+        private IUOW _UOW;
+
+        public ManageFoodTypesController(Response response, GlobalMethods gMethods, IUOW uOW)
         {
-            return new string[] { "value1", "value2" };
+            _response = response;
+            _GMethods = gMethods;
+            _UOW = uOW;
         }
 
-        // GET api/<ManageFoodTypesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+
+
+        // GET: api/<ManageFoodTypesController>
+        [HttpGet]
+        [Route("GetFoodTypes")]
+        public async Task<Global_Response_DTO<IEnumerable<FoodType>>> GetFoodTypes(PaginationDTO pageing)
         {
-            return "value";
+            return _response.Global_Result<IEnumerable<FoodType>>(await _UOW._Base<FoodType>().FindAllAsync_Pagination(pageing));
+        }
+        [HttpGet]
+        [Route("GetFoodTypesByID")]
+        public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID(Guid Id)
+        {
+            return _response.Global_Result(await _UOW._Base<FoodType>().FindByID(Id));
         }
 
         // POST api/<ManageFoodTypesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async void Post([FromBody] FoodType FTypes)
         {
+            await _UOW._Base<FoodType>().Insert(FTypes);
+            await _UOW.SaveDBAsync();
+                
         }
 
         // PUT api/<ManageFoodTypesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async void Put([FromBody] FoodType FTypes)
         {
+            _UOW._Base<FoodType>().Update(FTypes);
+            await _UOW.SaveDBAsync();
         }
 
         // DELETE api/<ManageFoodTypesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async void Delete([FromBody] FoodType FTypes)
         {
+            _UOW._Base<FoodType>().Delete(FTypes);
+            await _UOW.SaveDBAsync();
         }
     }
 }

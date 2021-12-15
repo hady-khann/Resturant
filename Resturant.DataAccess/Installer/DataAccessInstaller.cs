@@ -10,7 +10,7 @@ namespace Resturant.DataAccess.Installer
     {
         public static void Install(IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<ResturantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddDbContext<_>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
         }
     }

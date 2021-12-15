@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Resturant.WebAPI.Admin.Controllers
 {
     [Route("Admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Manager,Owner,Root")]
+
     public class ManageUsersOrdersController : ControllerBase
     {
         // GET: api/<ManageUsersOrdersController>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
@@ -15,6 +16,8 @@ namespace Resturant.WebAPI.Admin.Controllers
 {
     [Route("Admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Manager,Owner,Root")]
+
     public class ManageFoodsController : ControllerBase
     {
         private IUOW _UOW;

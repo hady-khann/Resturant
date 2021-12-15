@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Resturant.CoreBase.Global_Methods;
 using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
@@ -15,6 +16,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 {
     [Route("Admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Manager,Owner,Root")]
     public class ManageFoodTypesController : ControllerBase
     {
         private readonly Response _response;

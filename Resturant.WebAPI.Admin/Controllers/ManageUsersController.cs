@@ -12,6 +12,7 @@ using Resturant.CoreBase.Global_Methods;
 using AutoMapper;
 
 using Resturant.WebAPI.Admin.Srvc_Controller;
+using Microsoft.AspNetCore.Authorization;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,6 +21,8 @@ namespace Resturant.WebAPI.Admin.Controllers
 {
     [Route("Admin/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Manager,Owner,Root")]
+
     public class ManageUsersController : ControllerBase
     {
         private readonly Response _response;

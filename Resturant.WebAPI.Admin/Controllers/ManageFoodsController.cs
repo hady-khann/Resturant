@@ -32,7 +32,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         //[HttpGet]
         //public Task<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
         //{
-        //    var FullUsersInfo = _UOW._Base<User>().FindAllAsync_Pagination(pagination);
+        //    var FullUsersInfo = _UOW._Base<User>().FindAll_Pagination(pagination);
         //    return FullUsersInfo;
         //}
         //[HttpGet]

@@ -24,23 +24,23 @@ namespace Resturant.Repository.Implements
             _Mapper = mapper;
         }
 
-        public IEnumerable<UserInfoDTO> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel = 5)
-        {
-            var skip = pagination.PageNumber * pagination.RowNumber;
-            var take = pagination.RowNumber;
+        //public IEnumerable<UserInfoDTO> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel = 5)
+        //{
+        //    var skip = pagination.PageNumber * pagination.RowNumber;
+        //    var take = pagination.RowNumber;
 
-            var EFresult = _context.UsersInfos.Where(x => x.AccessLevel >= AccessLevel).Skip(skip).Take(take).ToList();
+        //    var EFresult = _context.UsersInfos.Where(x => x.AccessLevel >= AccessLevel).Skip(skip).Take(take).ToList();
 
-            //IEnumerable<UserInfoDTO> enumerable = EFresult.Select(c => _Mapper.Map<UserInfoDTO>(c));
+        //    //IEnumerable<UserInfoDTO> enumerable = EFresult.Select(c => _Mapper.Map<UserInfoDTO>(c));
 
-            return _Mapper.Map<IEnumerable<UserInfoDTO>>(EFresult);
-        }
+        //    return _Mapper.Map<IEnumerable<UserInfoDTO>>(EFresult);
+        //}
 
-        public UsersInfo GetUsersINFOByID(Guid Id)
-        {
-            return _context.UsersInfos.FirstOrDefault(x => x.Id == Id) as UsersInfo; ;
+        //public UsersInfo GetUsersINFOByID(Guid Id)
+        //{
+        //    return _context.UsersInfos.FirstOrDefault(x => x.Id == Id) as UsersInfo; ;
             
-        }
+        //}
     }
 }
 

@@ -33,9 +33,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         // GET: api/<ManageFoodTypesController>
         [HttpGet]
         [Route("GetFoodTypes")]
-        public async Task<Global_Response_DTO<IEnumerable<FoodType>>> GetFoodTypes(PaginationDTO pageing)
+        public Global_Response_DTO<IEnumerable<FoodType>> GetFoodTypes(PaginationDTO page)
         {
-            return _response.Global_Result<IEnumerable<FoodType>>(await _UOW._Base<FoodType>().FindAllAsync_Pagination(pageing));
+            return _response.Global_Result<IEnumerable<FoodType>>(_UOW._Base<FoodType>().FindAll().Skip(page.Skip).Take(page.Take).ToList());
         }
         [HttpGet]
         [Route("GetFoodTypesByID")]

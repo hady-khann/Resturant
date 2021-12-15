@@ -16,10 +16,18 @@ namespace Resturant.Repository.Base
 
 
 
-        Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination);
 
+
+        #region MyRegion
+        //Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination);
         Task<IEnumerable<TEntity>> FindAllAsync();
-        Task<TEntity> FindByID(Object id);
+
+        //IQueryable<TEntity> FindAll_Pagination(PaginationDTO pagination);
+        IQueryable<TEntity> FindAll();
+
+        Task<TEntity> FindByID(Object id); 
+
+        #endregion
 
 
 

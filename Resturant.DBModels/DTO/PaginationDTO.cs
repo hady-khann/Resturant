@@ -10,6 +10,7 @@ namespace Resturant.DBModels.DTO
     {
         public int PageNumber { get; set; }
         public int RowNumber { get; set; }
-
+        public int Skip => (PageNumber - 1) * RowNumber;
+        public int Take => RowNumber;
     }
 }

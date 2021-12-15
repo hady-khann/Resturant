@@ -51,26 +51,44 @@ namespace Resturant.Repository.Base
         }
 
 
+        #region Find
 
-
-        public async Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination)
-        {
-            var skip = (pagination.PageNumber-1) * pagination.RowNumber;
-            var take = pagination.RowNumber;
-
-            return await contextDB.Skip(skip).Take(take).ToListAsync();
-        }
+     
         public async Task<IEnumerable<TEntity>> FindAllAsync()
         {
-            return await contextDB.ToListAsync();
+            return await contextDB.AsNoTracking().ToListAsync();
         }
+        public IQueryable<TEntity> FindAll()
+        {
+            return contextDB.AsNoTracking();
+        }
+
+
+        //public async Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination)
+        //{
+        //    var skip = (pagination.PageNumber - 1) * pagination.RowNumber;
+        //    var take = pagination.RowNumber;
+
+        //    return await contextDB.Skip(skip).Take(take).ToListAsync();
+        //}
+
+        //public IQueryable<TEntity> FindAll_Pagination(PaginationDTO pagination)
+        //{
+        //    var skip = (pagination.PageNumber - 1) * pagination.RowNumber;
+        //    var take = pagination.RowNumber;
+
+        //    return contextDB.Skip(skip).Take(take).AsNoTracking();
+        //}
+
+
+
         public async Task<TEntity> FindByID(object id)
         {
-            Guid IID = (Guid)id;
-              var t =  await contextDB.FindAsync(IID);
+            var t = await contextDB.FindAsync((Guid) id);
             return t;
 
-        }
+        } 
+        #endregion
 
 
 

@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
-using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
 using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using Resturant.CoreBase.Global_Methods;
 using AutoMapper;
+
 using Resturant.WebAPI.Admin.Srvc_Controller;
 
 
@@ -24,21 +22,23 @@ namespace Resturant.WebAPI.Admin.Controllers
     [ApiController]
     public class ManageUsersController : ControllerBase
     {
-        private readonly IHttpContextAccessor _ContextAccessor;
         private readonly Response _response;
         private GlobalMethods _GMethods;
         private readonly IMapper _Mapper;
+
         private Srvc_Users _Srvc;
         private IUOW _UOW;
 
-        public ManageUsersController(IHttpContextAccessor contextAccessor, Response response, GlobalMethods gMethods, IMapper mapper, IUOW uOW)
+        public ManageUsersController(Response response, GlobalMethods gMethods, IMapper mapper, Srvc_Users srvc, IUOW uOW)
         {
-            _ContextAccessor = contextAccessor;
             _response = response;
             _GMethods = gMethods;
             _Mapper = mapper;
+            _Srvc = srvc;
             _UOW = uOW;
         }
+
+
 
 
 
@@ -53,7 +53,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         public Global_Response_DTO<IEnumerable<UserInfoDTO>> GetAllUserslInfo(PaginationDTO pagination)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var AllUsersInfo = _UOW._UserInfo.GetAllUsersINFO(pagination, CurrentUser.Level.Value);
+            var AllUsersInfo = _Mapper.Map<IEnumerable<UserInfoDTO>>(_UOW._Base<UsersInfo>().FindAll().Where(x => x.AccessLevel > CurrentUser.Level).ToList());
 
             return _response.Global_Result<IEnumerable<UserInfoDTO>>(AllUsersInfo);
 
@@ -64,14 +64,21 @@ namespace Resturant.WebAPI.Admin.Controllers
         {
             var CurrentUser = _GMethods.GETCurrentUser();
             var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<UserInfoDTO>().FindByID(Id));
-            return _response.Global_Result<UserInfoDTO>(UserInfo);
+            if (CurrentUser.Level.Value < UserInfo.AccessLevel)
+            {
+                return _response.Global_Result<UserInfoDTO>(UserInfo);
+            }
+            return _response.Global_Result<UserInfoDTO>(null);
+
 
         }
         [HttpGet]
         [Route("GetRoles")]
-        public async Task<Global_Response_DTO<IEnumerable<Role>>> GetRoles()
+        public Global_Response_DTO<IEnumerable<Role>> GetRoles()
         {
-           return _response.Global_Result<IEnumerable<Role>>(await _UOW._Base<Role>().FindAllAsync());
+            var CurrentUser = _GMethods.GETCurrentUser();
+
+            return _response.Global_Result<IEnumerable<Role>>(_UOW._Base<Role>().FindAll().Where(x => x.AccessLevel > CurrentUser.Level).ToList());
         }
         #endregion
 

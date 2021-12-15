@@ -82,9 +82,9 @@ namespace Resturant.Repository.Base
 
 
 
-        public async Task<TEntity> FindByID(object id)
+        public async Task<TEntity> FindByID(Guid id)
         {
-            var t = await contextDB.FindAsync((Guid) id);
+            var t = await contextDB.FindAsync(id);
             return t;
 
         } 

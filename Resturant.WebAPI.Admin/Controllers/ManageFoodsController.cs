@@ -30,27 +30,26 @@ namespace Resturant.WebAPI.Admin.Controllers
 
 
 
-        /// /////////////////////////////////////////////////////////////   CHANGE WRONGE
-        //// GET
-        //[HttpGet]
-        //public Task<IEnumerable<User>> GetAllUserslInfo(PaginationDTO pagination)
-        //{
-        //    var FullUsersInfo = _UOW._Base<User>().FindAll_Pagination(pagination);
-        //    return FullUsersInfo;
-        //}
-        //[HttpGet]
+        // GET
+        [HttpGet]
+        public IEnumerable<Food> GetAllFoods(PaginationDTO Page)
+        {
+            var Foods = _UOW._Base<Food>().FindAll().Skip(Page.Skip).Take(Page.Take).ToList();
+            return Foods;
+        }
+        [HttpGet]
 
-        //public Task<User> GetUserByID(Guid Id)
-        //{
-        //    var UserInfoDTO = _UOW._Base<User>().FindByID(Id);
-        //    return UserInfoDTO;
+        public  async Task<Food> GetFoodByID(Guid Id)
+        {
+            var Foods = await _UOW._Base<Food>().FindByID(Id);
+            return Foods;
 
-        //}
+        }
 
 
         // POST api/<ManageFoodsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Food food)
         {
         }
 

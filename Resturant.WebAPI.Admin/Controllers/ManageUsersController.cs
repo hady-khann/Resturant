@@ -10,8 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Resturant.CoreBase.Global_Methods;
 using AutoMapper;
-
-using Resturant.WebAPI.Admin.Srvc_Controller;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -28,16 +26,13 @@ namespace Resturant.WebAPI.Admin.Controllers
         private readonly Response _response;
         private GlobalMethods _GMethods;
         private readonly IMapper _Mapper;
-
-        private Srvc_Users _Srvc;
         private IUOW _UOW;
 
-        public ManageUsersController(Response response, GlobalMethods gMethods, IMapper mapper, Srvc_Users srvc, IUOW uOW)
+        public ManageUsersController(Response response, GlobalMethods gMethods, IMapper mapper, IUOW uOW)
         {
             _response = response;
             _GMethods = gMethods;
             _Mapper = mapper;
-            _Srvc = srvc;
             _UOW = uOW;
         }
 
@@ -87,14 +82,15 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // PUT api/<ManageUsersController>/5
         [HttpPut]
-        [Route("Update")]
-        public async void Update([FromBody] UserInfoDTO UserInfoDTO)
+        [Route("UpdateUser")]
+        public async void Updateuser([FromBody] UserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
             var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<UserInfoDTO>().FindByID(UserInfoDTO.Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
-            _Srvc.PutUpdate(UserInfoDTO);
+                _UOW._Base<User>().Update(_Mapper.Map<User>(UserInfo));
+                await _UOW.SaveDBAsync();
             }
         }
 
@@ -103,10 +99,11 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async void Delete([FromBody] UserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<UserInfoDTO>().FindByID(UserInfoDTO.Id));
+            UserInfoDTO UserInfo =await _UOW._Base<UserInfoDTO>().FindByID(UserInfoDTO.Id);
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
-            _UOW._Base<UserInfoDTO>().Delete(UserInfoDTO);
+                User usr = await _UOW._Base<User>().FindByID(_Mapper.Map<User>(UserInfoDTO).Id);
+                _UOW._Base<User>().Delete(usr);
             }
             await _UOW.SaveDBAsync();
         }

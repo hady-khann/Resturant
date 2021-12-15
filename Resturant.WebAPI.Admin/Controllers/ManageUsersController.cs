@@ -88,16 +88,26 @@ namespace Resturant.WebAPI.Admin.Controllers
         // PUT api/<ManageUsersController>/5
         [HttpPut]
         [Route("Update")]
-        public void Update([FromBody] UserInfoDTO UserInfoDTO)
+        public async void Update([FromBody] UserInfoDTO UserInfoDTO)
         {
+            var CurrentUser = _GMethods.GETCurrentUser();
+            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<UserInfoDTO>().FindByID(UserInfoDTO.Id));
+            if (CurrentUser.Level.Value < UserInfo.AccessLevel)
+            {
             _Srvc.PutUpdate(UserInfoDTO);
+            }
         }
 
         // DELETE api/<ManageUsersController>/5
         [HttpDelete]
         public async void Delete([FromBody] UserInfoDTO UserInfoDTO)
         {
+            var CurrentUser = _GMethods.GETCurrentUser();
+            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<UserInfoDTO>().FindByID(UserInfoDTO.Id));
+            if (CurrentUser.Level.Value < UserInfo.AccessLevel)
+            {
             _UOW._Base<UserInfoDTO>().Delete(UserInfoDTO);
+            }
             await _UOW.SaveDBAsync();
         }
     }

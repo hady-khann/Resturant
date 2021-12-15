@@ -51,7 +51,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         public Global_Response_DTO<IEnumerable<UserInfoDTO>> GetAllUserslInfo(PaginationDTO pagination)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var AllUsersInfo = _Mapper.Map<IEnumerable<UserInfoDTO>>(_UOW._Base<Viw_UsersInfo>().FindAll().Where(x => x.AccessLevel > CurrentUser.Level).ToList());
+            var AllUsersInfo = _Mapper.Map<IEnumerable<UserInfoDTO>>(_UOW._Base<ViwUsersInfo>().FindAll().Where(x => x.AccessLevel > CurrentUser.Level).ToList());
 
             return _response.Global_Result<IEnumerable<UserInfoDTO>>(AllUsersInfo);
 
@@ -61,7 +61,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async Task<Global_Response_DTO<UserInfoDTO>> GetUserByID(Guid Id)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<Viw_UsersInfo>().FindByID(Id));
+            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
                 return _response.Global_Result<UserInfoDTO>(UserInfo);
@@ -86,7 +86,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async void Updateuser([FromBody] UserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<Viw_UsersInfo>().FindByID(UserInfoDTO.Id));
+            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(UserInfoDTO.Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
                 _UOW._Base<User>().Update(_Mapper.Map<User>(UserInfo));
@@ -99,7 +99,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async void Delete([FromBody] UserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            UserInfoDTO UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<Viw_UsersInfo>().FindByID(UserInfoDTO.Id));
+            UserInfoDTO UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(UserInfoDTO.Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
                 User usr = await _UOW._Base<User>().FindByID(_Mapper.Map<User>(UserInfoDTO).Id);

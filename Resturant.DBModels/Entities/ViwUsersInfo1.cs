@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Resturant.DBModels.Entities
 { 
-    public partial class Viw_UsersInfo
+    public partial class ViwUsersInfo
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }

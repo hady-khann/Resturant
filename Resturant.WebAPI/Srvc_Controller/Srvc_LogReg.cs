@@ -90,7 +90,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 if (Confirm_User_Pass != null)
                 {
                     var UserId =(Guid) Confirm_User_Pass.Id;
-                    var userInfoDTO = _UOW._Base<Viw_UsersInfo>().FindByID(UserId);
+                    var userInfoDTO = _UOW._Base<ViwUsersInfo>().FindByID(UserId);
 
 
                     var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<UserInfoDTO>(userInfoDTO));

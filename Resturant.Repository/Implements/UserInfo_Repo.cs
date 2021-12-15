@@ -36,9 +36,9 @@ namespace Resturant.Repository.Implements
         //    return _Mapper.Map<IEnumerable<UserInfoDTO>>(EFresult);
         //}
 
-        //public Viw_UsersInfo GetUsersINFOByID(Guid Id)
+        //public ViwUsersInfo GetUsersINFOByID(Guid Id)
         //{
-        //    return _context.UsersInfos.FirstOrDefault(x => x.Id == Id) as Viw_UsersInfo; ;
+        //    return _context.UsersInfos.FirstOrDefault(x => x.Id == Id) as ViwUsersInfo; ;
             
         //}
     }

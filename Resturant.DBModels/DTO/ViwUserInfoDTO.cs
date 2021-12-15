@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.DBModels.DTO
 {
-    public class UserInfoDTO
+    public class ViwUserInfoDTO
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }

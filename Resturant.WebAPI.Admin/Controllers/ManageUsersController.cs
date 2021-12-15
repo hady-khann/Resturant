@@ -48,25 +48,25 @@ namespace Resturant.WebAPI.Admin.Controllers
         // GET: api/<ManageUsersController>
         [HttpGet]
         [Route("GetAllUserslInfo")]
-        public Global_Response_DTO<IEnumerable<UserInfoDTO>> GetAllUserslInfo(PaginationDTO pagination)
+        public Global_Response_DTO<IEnumerable<ViwUserInfoDTO>> GetAllUserslInfo(PaginationDTO pagination)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var AllUsersInfo = _Mapper.Map<IEnumerable<UserInfoDTO>>(_UOW._Base<ViwUsersInfo>().FindAll().Where(x => x.AccessLevel > CurrentUser.Level).ToList());
+            var AllUsersInfo = _Mapper.Map<IEnumerable<ViwUserInfoDTO>>(_UOW._Base<ViwUsersInfo>().FindAll().Where(x => x.AccessLevel > CurrentUser.Level).ToList());
 
-            return _response.Global_Result<IEnumerable<UserInfoDTO>>(AllUsersInfo);
+            return _response.Global_Result<IEnumerable<ViwUserInfoDTO>>(AllUsersInfo);
 
         }
         [HttpGet]
         [Route("GetUserByID")]
-        public async Task<Global_Response_DTO<UserInfoDTO>> GetUserByID(Guid Id)
+        public async Task<Global_Response_DTO<ViwUserInfoDTO>> GetUserByID(Guid Id)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(Id));
+            var UserInfo = _Mapper.Map<ViwUserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
-                return _response.Global_Result<UserInfoDTO>(UserInfo);
+                return _response.Global_Result<ViwUserInfoDTO>(UserInfo);
             }
-            return _response.Global_Result<UserInfoDTO>(null);
+            return _response.Global_Result<ViwUserInfoDTO>(null);
 
 
         }
@@ -83,10 +83,10 @@ namespace Resturant.WebAPI.Admin.Controllers
         // PUT api/<ManageUsersController>/5
         [HttpPut]
         [Route("UpdateUser")]
-        public async void Updateuser([FromBody] UserInfoDTO UserInfoDTO)
+        public async void Updateuser([FromBody] ViwUserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            var UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(UserInfoDTO.Id));
+            var UserInfo = _Mapper.Map<ViwUserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(UserInfoDTO.Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
                 _UOW._Base<User>().Update(_Mapper.Map<User>(UserInfo));
@@ -96,10 +96,10 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // DELETE api/<ManageUsersController>/5
         [HttpDelete]
-        public async void Delete([FromBody] UserInfoDTO UserInfoDTO)
+        public async void Delete([FromBody] ViwUserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();
-            UserInfoDTO UserInfo = _Mapper.Map<UserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(UserInfoDTO.Id));
+            ViwUserInfoDTO UserInfo = _Mapper.Map<ViwUserInfoDTO>(await _UOW._Base<ViwUsersInfo>().FindByID(UserInfoDTO.Id));
             if (CurrentUser.Level.Value < UserInfo.AccessLevel)
             {
                 User usr = await _UOW._Base<User>().FindByID(_Mapper.Map<User>(UserInfoDTO).Id);

@@ -10,7 +10,7 @@ namespace Resturant.Repository.Interfaces
 {
     public interface IUserInfo_Repo
     {
-        //public IEnumerable<UserInfoDTO> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel);
+        //public IEnumerable<ViwUserInfoDTO> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel);
         //public ViwUsersInfo GetUsersINFOByID(Guid Id);
     }
 }

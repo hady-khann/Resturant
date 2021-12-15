@@ -71,7 +71,7 @@ namespace Resturant.Middlewares
                 var getUser = await _UOW._Base<User>().FindByID((Guid)userId);
 
 
-                context.Items["UserInfoDTO"] = new UserDTO
+                context.Items["ViwUserInfoDTO"] = new UserDTO
                 {
                     Id = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value),
                     UserName = jwtToken.Claims.First(x => x.Type == "Name").Value,

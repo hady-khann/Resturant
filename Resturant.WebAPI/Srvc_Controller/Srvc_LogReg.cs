@@ -93,7 +93,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     var userInfoDTO = _UOW._Base<ViwUsersInfo>().FindByID(UserId);
 
 
-                    var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<UserInfoDTO>(userInfoDTO));
+                    var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(userInfoDTO));
 
                     if (generatedToken != null)
                     {

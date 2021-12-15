@@ -102,7 +102,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             try
             {
                 //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.HttpContext.Items["UserInfoDTO"] as UserDTO;
+                var UserFromcontext = _httpContext.HttpContext.Items["ViwUserInfoDTO"] as UserDTO;
                 return _response.Global_Result<UserDTO>(UserFromcontext);
             }
             catch (Exception)

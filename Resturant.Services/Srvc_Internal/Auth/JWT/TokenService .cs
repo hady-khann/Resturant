@@ -19,7 +19,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key, string issuer, UserInfoDTO userInfoDTO)
+        public string AuthenticateUser(string key, string issuer, ViwUserInfoDTO userInfoDTO)
         {
             try
             {

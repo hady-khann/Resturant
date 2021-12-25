@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.WebAPIResponse;
+using Resturant.DBModels.DTO;
+using Resturant.DBModels.Entities;
+using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +16,75 @@ namespace Resturant.WebAPI.Resturant.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Manager,Owner,Root")]
     public class ManageOrdersController : ControllerBase
     {
-        // GET: api/<ManageOrdersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/<ManageOrdersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        [Route("Admin/[controller]")]
+        [ApiController]
+        [Authorize(Roles = "Root")]
 
-        // POST api/<ManageOrdersController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        public class ManageRolesController : ControllerBase
         {
-        }
 
-        // PUT api/<ManageOrdersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            private readonly Response _response;
+            private readonly IMapper _Mapper;
+            private IUOW _UOW;
 
-        // DELETE api/<ManageOrdersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            public ManageRolesController(Response response, IMapper mapper, IUOW uOW)
+            {
+                _response = response;
+                _Mapper = mapper;
+                _UOW = uOW;
+            }
+
+
+
+            // GET: api/<ManageFoodTypesController>
+            [HttpGet]
+            [Route("GetResturantAllFoods")]
+            public async Task<Global_Response_DTO<IEnumerable<ViwResturantFoodDTO>>> GetResturantAllFoods(Guid ResID)
+            {
+                return _response.Global_Result(_Mapper.Map<IEnumerable<ViwResturantFoodDTO>>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID)));
+            }
+
+            [HttpGet]
+            [Route("GetResFoodByID")]
+            public async Task<Global_Response_DTO<ViwResturantFoodDTO>> GetFoodByID(Guid ResID, Guid FoodID)
+            {
+                return _response.Global_Result(_Mapper.Map<ViwResturantFoodDTO>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID && x.IdFood == FoodID)));
+            }
+            [HttpGet]
+            [Route("GetResFoodByName")]
+            public async Task<Global_Response_DTO<ViwResturantFoodDTO>> GetFoodByName(Guid ResID, string Name)
+            {
+                return _response.Global_Result(_Mapper.Map<ViwResturantFoodDTO>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID && x.FoodName == Name)));
+            }
+
+            // POST 
+            [HttpPost]
+            public async void Post([FromBody] ViwResturantFoodDTO resFoodDTO)
+            {
+                await _UOW._Base<ViwResturantFood>().Insert(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+                await _UOW.SaveDBAsync();
+
+            }
+
+            // PUT  
+            [HttpPut]
+            public async void Put([FromBody] ViwResturantFoodDTO resFoodDTO)
+            {
+                _UOW._Base<ViwResturantFood>().Update(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+                await _UOW.SaveDBAsync();
+            }
+
+            // DELETE 
+            [HttpDelete]
+            public async void Delete([FromBody] ViwResturantFoodDTO resFoodDTO)
+            {
+                _UOW._Base<ViwResturantFood>().Delete(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+                await _UOW.SaveDBAsync();
+            }
+
         }
     }
-}

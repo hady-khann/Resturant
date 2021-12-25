@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.Global_Methods;
+using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
@@ -20,26 +23,33 @@ namespace Resturant.WebAPI.Admin.Controllers
 
     public class ManageFoodsController : ControllerBase
     {
+        private readonly Response _response;
+        private GlobalMethods _GMethods;
+        private readonly IMapper _Mapper;
         private IUOW _UOW;
 
-        public ManageFoodsController(IUOW uOW)
+        public ManageFoodsController(Response response, GlobalMethods gMethods, IMapper mapper, IUOW uOW)
         {
+            _response = response;
+            _GMethods = gMethods;
+            _Mapper = mapper;
             _UOW = uOW;
         }
 
 
 
 
-        // GET
+        // GET List
         [HttpGet]
         public IEnumerable<Food> GetAllFoods(PaginationDTO Page)
         {
             var Foods = _UOW._Base<Food>().FindAll().Skip(Page.Skip).Take(Page.Take).ToList();
             return Foods;
         }
-        [HttpGet]
 
-        public  async Task<Food> GetFoodByID(Guid Id)
+        // get food by id
+        [HttpGet]
+        public async Task<Food> GetFoodByID(Guid Id)
         {
             var Foods = await _UOW._Base<Food>().FindByID(Id);
             return Foods;
@@ -47,22 +57,25 @@ namespace Resturant.WebAPI.Admin.Controllers
         }
 
 
-        // POST api/<ManageFoodsController>
+        // POST ----- add new food
         [HttpPost]
         public void Post([FromBody] Food food)
         {
         }
 
-        // PUT api/<ManageFoodsController>/5
-        [HttpPut("{id}")]
+        // PUT ---- update food
+        [HttpPut]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ManageFoodsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE -
+        [HttpDelete]
+        public void Delete(int x)
         {
+
+            //User usr = await _UOW._Base<Food>().FindByID(_Mapper.Map<Food>(FoodDTO).Id);
+            //_UOW._Base<User>().Delete(usr);
         }
     }
 }

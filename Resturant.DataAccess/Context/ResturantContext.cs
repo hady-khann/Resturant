@@ -20,11 +20,12 @@ namespace Resturant.DataAccess.Context
 
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
-        public virtual DbSet<DBModels.Entities.Resturant> Resturants { get; set; }
+        public virtual DbSet<Resturant.DBModels.Entities.Resturant> Resturants { get; set; }
         public virtual DbSet<ResturantsFood> ResturantsFoods { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserOrder> UserOrders { get; set; }
+        public virtual DbSet<ViwFood> ViwFoods { get; set; }
         public virtual DbSet<ViwResturant> ViwResturants { get; set; }
         public virtual DbSet<ViwResturantFood> ViwResturantFoods { get; set; }
         public virtual DbSet<ViwUsersInfo> ViwUsersInfos { get; set; }
@@ -85,7 +86,7 @@ namespace Resturant.DataAccess.Context
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<DBModels.Entities.Resturant>(entity =>
+            modelBuilder.Entity<Resturant.DBModels.Entities.Resturant>(entity =>
             {
                 entity.ToTable("Resturant");
 
@@ -212,6 +213,34 @@ namespace Resturant.DataAccess.Context
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserOrders_User");
+            });
+
+            modelBuilder.Entity<ViwFood>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Viw_Food");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.FoodName)
+                    .IsRequired()
+                    .HasMaxLength(70);
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Pic)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TypeId).HasColumnName("TypeID");
             });
 
             modelBuilder.Entity<ViwResturant>(entity =>

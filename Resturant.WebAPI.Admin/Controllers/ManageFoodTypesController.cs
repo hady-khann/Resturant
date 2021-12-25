@@ -14,19 +14,20 @@ using System.Threading.Tasks;
 
 namespace Resturant.WebAPI.Admin.Controllers
 {
+    /// <summary>
+    /// ////////////////////////////////////////////////////////// finished
+    /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Manager,Owner,Root")]
     public class ManageFoodTypesController : ControllerBase
     {
         private readonly Response _response;
-        private GlobalMethods _GMethods;
         private IUOW _UOW;
 
-        public ManageFoodTypesController(Response response, GlobalMethods gMethods, IUOW uOW)
+        public ManageFoodTypesController(Response response, IUOW uOW)
         {
             _response = response;
-            _GMethods = gMethods;
             _UOW = uOW;
         }
 
@@ -44,6 +45,12 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID(Guid Id)
         {
             return _response.Global_Result(await _UOW._Base<FoodType>().FindByID(Id));
+        }
+        [HttpGet]
+        [Route("GetFoodTypesByName")]
+        public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID(String Name)
+        {
+            return _response.Global_Result(await _UOW._Base<FoodType>().FindByConditionAsync(x=>x.Type==Name) as FoodType);
         }
 
         // POST api/<ManageFoodTypesController>

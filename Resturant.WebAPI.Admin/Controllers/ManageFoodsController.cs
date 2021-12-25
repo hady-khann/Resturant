@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace Resturant.WebAPI.Admin.Controllers
 {
+    /// <summary>
+    /// ////////////////////////////////////////////////////////// finished
+    /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Manager,Owner,Root")]
@@ -24,15 +27,11 @@ namespace Resturant.WebAPI.Admin.Controllers
     public class ManageFoodsController : ControllerBase
     {
         private readonly Response _response;
-        private GlobalMethods _GMethods;
-        private readonly IMapper _Mapper;
         private IUOW _UOW;
 
-        public ManageFoodsController(Response response, GlobalMethods gMethods, IMapper mapper, IUOW uOW)
+        public ManageFoodsController(Response response, IUOW uOW)
         {
             _response = response;
-            _GMethods = gMethods;
-            _Mapper = mapper;
             _UOW = uOW;
         }
 
@@ -41,41 +40,55 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // GET List
         [HttpGet]
-        public IEnumerable<Food> GetAllFoods(PaginationDTO Page)
+        [Route("GetFoodAllFoods")]
+        public Global_Response_DTO<IEnumerable<ViwFood>> GetAllFoods(PaginationDTO Page)
         {
-            var Foods = _UOW._Base<Food>().FindAll().Skip(Page.Skip).Take(Page.Take).ToList();
-            return Foods;
+            var Foods = _UOW._Base<ViwFood>().FindAll().Skip(Page.Skip).Take(Page.Take).ToList();
+            return _response.Global_Result<IEnumerable<ViwFood>>(Foods);
         }
 
         // get food by id
         [HttpGet]
-        public async Task<Food> GetFoodByID(Guid Id)
+        [Route("GetFoodByID")]
+        public async Task<Global_Response_DTO<ViwFood>> GetFoodByID(Guid Id)
         {
-            var Foods = await _UOW._Base<Food>().FindByID(Id);
-            return Foods;
+            var Foods = await _UOW._Base<ViwFood>().FindByID(Id);
+            return _response.Global_Result(Foods);
 
+        }
+
+        [HttpGet]
+        [Route("GetFoodByName")]
+        public async Task<Global_Response_DTO<ViwFood>> GetFoodByName(String Name)
+        {
+            var Foods = await _UOW._Base<ViwFood>().FindByConditionAsync(x=>x.FoodName==Name);
+            return _response.Global_Result(Foods as ViwFood);
         }
 
 
         // POST ----- add new food
         [HttpPost]
-        public void Post([FromBody] Food food)
+        public async void Add([FromBody] Food food)
         {
+            await _UOW._Base<Food>().Insert(food);
+            await _UOW.SaveDBAsync();
         }
 
         // PUT ---- update food
         [HttpPut]
-        public void Put(int id, [FromBody] string value)
+        public async void Update([FromBody] Food food)
         {
+            _UOW._Base<Food>().Update(food);
+            await _UOW.SaveDBAsync();
         }
 
         // DELETE -
         [HttpDelete]
-        public void Delete(int x)
+        public async void Delete([FromBody] FoodDTO foodDto)
         {
-
-            //User usr = await _UOW._Base<Food>().FindByID(_Mapper.Map<Food>(FoodDTO).Id);
-            //_UOW._Base<User>().Delete(usr);
+            Food food = await _UOW._Base<Food>().FindByID(foodDto.Id);
+             _UOW._Base<Food>().Delete(food);
+            await _UOW.SaveDBAsync();
         }
     }
 }

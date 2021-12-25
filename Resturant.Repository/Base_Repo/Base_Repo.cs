@@ -63,7 +63,6 @@ namespace Resturant.Repository.Base
             return contextDB.AsNoTracking();
         }
 
-
         //public async Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination)
         //{
         //    var skip = (pagination.PageNumber - 1) * pagination.RowNumber;
@@ -87,7 +86,7 @@ namespace Resturant.Repository.Base
             var t = await contextDB.FindAsync(id);
             return t;
 
-        } 
+        }
         #endregion
 
 
@@ -112,8 +111,32 @@ namespace Resturant.Repository.Base
                 query = orderBy(query);
             }
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
         }
+
+
+
+        //public enum ConditionType
+        //{
+        //    Equal,
+        //}
+
+
+        //public async Task<IEnumerable<TEntity>> FindByConditionAsync<TEntity>(string fieldName, string value, ConditionType conditionType)
+        //{
+        //    IQueryable<TEntity> query = _context.Set<TEntity>();
+
+
+
+
+
+        //    if (orderBy != null)
+        //    {
+        //        query = orderBy(query);
+        //    }
+
+        //    return await query.AsNoTracking().ToListAsync();
+        //}
 
     }
 }

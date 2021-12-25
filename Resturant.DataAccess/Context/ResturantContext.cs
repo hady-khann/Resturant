@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Resturant.DBModels.Entities;
+using resturant = Resturant.DBModels.Entities.Resturant;
 
 #nullable disable
 
@@ -20,7 +21,7 @@ namespace Resturant.DataAccess.Context
 
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
-        public virtual DbSet<Resturant.DBModels.Entities.Resturant> Resturants { get; set; }
+        public virtual DbSet<resturant> Resturants { get; set; }
         public virtual DbSet<ResturantsFood> ResturantsFoods { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -86,7 +87,7 @@ namespace Resturant.DataAccess.Context
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Resturant.DBModels.Entities.Resturant>(entity =>
+            modelBuilder.Entity<resturant>(entity =>
             {
                 entity.ToTable("Resturant");
 

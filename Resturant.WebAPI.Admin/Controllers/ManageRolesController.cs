@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.Global_Methods;
+using Resturant.CoreBase.WebAPIResponse;
+using Resturant.DBModels.DTO;
+using Resturant.DBModels.Entities;
+using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,42 +15,69 @@ using System.Threading.Tasks;
 
 namespace Resturant.WebAPI.Admin.Controllers
 {
+    /// <summary>
+    /// ////////////////////////////////////////////////////////// Finished
+    /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Manager,Owner,Root")]
+    [Authorize(Roles = "Root")]
 
     public class ManageRolesController : ControllerBase
     {
-        // GET: api/<ManageRolesController>
+       
+        private readonly Response _response;
+        private readonly IMapper _Mapper;
+        private IUOW _UOW;
+
+        public ManageRolesController(Response response, IMapper mapper, IUOW uOW)
+        {
+            _response = response;
+            _Mapper = mapper;
+            _UOW = uOW;
+        }
+
+
+
+        // GET: 
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("GetAllRoles")]
+        public async Task<Global_Response_DTO<IEnumerable<RoleDTO>>> GetRoles()
         {
-            return new string[] { "value1", "value2" };
+            return _response.Global_Result(_Mapper.Map<IEnumerable<RoleDTO>>(await _UOW._Base<Role>().FindAllAsync()));
         }
 
-        // GET api/<ManageRolesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("GetRoleByID")]
+        public async Task<Global_Response_DTO<RoleDTO>> GetRoleByID(Guid Id)
         {
-            return "value";
+            return _response.Global_Result(_Mapper.Map<RoleDTO>(await _UOW._Base<Role>().FindByID(Id)));
         }
 
-        // POST api/<ManageRolesController>
+        // POST 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async void Post([FromBody] RoleDTO role)
         {
+            await _UOW._Base<Role>().Insert(_Mapper.Map<Role>(role));
+            await _UOW.SaveDBAsync();
+
         }
 
-        // PUT api/<ManageRolesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT  
+        [HttpPut]
+        public async void Put([FromBody] RoleDTO role)
         {
+            _UOW._Base<Role>().Update(_Mapper.Map<Role>(role));
+            await _UOW.SaveDBAsync();
         }
 
-        // DELETE api/<ManageRolesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE 
+        [HttpDelete]
+        public async void Delete([FromBody] RoleDTO role)
         {
+            _UOW._Base<Role>().Delete(_Mapper.Map<Role>(role));
+            await _UOW.SaveDBAsync();
         }
+
+
     }
 }

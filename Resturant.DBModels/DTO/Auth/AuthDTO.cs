@@ -15,10 +15,11 @@ namespace Resturant.DBModels.DTO.Auth
         public bool Status { get; set; }
         public string Role { get; set; }
         public int? Level { get; set; }
+        public Guid? ResturantId { get; set; }
 
 
         //#region Explicit
-     
+
         //public static explicit operator UserDTO (User model)
         //{
         //    if (model == null)

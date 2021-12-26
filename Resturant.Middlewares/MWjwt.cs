@@ -79,6 +79,7 @@ namespace Resturant.Middlewares
                     Status =(jwtToken.Claims.First(x => x.Type == "Status").Value)=="True"?true:false,
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                     Level = int.Parse(jwtToken.Claims.First(x => x.Type == "Level").Value),
+                    ResturantId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "ResturantId").Value),
                 }; 
             }
             catch (Exception)

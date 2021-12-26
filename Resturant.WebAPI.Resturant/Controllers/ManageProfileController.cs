@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.Global_Methods;
 using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.Entities;
@@ -22,13 +23,17 @@ namespace Resturant.WebAPI.Resturant.Controllers
         private readonly Response _response;
         private readonly IMapper _Mapper;
         private readonly IUOW _UOW;
+        private GlobalMethods _GMethods;
 
-        public ManageProfileController(Response response, IMapper mapper, IUOW uOW)
+        public ManageProfileController(Response response, IMapper mapper, IUOW uOW, GlobalMethods gMethods)
         {
             _response = response;
             _Mapper = mapper;
             _UOW = uOW;
+            _GMethods = gMethods;
         }
+
+
 
 
 

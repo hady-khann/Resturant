@@ -64,7 +64,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
 
         [AllowAnonymous]
-        [Route("Auth/login")]
+        [Route("Auth/loginUser")]
         [HttpPost]
         public Global_Response_DTO<string> LoginUser([FromBody] ViwUsersInfo user)
         {
@@ -91,6 +91,9 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             }
         }
 
+        [AllowAnonymous]
+        [Route("Auth/loginResturant")]
+        [HttpPost]
         public Global_Response_DTO<string> LoginResturant([FromBody] ViwUsersInfo user)
         {
             try

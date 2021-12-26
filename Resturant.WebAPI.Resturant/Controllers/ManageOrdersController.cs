@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.Global_Methods;
 using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.Entities;
@@ -22,13 +23,18 @@ namespace Resturant.WebAPI.Resturant.Controllers
         private readonly Response _response;
         private readonly IMapper _Mapper;
         private readonly IUOW _UOW;
+        private GlobalMethods _GMethods;
 
-        public ManageOrdersController(Response response, IMapper mapper, IUOW uOW)
+        public ManageOrdersController(Response response, IMapper mapper, IUOW uOW, GlobalMethods gMethods)
         {
             _response = response;
             _Mapper = mapper;
             _UOW = uOW;
+            _GMethods = gMethods;
         }
+
+
+
 
 
 
@@ -37,6 +43,7 @@ namespace Resturant.WebAPI.Resturant.Controllers
         [Route("GetResturantAllFoods")]
         public async Task<Global_Response_DTO<IEnumerable<ViwResturantFoodDTO>>> GetResturantAllFoods(Guid ResID)
         {
+            var user = _GMethods.GETCurrentUser();
             return _response.Global_Result(_Mapper.Map<IEnumerable<ViwResturantFoodDTO>>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID)));
         }
 

@@ -65,11 +65,11 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
         [AllowAnonymous]
         [Route("Auth/login")]
         [HttpPost]
-        public Global_Response_DTO<string> Login([FromBody] UserDTO user)
+        public Global_Response_DTO<string> LoginUser([FromBody] UserDTO user)
         {
             try
             {
-                var Login_Resualt_Token = _Srvc_LogReg.Login(user);
+                var Login_Resualt_Token = _Srvc_LogReg.LoginUser(user);
                 var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
                 user.Id = FullUserINFO.Id;
 
@@ -90,6 +90,30 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             }
         }
 
+        //public Global_Response_DTO<string> LoginResturant([FromBody] UserDTO user)
+        //{
+        //    try
+        //    {
+        //        var Login_Resualt_Token = _Srvc_LogReg.LoginResturant(user);
+        //        var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
+        //        user.Id = FullUserINFO.Id;
+
+        //        if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
+        //        {
+        //            return _response.Global_Result<String>(null);
+        //        }
+        //        else
+        //        {
+        //            _httpContext.HttpContext.Request.Headers["Authorization"] = Login_Resualt_Token;
+        //            _httpContext.HttpContext.Session.SetString("Token", Login_Resualt_Token);
+        //            return _response.Global_Result<String>(Login_Resualt_Token);
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return _response.Global_Result<String>(null);
+        //    }
+        //}
 
 
 

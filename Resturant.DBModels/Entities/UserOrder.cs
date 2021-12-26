@@ -12,6 +12,7 @@ namespace Resturant.DBModels.Entities
         public Guid ResturantId { get; set; }
         public Guid FoodId { get; set; }
         public int FoodCount { get; set; }
+        public string Status { get; set; }
 
         public virtual Food Food { get; set; }
         public virtual Resturant Resturant { get; set; }

@@ -14,6 +14,8 @@ namespace Resturant.DataAccess.Context
         {
         }
 
+
+
         public ResturantContext(DbContextOptions<ResturantContext> options)
             : base(options)
         {
@@ -205,6 +207,10 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.ResturantId).HasColumnName("ResturantID");
 
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.Food)
                     .WithMany(p => p.UserOrders)
                     .HasForeignKey(d => d.FoodId)
@@ -282,10 +288,6 @@ namespace Resturant.DataAccess.Context
                 entity.HasNoKey();
 
                 entity.ToView("Viw_ResturantFoods");
-
-                entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(200);
 
                 entity.Property(e => e.Description)
                     .IsRequired()

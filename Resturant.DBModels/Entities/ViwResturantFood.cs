@@ -18,7 +18,6 @@ namespace Resturant.DBModels.Entities
         public Guid ResturantType { get; set; }
         public string ResturantName { get; set; }
         public string PicResturant { get; set; }
-        public string Address { get; set; }
         public double Rate { get; set; }
         public Guid IdResFood { get; set; }
         public Guid ResturantId { get; set; }

@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resturant.CoreBase.WebAPIResponse;
+using Resturant.DBModels.DTO;
+using Resturant.DBModels.Entities;
+using Resturant.Repository.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,39 +16,66 @@ namespace Resturant.WebAPI.Resturant.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Manager,Owner,Root")]
+    [Authorize(Roles = "Admin,Manager,Owner,Root,Resturant")]
     public class ManageProfileController : ControllerBase
     {
-        // GET: api/<ManageProfileController>
+        private readonly Response _response;
+        private readonly IMapper _Mapper;
+        private readonly IUOW _UOW;
+
+        public ManageProfileController(Response response, IMapper mapper, IUOW uOW)
+        {
+            _response = response;
+            _Mapper = mapper;
+            _UOW = uOW;
+        }
+
+
+
+        // GET: api/<ManageFoodTypesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("GetResturantAllFoods")]
+        public async Task<Global_Response_DTO<IEnumerable<ViwResturantFoodDTO>>> GetResturantAllFoods(Guid ResID)
         {
-            return new string[] { "value1", "value2" };
+            return _response.Global_Result(_Mapper.Map<IEnumerable<ViwResturantFoodDTO>>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID)));
         }
 
-        // GET api/<ManageProfileController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("GetResFoodByID")]
+        public async Task<Global_Response_DTO<ViwResturantFoodDTO>> GetFoodByID(Guid ResID, Guid FoodID)
         {
-            return "value";
+            return _response.Global_Result(_Mapper.Map<ViwResturantFoodDTO>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID && x.IdFood == FoodID)));
+        }
+        [HttpGet]
+        [Route("GetResFoodByName")]
+        public async Task<Global_Response_DTO<ViwResturantFoodDTO>> GetFoodByName(Guid ResID, string Name)
+        {
+            return _response.Global_Result(_Mapper.Map<ViwResturantFoodDTO>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID && x.FoodName == Name)));
         }
 
-        // POST api/<ManageProfileController>
+        // POST 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async void Post([FromBody] ViwResturantFoodDTO resFoodDTO)
         {
+            await _UOW._Base<ViwResturantFood>().Insert(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+            await _UOW.SaveDBAsync();
+
         }
 
-        // PUT api/<ManageProfileController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT  
+        [HttpPut]
+        public async void Put([FromBody] ViwResturantFoodDTO resFoodDTO)
         {
+            _UOW._Base<ViwResturantFood>().Update(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+            await _UOW.SaveDBAsync();
         }
 
-        // DELETE api/<ManageProfileController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE 
+        [HttpDelete]
+        public async void Delete([FromBody] ViwResturantFoodDTO resFoodDTO)
         {
+            _UOW._Base<ViwResturantFood>().Delete(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+            await _UOW.SaveDBAsync();
         }
     }
 }

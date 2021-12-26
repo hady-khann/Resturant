@@ -69,7 +69,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
         }
 
-        public string Login(UserDTO user)
+        public string LoginUser(ViwUsersInfo user)
         {
             try
             {
@@ -115,6 +115,55 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             }
 
         }
+
+        //public string LoginResturant(ViwUsersInfo user)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PassWord))
+        //        {
+        //            return "EmptyField";
+        //        }
+        //        //Hash , Login Pass And Replace in UserDTO
+        //        var Password = user.PassWord;
+        //        var hash = _hasher.Hash_Generator(Password);
+        //        if (hash == null)
+        //            return "Hashing Fail";
+        //        user.PassWord = hash;
+
+        //        var Confirm_User_Pass = _UOW._Base<ViwUsersInfo>().FindByConditionAsync(x=>x.UserName==user.UserName  &&  x.PassWord == user.UserName && x.RoleName=="Resturant");
+
+
+        //        if (Confirm_User_Pass != null)
+        //        {
+                    
+        //                var UserId = (Guid)Confirm_User_Pass.Id;
+        //                var userInfoDTO = _UOW._Base<ViwUsersInfo>().FindByID(UserId);
+
+
+        //                var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(userInfoDTO));
+
+        //                if (generatedToken != null)
+        //                {
+        //                    return generatedToken;
+        //                }
+        //                else
+        //                {
+        //                    return "Wrong";
+        //                } 
+        //        }
+        //        else
+        //        {
+        //            return "NullDB";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return "Exception : " + ex.Message;
+        //    }
+
+        //}
+
 
         private void Reg_Operation(UserDTO user)
         {

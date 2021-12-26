@@ -63,22 +63,6 @@ namespace Resturant.Repository.Base
             return contextDB.AsNoTracking();
         }
 
-        //public async Task<IEnumerable<TEntity>> FindAllAsync_Pagination(PaginationDTO pagination)
-        //{
-        //    var skip = (pagination.PageNumber - 1) * pagination.RowNumber;
-        //    var take = pagination.RowNumber;
-
-        //    return await contextDB.Skip(skip).Take(take).ToListAsync();
-        //}
-
-        //public IQueryable<TEntity> FindAll_Pagination(PaginationDTO pagination)
-        //{
-        //    var skip = (pagination.PageNumber - 1) * pagination.RowNumber;
-        //    var take = pagination.RowNumber;
-
-        //    return contextDB.Skip(skip).Take(take).AsNoTracking();
-        //}
-
 
 
         public async Task<TEntity> FindByID(Guid id)
@@ -93,7 +77,7 @@ namespace Resturant.Repository.Base
 
 
 
-        public async Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> filter = null, PaginationDTO Page = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>();
             foreach (var include in includes)
@@ -111,7 +95,14 @@ namespace Resturant.Repository.Base
                 query = orderBy(query);
             }
 
-            return await query.AsNoTracking().ToListAsync();
+            if (Page != null)
+            {
+                return await query.Skip(Page.Skip).Take(Page.Take).AsNoTracking().ToListAsync(); 
+            }
+            else
+                return await query.AsNoTracking().ToListAsync();
+
+
         }
 
 

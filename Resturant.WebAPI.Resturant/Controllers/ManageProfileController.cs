@@ -40,9 +40,9 @@ namespace Resturant.WebAPI.Resturant.Controllers
         // GET: api/<ManageFoodTypesController>
         [HttpGet]
         [Route("GetResturantAllFoods")]
-        public async Task<Global_Response_DTO<IEnumerable<ViwResturantFoodDTO>>> GetResturantAllFoods(Guid ResID)
+        public async Task<Global_Response_DTO<RoleDTO>> GetRoleByID(Guid Id)
         {
-            return _response.Global_Result(_Mapper.Map<IEnumerable<ViwResturantFoodDTO>>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID)));
+            return _response.Global_Result(_Mapper.Map<RoleDTO>(await _UOW._Base<Role>().FindByID(Id)));
         }
 
         [HttpGet]

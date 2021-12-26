@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace Resturant.WebAPI.Resturant.Controllers
 {
+    /// <summary>
+    /// ////////////////////////////////////////////////////////// finished
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Manager,Owner,Root,Resturant")]
@@ -40,49 +43,38 @@ namespace Resturant.WebAPI.Resturant.Controllers
 
         // GET: api/<ManageFoodTypesController>
         [HttpGet]
-        [Route("GetResturantAllFoods")]
-        public async Task<Global_Response_DTO<IEnumerable<ViwResturantFoodDTO>>> GetResturantAllFoods(Guid ResID)
+        [Route("GetAllOrders")]
+        public async Task<Global_Response_DTO<IEnumerable<ViwOrder>>> GetResturantAllFoods(PaginationDTO page)
         {
             var user = _GMethods.GETCurrentUser();
-            return _response.Global_Result(_Mapper.Map<IEnumerable<ViwResturantFoodDTO>>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID)));
+            return _response.Global_Result(await _UOW._Base<ViwOrder>().FindByConditionAsync(x => x.ResturantId==user.ResturantId,page));
         }
+
 
         [HttpGet]
-        [Route("GetResFoodByID")]
-        public async Task<Global_Response_DTO<ViwResturantFoodDTO>> GetFoodByID(Guid ResID, Guid FoodID)
+        [Route("GetOrderByUserID")]
+        public async Task<Global_Response_DTO<IEnumerable<ViwOrder>>> GetRoleByID(Guid Id)
         {
-            return _response.Global_Result(_Mapper.Map<ViwResturantFoodDTO>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID && x.IdFood == FoodID)));
-        }
-        [HttpGet]
-        [Route("GetResFoodByName")]
-        public async Task<Global_Response_DTO<ViwResturantFoodDTO>> GetFoodByName(Guid ResID, string Name)
-        {
-            return _response.Global_Result(_Mapper.Map<ViwResturantFoodDTO>(await _UOW._Base<ViwResturantFood>().FindByConditionAsync(x => x.IdResturant == ResID && x.FoodName == Name)));
-        }
-
-        // POST 
-        [HttpPost]
-        public async void Post([FromBody] ViwResturantFoodDTO resFoodDTO)
-        {
-            await _UOW._Base<ViwResturantFood>().Insert(_Mapper.Map<ViwResturantFood>(resFoodDTO));
-            await _UOW.SaveDBAsync();
+            var user = _GMethods.GETCurrentUser();
+            return _response.Global_Result(await _UOW._Base<ViwOrder>().FindByConditionAsync(x => x.ResturantId == user.ResturantId));
 
         }
-
         // PUT  
         [HttpPut]
-        public async void Put([FromBody] ViwResturantFoodDTO resFoodDTO)
+        public async void Put([FromBody] string Status,Guid orderID)
         {
-            _UOW._Base<ViwResturantFood>().Update(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+            var order = await _UOW._Base<UserOrder>().FindByID(orderID);
+            order.Status = Status;
+            _UOW._Base<UserOrder>().Update(order);
             await _UOW.SaveDBAsync();
         }
 
-        // DELETE 
-        [HttpDelete]
-        public async void Delete([FromBody] ViwResturantFoodDTO resFoodDTO)
-        {
-            _UOW._Base<ViwResturantFood>().Delete(_Mapper.Map<ViwResturantFood>(resFoodDTO));
-            await _UOW.SaveDBAsync();
-        }
+        //// DELETE 
+        //[HttpDelete]
+        //public async void Delete([FromBody] ViwResturantFoodDTO resFoodDTO)
+        //{
+        //    _UOW._Base<ViwResturantFood>().Delete(_Mapper.Map<ViwResturantFood>(resFoodDTO));
+        //    await _UOW.SaveDBAsync();
+        //}
     }
 }

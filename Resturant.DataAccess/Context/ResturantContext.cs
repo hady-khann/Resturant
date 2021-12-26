@@ -21,6 +21,9 @@ namespace Resturant.DataAccess.Context
         {
         }
 
+
+
+
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
         public virtual DbSet<resturant> Resturants { get; set; }
@@ -29,6 +32,7 @@ namespace Resturant.DataAccess.Context
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserOrder> UserOrders { get; set; }
         public virtual DbSet<ViwFood> ViwFoods { get; set; }
+        public virtual DbSet<ViwOrder> ViwOrders { get; set; }
         public virtual DbSet<ViwResturant> ViwResturants { get; set; }
         public virtual DbSet<ViwResturantFood> ViwResturantFoods { get; set; }
         public virtual DbSet<ViwUsersInfo> ViwUsersInfos { get; set; }
@@ -258,6 +262,48 @@ namespace Resturant.DataAccess.Context
                 entity.Property(e => e.TypeId).HasColumnName("TypeID");
             });
 
+            modelBuilder.Entity<ViwOrder>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Viw_Order");
+
+                entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.Avatar)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.FoodId).HasColumnName("Food_Id");
+
+                entity.Property(e => e.FoodName)
+                    .IsRequired()
+                    .HasMaxLength(70);
+
+                entity.Property(e => e.OrderId).HasColumnName("Order_Id");
+
+                entity.Property(e => e.Pic)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.ResturantId).HasColumnName("Resturant_Id");
+
+                entity.Property(e => e.ResturantName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserId).HasColumnName("User_Id");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<ViwResturant>(entity =>
             {
                 entity.HasNoKey();
@@ -360,5 +406,9 @@ namespace Resturant.DataAccess.Context
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+
+
     }
 }

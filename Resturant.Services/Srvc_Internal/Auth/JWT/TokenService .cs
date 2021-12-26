@@ -19,7 +19,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key, string issuer, ViwUserInfoDTO userInfoDTO)
+        public string AuthenticateUser(string key, string issuer, ViwUserInfoDTO userInfoDTO , Guid? returantGUID = null)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
                     new Claim(ClaimTypes.Name, userInfoDTO.UserName),
                     new Claim(ClaimTypes.Role, userInfoDTO.RoleName),
                     new Claim("Id",userInfoDTO.Id.ToString()),
+                    new Claim("ResturantId",returantGUID.ToString()),
                     new Claim("Name", userInfoDTO.UserName),
                     new Claim("Email", userInfoDTO.Email),
                     new Claim("Role", userInfoDTO.RoleName),

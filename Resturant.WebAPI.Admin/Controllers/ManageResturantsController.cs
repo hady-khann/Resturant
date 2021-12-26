@@ -28,7 +28,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         private readonly Response _response;
         private readonly IMapper _Mapper;
-        private IUOW _UOW;
+        private readonly IUOW _UOW;
         public ManageResturantsController(Response response, IMapper mapper, IUOW uOW)
         {
             _response = response;

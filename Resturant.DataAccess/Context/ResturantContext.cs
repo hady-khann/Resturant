@@ -97,15 +97,17 @@ namespace Resturant.DataAccess.Context
                     .HasColumnName("ID")
                     .HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Address)
+                entity.Property(e => e.Avatar)
                     .IsRequired()
                     .HasMaxLength(200);
 
-                entity.Property(e => e.Pic)
-                    .IsRequired()
-                    .HasMaxLength(200);
+                entity.Property(e => e.Rated).HasColumnName("rated");
 
                 entity.Property(e => e.ResturantName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Status)
                     .IsRequired()
                     .HasMaxLength(50);
 
@@ -114,6 +116,12 @@ namespace Resturant.DataAccess.Context
                     .HasForeignKey(d => d.ResturantType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Resturant_FoodType");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Resturants)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Resturant_User");
             });
 
             modelBuilder.Entity<ResturantsFood>(entity =>

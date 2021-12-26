@@ -29,7 +29,7 @@ namespace Resturant.WebAPI.Resturant.Controllers
 
             private readonly Response _response;
             private readonly IMapper _Mapper;
-            private IUOW _UOW;
+            private readonly IUOW _UOW;
 
             public ManageRolesController(Response response, IMapper mapper, IUOW uOW)
             {
@@ -88,3 +88,4 @@ namespace Resturant.WebAPI.Resturant.Controllers
 
         }
     }
+}

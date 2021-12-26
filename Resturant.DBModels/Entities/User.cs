@@ -9,6 +9,7 @@ namespace Resturant.DBModels.Entities
     {
         public User()
         {
+            Resturants = new HashSet<Resturant>();
             UserOrders = new HashSet<UserOrder>();
         }
 
@@ -22,6 +23,7 @@ namespace Resturant.DBModels.Entities
         public bool Status { get; set; }
 
         public virtual Role Role { get; set; }
+        public virtual ICollection<Resturant> Resturants { get; set; }
         public virtual ICollection<UserOrder> UserOrders { get; set; }
     }
 }

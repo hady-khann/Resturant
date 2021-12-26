@@ -1,7 +1,7 @@
 ﻿using Resturant.Repository.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Resturant.Repository.UOW;
+using Resturant.Repository.UW;
 using Resturant.Repository.Base;
 using Resturant.DataAccess.Context;
 
@@ -14,7 +14,7 @@ namespace Resturant.Repository.Installer
         {
 
 
-            services.AddScoped<IUOW, Resturant.Repository.UOW.UOW>();
+            services.AddScoped<_IUW, Resturant.Repository.UW.UW>();
 
             //services.AddScoped<IBase_Repo<TEntity>, Base_Repo<TEntity, ResturantContext>>();
 

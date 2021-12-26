@@ -10,9 +10,9 @@ using Resturant.DataAccess.Context;
 using Resturant.Repository.Interfaces;
 using Resturant.Repository.Base;
 
-namespace Resturant.Repository.UOW
+namespace Resturant.Repository.UW
 {
-    public interface IUOW
+    public interface _IUW
     {
         
         IBase_Repo<TEntity> _Base<TEntity>() where TEntity : class;

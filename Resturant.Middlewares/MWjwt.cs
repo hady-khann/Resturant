@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Resturant.DBModels.DTO.Auth;
 using Microsoft.AspNetCore.Builder;
-using Resturant.Repository.UOW;
+using Resturant.Repository.UW;
 using Resturant.DataAccess.Context;
 
 namespace Resturant.Middlewares
@@ -22,17 +22,17 @@ namespace Resturant.Middlewares
         private readonly RequestDelegate _next;
         private IConfiguration _config;
         
-        private IUOW _UOW;
+        private _IUW _UW;
 
         public MWjwt(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IConfiguration config ,IUOW uow)
+        public async Task Invoke(HttpContext context, IConfiguration config ,_IUW UW)
         {
             _config = config;
-            _UOW = uow;
+            _UW = UW;
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
 
@@ -68,7 +68,7 @@ namespace Resturant.Middlewares
 
 
                 var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value);
-                var getUser = await _UOW._Base<User>().FindByID((Guid)userId);
+                var getUser = await _UW._Base<User>().FindByID((Guid)userId);
 
 
                 context.Items["ViwUserInfoDTO"] = new UserDTO

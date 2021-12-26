@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 using Resturant.Repository.Implements;
 using AutoMapper;
 
-namespace Resturant.Repository.UOW
+namespace Resturant.Repository.UW
 {
-    public class UOW : IUOW
+    public class UW : _IUW
     {
         public ResturantContext _context { get; }
         private readonly IMapper _Mapper;
@@ -21,7 +21,7 @@ namespace Resturant.Repository.UOW
         private IRole_Repo _RoleRep;
         private IUserInfo_Repo _UserInfoRep;
 
-        public UOW(ResturantContext context,IMapper Mapper)
+        public UW(ResturantContext context,IMapper Mapper)
         {
             this._context = context;
             _Mapper = Mapper;

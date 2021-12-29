@@ -105,6 +105,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // DELETE api/<ManageUsersController>/5
         [HttpDelete]
+        [Route("DeleteUser")]
         public async void Delete([FromBody] ViwUserInfoDTO UserInfoDTO)
         {
             var CurrentUser = _GMethods.GETCurrentUser();

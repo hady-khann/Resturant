@@ -61,6 +61,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // POST 
         [HttpPost]
+        [Route("AddResturant")]
         public async void Post([FromBody] ResturantDTO resturantdto)
         {
             await _UW._Base<resturant>().Insert(_Mapper.Map<resturant>(resturantdto));
@@ -70,6 +71,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // PUT  
         [HttpPut]
+        [Route("UpdateResturant")]
         public async void Put([FromBody] ResturantDTO resturantdto)
         {
             _UW._Base<resturant>().Update(_Mapper.Map<resturant>(resturantdto));
@@ -78,6 +80,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // DELETE 
         [HttpDelete]
+        [Route("DeleteResturant")]
         public async void Delete([FromBody] ResturantDTO resturantdto)
         {
             _UW._Base<resturant>().Delete(_Mapper.Map<resturant>(resturantdto));

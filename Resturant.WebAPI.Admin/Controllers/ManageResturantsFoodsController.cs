@@ -60,23 +60,16 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // POST 
         [HttpPost]
+        [Route("AddResFood")]
         public async void Post([FromBody] ViwResturantFoodDTO resFoodDTO)
         {
             await _UW._Base<ViwResturantFood>().Insert(_Mapper.Map<ViwResturantFood>(resFoodDTO));
             await _UW.SaveDBAsync();
 
         }
-
-        // PUT  
-        [HttpPut]
-        public async void Put([FromBody] ViwResturantFoodDTO resFoodDTO)
-        {
-            _UW._Base<ViwResturantFood>().Update(_Mapper.Map<ViwResturantFood>(resFoodDTO));
-            await _UW.SaveDBAsync();
-        }
-
         // DELETE 
         [HttpDelete]
+        [Route("DeleteResFood")]
         public async void Delete([FromBody] ViwResturantFoodDTO resFoodDTO)
         {
             _UW._Base<ViwResturantFood>().Delete(_Mapper.Map<ViwResturantFood>(resFoodDTO));

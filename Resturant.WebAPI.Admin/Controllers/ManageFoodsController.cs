@@ -27,21 +27,25 @@ namespace Resturant.WebAPI.Admin.Controllers
     public class ManageFoodsController : ControllerBase
     {
         private readonly Response _response;
+        private readonly IMapper _Mapper;
         private _IUW _UW;
 
-        public ManageFoodsController(Response response, _IUW UW)
+        public ManageFoodsController(Response response, IMapper mapper, _IUW uW)
         {
             _response = response;
-            _UW = UW;
+            _Mapper = mapper;
+            _UW = uW;
         }
+
+
 
 
 
 
         // GET List
         [HttpGet]
-        [Route("GetFoodAllFoods")]
-        public Global_Response_DTO<IEnumerable<ViwFood>> GetAllFoods(PaginationDTO Page)
+        [Route("GetAllFoods")]
+        public Global_Response_DTO<IEnumerable<ViwFood>> GetAllFoods(PaginationDTO? Page)
         {
             var Foods = _UW._Base<ViwFood>().FindAll().Skip(Page.Skip).Take(Page.Take).ToList();
             return _response.Global_Result<IEnumerable<ViwFood>>(Foods);
@@ -68,22 +72,26 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // POST ----- add new food
         [HttpPost]
-        public async void Add([FromBody] Food food)
+        [Route("AddFood")]
+        public async void Add([FromBody] FoodDTO food)
         {
-            await _UW._Base<Food>().Insert(food);
+            await _UW._Base<Food>().Insert(_Mapper.Map<Food>(food));
             await _UW.SaveDBAsync();
         }
 
         // PUT ---- update food
         [HttpPut]
-        public async void Update([FromBody] Food food)
+        [Route("UpdateFood")]
+
+        public async void Update([FromBody] FoodDTO food)
         {
-            _UW._Base<Food>().Update(food);
+            _UW._Base<Food>().Update(_Mapper.Map<Food>(food));
             await _UW.SaveDBAsync();
         }
 
         // DELETE -
         [HttpDelete]
+        [Route("DeleteFood")]
         public async void Delete([FromBody] FoodDTO foodDto)
         {
             Food food = await _UW._Base<Food>().FindByID(foodDto.Id);

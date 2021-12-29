@@ -105,29 +105,5 @@ namespace Resturant.Repository.Base
 
         }
 
-
-
-        //public enum ConditionType
-        //{
-        //    Equal,
-        //}
-
-
-        //public async Task<IEnumerable<TEntity>> FindByConditionAsync<TEntity>(string fieldName, string value, ConditionType conditionType)
-        //{
-        //    IQueryable<TEntity> query = _context.Set<TEntity>();
-
-
-
-
-
-        //    if (orderBy != null)
-        //    {
-        //        query = orderBy(query);
-        //    }
-
-        //    return await query.AsNoTracking().ToListAsync();
-        //}
-
     }
 }

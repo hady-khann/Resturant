@@ -56,6 +56,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // POST 
         [HttpPost]
+        [Route("AddRole")]
         public async void Post([FromBody] RoleDTO role)
         {
             await _UW._Base<Role>().Insert(_Mapper.Map<Role>(role));
@@ -65,6 +66,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // PUT  
         [HttpPut]
+        [Route("UpdateRole")]
         public async void Put([FromBody] RoleDTO role)
         {
             _UW._Base<Role>().Update(_Mapper.Map<Role>(role));
@@ -73,6 +75,7 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         // DELETE 
         [HttpDelete]
+        [Route("DeleteRole")]
         public async void Delete([FromBody] RoleDTO role)
         {
             _UW._Base<Role>().Delete(_Mapper.Map<Role>(role));

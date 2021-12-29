@@ -42,40 +42,46 @@ namespace Resturant.WebAPI.Admin.Controllers
         }
         [HttpGet]
         [Route("GetFoodTypesByID")]
-        public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID(Guid Id)
+        public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID([FromBody] Guid Id)
         {
             return _response.Global_Result(await _UW._Base<FoodType>().FindByID(Id));
         }
         [HttpGet]
         [Route("GetFoodTypesByName")]
-        public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID(String Name)
+        public Global_Response_DTO<FoodType> GetFoodTypesByName([FromBody] String Name)
         {
-            return _response.Global_Result(await _UW._Base<FoodType>().FindByConditionAsync(x=>x.Type==Name) as FoodType);
+            return _response.Global_Result(_UW._Base<FoodType>().FindByConditionAsync(x=>x.Type==Name).Result.FirstOrDefault());
         }
 
         // POST api/<ManageFoodTypesController>
         [HttpPost]
+        [Route("AddFoodType")]
         public async void Post([FromBody] FoodType FTypes)
         {
+            FTypes.Id = Guid.NewGuid();
             await _UW._Base<FoodType>().Insert(FTypes);
-            await _UW.SaveDBAsync();
+            _UW.SaveDB();
                 
         }
 
         // PUT api/<ManageFoodTypesController>/5
         [HttpPut]
-        public async void Put([FromBody] FoodType FTypes)
+        [Route("UpdateFoodType")]
+
+        public void Put([FromBody] FoodType FTypes)
         {
             _UW._Base<FoodType>().Update(FTypes);
-            await _UW.SaveDBAsync();
+            _UW.SaveDB();
         }
 
         // DELETE api/<ManageFoodTypesController>/5
         [HttpDelete]
-        public async void Delete([FromBody] FoodType FTypes)
+        [Route("DeleteFoodType")]
+
+        public void Delete([FromBody] FoodType FTypes)
         {
             _UW._Base<FoodType>().Delete(FTypes);
-            await _UW.SaveDBAsync();
+            _UW.SaveDBAsync();
         }
     }
 }

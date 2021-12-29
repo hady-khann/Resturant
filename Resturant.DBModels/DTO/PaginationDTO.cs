@@ -8,8 +8,8 @@ namespace Resturant.DBModels.DTO
 {
     public class PaginationDTO
     {
-        public int PageNumber { get; set; }
-        public int RowNumber { get; set; }
+        public int PageNumber { get; set; } = 1;
+        public int RowNumber { get; set; } = 10;
         public int Skip => (PageNumber - 1) * RowNumber;
         public int Take => RowNumber;
     }

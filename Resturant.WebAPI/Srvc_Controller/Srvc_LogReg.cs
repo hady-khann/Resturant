@@ -96,11 +96,11 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     if (usersInfo.RoleName == "Resturant")
                     {
                         var resturant = _UW._Base<resturant>().FindByConditionAsync(x => x.UserId == UserId).Result.FirstOrDefault();
-                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(user), resturant.Id);
+                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),user, resturant.Id);
                     }
                     else
                     {
-                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(usersInfo));
+                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), usersInfo);
                     }
 
                     if (generatedToken != null)

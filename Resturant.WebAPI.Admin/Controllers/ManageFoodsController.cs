@@ -45,7 +45,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         // GET List
         [HttpGet]
         [Route("GetAllFoods")]
-        public Global_Response_DTO<IEnumerable<ViwFood>> GetAllFoods(PaginationDTO? Page)
+        public Global_Response_DTO<IEnumerable<ViwFood>> GetAllFoods(PaginationDTO Page)
         {
             var Foods = _UW._Base<ViwFood>().FindAll().Skip(Page.Skip).Take(Page.Take).ToList();
             return _response.Global_Result<IEnumerable<ViwFood>>(Foods);
@@ -54,19 +54,17 @@ namespace Resturant.WebAPI.Admin.Controllers
         // get food by id
         [HttpGet]
         [Route("GetFoodByID")]
-        public async Task<Global_Response_DTO<ViwFood>> GetFoodByID(Guid Id)
+        public async Task<Global_Response_DTO<ViwFood>> GetFoodByID([FromBody]Guid Id)
         {
-            var Foods = await _UW._Base<ViwFood>().FindByID(Id);
-            return _response.Global_Result(Foods);
-
+            var resual = await _UW._Base<ViwFood>().FindByConditionAsync(x => x.Id == Id).Result.FirstOrDefault();
+            return _response.Global_Result(resual);
         }
 
         [HttpGet]
         [Route("GetFoodByName")]
-        public async Task<Global_Response_DTO<ViwFood>> GetFoodByName(String Name)
+        public Global_Response_DTO<ViwFood> GetFoodByName([FromBody]String Name)
         {
-            var Foods = await _UW._Base<ViwFood>().FindByConditionAsync(x=>x.FoodName==Name);
-            return _response.Global_Result(Foods as ViwFood);
+            return _response.Global_Result(_UW._Base<ViwFood>().FindByConditionAsync(x => x.FoodName == Name).Result.FirstOrDefault());
         }
 
 
@@ -76,27 +74,28 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async void Add([FromBody] FoodDTO food)
         {
             await _UW._Base<Food>().Insert(_Mapper.Map<Food>(food));
-            await _UW.SaveDBAsync();
+            _UW.SaveDB();
         }
 
         // PUT ---- update food
         [HttpPut]
         [Route("UpdateFood")]
 
-        public async void Update([FromBody] FoodDTO food)
+        public void Update([FromBody] FoodDTO food)
         {
             _UW._Base<Food>().Update(_Mapper.Map<Food>(food));
-            await _UW.SaveDBAsync();
+           _UW.SaveDB();
         }
 
         // DELETE -
         [HttpDelete]
         [Route("DeleteFood")]
-        public async void Delete([FromBody] FoodDTO foodDto)
+        public async Task Delete([FromBody] FoodDTO foodDto)
         {
             Food food = await _UW._Base<Food>().FindByID(foodDto.Id);
-             _UW._Base<Food>().Delete(food);
-            await _UW.SaveDBAsync();
+
+            _UW._Base<Food>().Delete(food);
+            _UW.SaveDB();
         }
     }
 }

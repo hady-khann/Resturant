@@ -28,6 +28,22 @@ namespace Resturant.DataAccess.Context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
         public virtual DbSet<resturant> Resturants { get; set; }
@@ -64,8 +80,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(300);
 
                 entity.Property(e => e.FoodName)
                     .IsRequired()
@@ -73,7 +88,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Pic)
                     .IsRequired()
-                    .HasMaxLength(150);
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.TypeId).HasColumnName("TypeID");
 
@@ -246,8 +261,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(300);
 
                 entity.Property(e => e.FoodName)
                     .IsRequired()
@@ -257,7 +271,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Pic)
                     .IsRequired()
-                    .HasMaxLength(150);
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.Type)
                     .IsRequired()
@@ -280,8 +294,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(300);
 
                 entity.Property(e => e.FoodId).HasColumnName("Food_Id");
 
@@ -293,7 +306,7 @@ namespace Resturant.DataAccess.Context
 
                 entity.Property(e => e.Pic)
                     .IsRequired()
-                    .HasMaxLength(150);
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.ResturantId).HasColumnName("Resturant_Id");
 
@@ -414,6 +427,42 @@ namespace Resturant.DataAccess.Context
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -11,6 +11,7 @@ namespace Resturant.DBModels.DTO
         public Guid UserId { get; set; }
         public Guid ResturantId { get; set; }
         public Guid FoodId { get; set; }
+        public Guid Code { get; set; }
         public int FoodCount { get; set; }
     }
 }

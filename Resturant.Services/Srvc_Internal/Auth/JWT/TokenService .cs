@@ -11,6 +11,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.DTO;
+using Resturant.DBModels.Entities;
 
 namespace Resturant.Services.Srvc_Internal.Auth.JWT
 
@@ -19,7 +20,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key, string issuer, ViwUserInfoDTO userInfoDTO , Guid? returantGUID = null)
+        public string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfoDTO , Guid? returantGUID = null)
         {
             try
             {

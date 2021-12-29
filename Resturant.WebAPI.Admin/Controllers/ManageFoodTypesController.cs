@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Resturant.WebAPI.Admin.Controllers
 {
     /// <summary>
-    /// ////////////////////////////////////////////////////////// finished
+    /// ////////////////////////////////////////////////////////// finished / Tested
     /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
@@ -50,7 +50,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         [Route("GetFoodTypesByName")]
         public Global_Response_DTO<FoodType> GetFoodTypesByName([FromBody] String Name)
         {
-            return _response.Global_Result(_UW._Base<FoodType>().FindByConditionAsync(x=>x.Type==Name).Result.FirstOrDefault());
+            return _response.Global_Result(_UW._Base<FoodType>().FindByConditionAsync(x => x.Type == Name).Result.FirstOrDefault());
         }
 
         // POST api/<ManageFoodTypesController>

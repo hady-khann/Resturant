@@ -71,7 +71,7 @@ namespace Resturant.WebAPI.Resturant.Controllers
 
         //// DELETE 
         //[HttpDelete]
-        //public async void Delete([FromBody] ViwResturantFoodDTO resFoodDTO)
+        //public async void Delete([FromBody] ViwResturantFood resFoodDTO)
         //{
         //    _UW._Base<ViwResturantFood>().Delete(_Mapper.Map<ViwResturantFood>(resFoodDTO));
         //    await _UW.SaveDBAsync();

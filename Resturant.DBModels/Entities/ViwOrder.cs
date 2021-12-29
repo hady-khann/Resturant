@@ -22,5 +22,6 @@ namespace Resturant.DBModels.Entities
         public double Rate { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
+        public Guid Code { get; set; }
     }
 }

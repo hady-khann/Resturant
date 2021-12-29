@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Resturant.DBModels.Entities;
+using System;
+using System.Text.Json.Serialization;
 
 namespace Resturant.DBModels.DTO.Auth
 {
-    public class AuthDTO
+
+    public class UserDTO
     {
         public Guid Id { get; set; }
         public Guid RoleId { get; set; }
@@ -14,8 +13,7 @@ namespace Resturant.DBModels.DTO.Auth
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool Status { get; set; }
-        public string Role { get; set; }
-        public int? Level { get; set; }
-        public Guid? ResturantId { get; set; }
     }
+
+
 }

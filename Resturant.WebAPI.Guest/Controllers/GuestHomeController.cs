@@ -26,17 +26,17 @@ namespace Resturant.WebAPI.Guest.Controllers
         [Authorize(Roles = "Guest,Resturant,Admin")] //Guest
         [Route("Guest/Test")]
         [HttpPost]
-        public Global_Response_DTO<UserDTO> test()
+        public Global_Response_DTO<AuthDTO> test()
         {
             try
             {
                 var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.HttpContext.Items["ViwUserInfoDTO"] as UserDTO;
-                return _response.Global_Result<UserDTO>(UserFromcontext,"token   : " + token + "  email : " + UserFromcontext.Email + "   role: " + UserFromcontext.Role+ "   uid  : " + UserFromcontext.Id + "  un : " + UserFromcontext.UserName);
+                var UserFromcontext = _httpContext.HttpContext.Items["ViwUserInfoDTO"] as AuthDTO;
+                return _response.Global_Result<AuthDTO>(UserFromcontext,"token   : " + token + "  email : " + UserFromcontext.Email + "   role: " + UserFromcontext.RoleId+ "   uid  : " + UserFromcontext.Id + "  un : " + UserFromcontext.UserName);
             }
             catch (Exception)
             {
-                return _response.Global_Result<UserDTO>(null);
+                return _response.Global_Result<AuthDTO>(null);
             }
         }
 

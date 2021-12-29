@@ -18,6 +18,6 @@ namespace Resturant.CoreBase.Global_Methods
             _ContextAccessor = contextAccessor;
         }
 
-        public UserDTO GETCurrentUser() => _ContextAccessor.HttpContext.Items["ViwUserInfoDTO"] as UserDTO;
+        public AuthDTO GETCurrentUser() => _ContextAccessor.HttpContext.Items["ViwUserInfoDTO"] as AuthDTO;
     }
 }

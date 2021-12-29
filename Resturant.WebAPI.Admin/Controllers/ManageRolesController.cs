@@ -21,6 +21,7 @@ namespace Resturant.WebAPI.Admin.Controllers
     [Route("Admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "Root")]
+    //[AllowAnonymous]
 
     public class ManageRolesController : ControllerBase
     {

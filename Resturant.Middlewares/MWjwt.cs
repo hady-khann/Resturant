@@ -21,7 +21,7 @@ namespace Resturant.Middlewares
 
         private readonly RequestDelegate _next;
         private IConfiguration _config;
-        
+
         private _IUW _UW;
 
         public MWjwt(RequestDelegate next)
@@ -29,7 +29,7 @@ namespace Resturant.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IConfiguration config ,_IUW UW)
+        public async Task Invoke(HttpContext context, IConfiguration config, _IUW UW)
         {
             _config = config;
             _UW = UW;
@@ -71,18 +71,25 @@ namespace Resturant.Middlewares
                 var getUser = await _UW._Base<User>().FindByID((Guid)userId);
 
 
-                context.Items["ViwUserInfoDTO"] = new UserDTO
+
+                Guid? resid=null;
+                if (jwtToken.Claims.First(x => x.Type == "ResturantId").Value != "")
+                {
+                    resid = Guid.Parse(jwtToken.Claims.First(x => x.Type == "ResturantId").Value);
+                }
+
+                context.Items["ViwUserInfoDTO"] = new AuthDTO
                 {
                     Id = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value),
                     UserName = jwtToken.Claims.First(x => x.Type == "Name").Value,
                     Email = jwtToken.Claims.First(x => x.Type == "Email").Value,
-                    Status =(jwtToken.Claims.First(x => x.Type == "Status").Value)=="True"?true:false,
+                    Status = (jwtToken.Claims.First(x => x.Type == "Status").Value) == "True" ? true : false,
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                     Level = int.Parse(jwtToken.Claims.First(x => x.Type == "Level").Value),
-                    ResturantId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "ResturantId").Value),
-                }; 
+                    ResturantId = resid ,
+                };
             }
-            catch (Exception)
+            catch (Exception x)
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes

@@ -26,17 +26,17 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
         private readonly IHasher _hasher;
         private readonly _IUW _UW;
         private readonly IMapper _Mapper;
-        private readonly HttpContextAccessor _httpContextAccessor;
+        private readonly HttpContextAccessor _httpContext;
 
 
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, _IUW UW , IMapper Mapper , IHasher hasher,HttpContextAccessor httpContextAccessor)
+        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, _IUW UW, IMapper Mapper, IHasher hasher, HttpContextAccessor httpContext)
         {
             _config = config;
             _hasher = hasher;
             _UW = UW;
             _Mapper = Mapper;
             _tokenService = tokenService;
-            _httpContextAccessor = httpContextAccessor;
+            _httpContext = httpContext;
         }
 
         public string Register(UserDTO user)
@@ -70,7 +70,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
         }
 
-        public string LoginUser(ViwUsersInfo user)
+        public string Login(ViwUsersInfo user)
         {
             try
             {
@@ -85,19 +85,27 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     return "Hashing Fail";
                 user.PassWord = hash;
 
-                var Confirm_User_Pass = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.UserName == user.UserName && x.PassWord == user.UserName && x.RoleName == "Guest").Result.FirstOrDefault();
+                var usersInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.UserName == user.UserName && x.PassWord == user.PassWord).Result.FirstOrDefault();
 
 
-                if (Confirm_User_Pass != null)
+                if (usersInfo != null)
                 {
-                    var UserId =(Guid) Confirm_User_Pass.Id;
-                    var userInfoDTO = _UW._Base<ViwUsersInfo>().FindByID(UserId);
+                    var UserId = (Guid)usersInfo.Id;
 
-
-                    var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(userInfoDTO));
+                    string generatedToken;
+                    if (usersInfo.RoleName == "Resturant")
+                    {
+                        var resturant = _UW._Base<resturant>().FindByConditionAsync(x => x.UserId == UserId).Result.FirstOrDefault();
+                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(user), resturant.Id);
+                    }
+                    else
+                    {
+                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(usersInfo));
+                    }
 
                     if (generatedToken != null)
                     {
+                        _httpContext.HttpContext.Request.Headers["Role"] = usersInfo.RoleName;
                         return generatedToken;
                     }
                     else
@@ -116,55 +124,6 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             }
 
         }
-
-        public string LoginResturant(ViwUsersInfo user)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.PassWord))
-                {
-                    return "EmptyField";
-                }
-                //Hash , Login Pass And Replace in UserDTO
-                var Password = user.PassWord;
-                var hash = _hasher.Hash_Generator(Password);
-                if (hash == null)
-                    return "Hashing Fail";
-                user.PassWord = hash;
-
-                var Confirm_User_Pass = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.UserName == user.UserName && x.PassWord == user.UserName && x.RoleName == "Resturant").Result.FirstOrDefault();
-
-
-                if (Confirm_User_Pass != null)
-                {
-
-                    var UserId = Confirm_User_Pass.Id;
-                    var userInfo = _UW._Base<ViwUsersInfo>().FindByID(UserId).Result;
-
-                    var resturant = _UW._Base<resturant>().FindByConditionAsync(x=>x.UserId==userInfo.Id).Result.FirstOrDefault();
-                    var generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), _Mapper.Map<ViwUserInfoDTO>(userInfo), resturant.Id);
-
-                    if (generatedToken != null)
-                    {
-                        return generatedToken;
-                    }
-                    else
-                    {
-                        return "Wrong";
-                    }
-                }
-                else
-                {
-                    return "NullDB";
-                }
-            }
-            catch (Exception ex)
-            {
-                return "Exception : " + ex.Message;
-            }
-
-        }
-
 
         private void Reg_Operation(UserDTO user)
         {
@@ -180,8 +139,9 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 user.Password = hash;
 
                 //Get RoleID From Roles
-                user.Role = _UW._Role.GetRoleByName("Guest").ToString();
+                user.RoleId = _UW._Base<Role>().FindByConditionAsync(x => x.RoleName == "Guest").Result.FirstOrDefault().Id;
                 //Insert User
+
                 _UW._Base<User>().Insert(_Mapper.Map<User>(user));
                 _UW.SaveDB();
             }

@@ -64,15 +64,13 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
 
         [AllowAnonymous]
-        [Route("Auth/loginUser")]
+        [Route("Auth/login")]
         [HttpPost]
-        public Global_Response_DTO<string> LoginUser([FromBody] ViwUsersInfo user)
+        public Global_Response_DTO<string> Login([FromBody] ViwUsersInfo user)
         {
             try
             {
-                var Login_Resualt_Token = _Srvc_LogReg.LoginUser(user);
-                var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
-                user.Id = FullUserINFO.Id;
+                var Login_Resualt_Token = _Srvc_LogReg.Login(user);
 
                 if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
                 {
@@ -82,7 +80,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 {
                     _httpContext.HttpContext.Request.Headers["Authorization"] = Login_Resualt_Token;
                     _httpContext.HttpContext.Session.SetString("Token",Login_Resualt_Token);
-                    return _response.Global_Result<String>(Login_Resualt_Token);
+                    return _response.Global_Result<String>(Login_Resualt_Token, _httpContext.HttpContext.Request.Headers["Role"].ToString());
                 }
             }
             catch (Exception)
@@ -90,52 +88,23 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 return _response.Global_Result<String>(null);
             }
         }
-
-        [AllowAnonymous]
-        [Route("Auth/loginResturant")]
-        [HttpPost]
-        public Global_Response_DTO<string> LoginResturant([FromBody] ViwUsersInfo user)
-        {
-            try
-            {
-                var Login_Resualt_Token = _Srvc_LogReg.LoginResturant(user);
-                var FullUserINFO = _Srvc_LogReg.GetUserInfo(user);
-                user.Id = FullUserINFO.Id;
-
-                if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
-                {
-                    return _response.Global_Result<String>(null);
-                }
-                else
-                {
-                    _httpContext.HttpContext.Request.Headers["Authorization"] = Login_Resualt_Token;
-                    _httpContext.HttpContext.Session.SetString("Token", Login_Resualt_Token);
-                    return _response.Global_Result<String>(Login_Resualt_Token);
-                }
-            }
-            catch (Exception)
-            {
-                return _response.Global_Result<String>(null);
-            }
-        }
-
 
 
         //[Authorize(Roles = "Guest")]
         [AllowAnonymous]
         [Route("Auth/Test")]
         [HttpPost]
-        public Global_Response_DTO<UserDTO> test()
+        public Global_Response_DTO<AuthDTO> test()
         {
             try
             {
                 //var token = Request.HttpContext.Session.GetString("Token") ?? Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var UserFromcontext = _httpContext.HttpContext.Items["ViwUserInfoDTO"] as UserDTO;
-                return _response.Global_Result<UserDTO>(UserFromcontext);
+                var UserFromcontext = _httpContext.HttpContext.Items["ViwUserInfoDTO"] as AuthDTO;
+                return _response.Global_Result<AuthDTO>(UserFromcontext);
             }
             catch (Exception)
             {
-                return _response.Global_Result<UserDTO>(null);
+                return _response.Global_Result<AuthDTO>(null);
             }
         }
 

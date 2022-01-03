@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Resturant.CoreBase.Global_Methods;
 using Resturant.CoreBase.WebAPIResponse;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace Resturant.WebAPI.Admin.Controllers
 {
     /// <summary>
-    /// ////////////////////////////////////////////////////////// finished / Tested
+    /// ////////////////////////////////////////////////////////// finished / Tested 1
     /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
@@ -23,43 +24,47 @@ namespace Resturant.WebAPI.Admin.Controllers
     public class ManageFoodTypesController : ControllerBase
     {
         private readonly Response _response;
+        private readonly IMapper _Mapper;
         private _IUW _UW;
 
-        public ManageFoodTypesController(Response response, _IUW UW)
+        public ManageFoodTypesController(Response response, IMapper mapper, _IUW uW)
         {
             _response = response;
-            _UW = UW;
+            _Mapper = mapper;
+            _UW = uW;
         }
 
+
+        
 
 
         // GET: api/<ManageFoodTypesController>
         [HttpGet]
         [Route("GetFoodTypes")]
-        public Global_Response_DTO<IEnumerable<FoodType>> GetFoodTypes(PaginationDTO page)
+        public Global_Response_DTO<IEnumerable<FoodTypeDTO>> GetFoodTypes(PaginationDTO page)
         {
-            return _response.Global_Result<IEnumerable<FoodType>>(_UW._Base<FoodType>().FindAll().Skip(page.Skip).Take(page.Take).ToList());
+            return _response.Global_Result(_Mapper.Map<IEnumerable<FoodTypeDTO>>(_UW._Base<FoodType>().FindAll().Skip(page.Skip).Take(page.Take).ToList()));
         }
         [HttpGet]
         [Route("GetFoodTypesByID")]
-        public async Task<Global_Response_DTO<FoodType>> GetFoodTypesByID([FromBody] Guid Id)
+        public async Task<Global_Response_DTO<FoodTypeDTO>> GetFoodTypesByID([FromBody] Guid Id)
         {
-            return _response.Global_Result(await _UW._Base<FoodType>().FindByID(Id));
+            return _response.Global_Result(_Mapper.Map<FoodTypeDTO>(await _UW._Base<FoodType>().FindByID(Id)));
         }
         [HttpGet]
         [Route("GetFoodTypesByName")]
-        public Global_Response_DTO<FoodType> GetFoodTypesByName([FromBody] String Name)
+        public Global_Response_DTO<FoodTypeDTO> GetFoodTypesByName([FromBody] String Name)
         {
-            return _response.Global_Result(_UW._Base<FoodType>().FindByConditionAsync(x => x.Type == Name).Result.FirstOrDefault());
+            return _response.Global_Result(_Mapper.Map<FoodTypeDTO>(_UW._Base<FoodType>().FindByConditionAsync(x => x.Type == Name).Result.FirstOrDefault()));
         }
 
         // POST api/<ManageFoodTypesController>
         [HttpPost]
         [Route("AddFoodType")]
-        public async void Post([FromBody] FoodType FTypes)
+        public async void Post([FromBody] FoodTypeDTO FTypes)
         {
             FTypes.Id = Guid.NewGuid();
-            await _UW._Base<FoodType>().Insert(FTypes);
+            await _UW._Base<FoodType>().Insert(_Mapper.Map<FoodType>(FTypes));
             _UW.SaveDB();
                 
         }
@@ -68,9 +73,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         [HttpPut]
         [Route("UpdateFoodType")]
 
-        public void Put([FromBody] FoodType FTypes)
+        public void Put([FromBody] FoodTypeDTO FTypes)
         {
-            _UW._Base<FoodType>().Update(FTypes);
+            _UW._Base<FoodType>().Update(_Mapper.Map<FoodType>(FTypes));
             _UW.SaveDB();
         }
 
@@ -78,9 +83,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         [HttpDelete]
         [Route("DeleteFoodType")]
 
-        public void Delete([FromBody] FoodType FTypes)
+        public void Delete([FromBody] FoodTypeDTO FTypes)
         {
-            _UW._Base<FoodType>().Delete(FTypes);
+            _UW._Base<FoodType>().Delete(_Mapper.Map<FoodType>(FTypes));
             _UW.SaveDBAsync();
         }
     }

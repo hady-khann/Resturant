@@ -23,6 +23,22 @@ namespace Resturant.DBModels.AutoMaping
             CreateMap<Food, FoodDTO>();
             CreateMap<FoodDTO, Food>();
 
+            CreateMap<FoodType, FoodTypeDTO>();
+            CreateMap<FoodTypeDTO, FoodType>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

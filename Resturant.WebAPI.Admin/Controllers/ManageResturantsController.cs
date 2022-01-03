@@ -6,6 +6,7 @@ using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.Entities;
 using Resturant.Repository.UW;
+using Resturant.Services.Srvc_Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,16 +26,23 @@ namespace Resturant.WebAPI.Admin.Controllers
 
     public class ManageResturantsController : ControllerBase
     {
-
+        private readonly IUser_Srvc _SrvcUser;
         private readonly Response _response;
         private readonly IMapper _Mapper;
         private readonly _IUW _UW;
-        public ManageResturantsController(Response response, IMapper mapper, _IUW UW)
+
+        public ManageResturantsController(IUser_Srvc srvcUser, Response response, IMapper mapper, _IUW uW)
         {
+            _SrvcUser = srvcUser;
             _response = response;
             _Mapper = mapper;
-            _UW = UW;
+            _UW = uW;
         }
+
+
+
+
+
 
 
         // GET: api/<ManageFoodTypesController>
@@ -59,6 +67,30 @@ namespace Resturant.WebAPI.Admin.Controllers
             return _response.Global_Result(_Mapper.Map<ResturantDTO>(_UW._Base<resturant>().FindByConditionAsync(x=>x.ResturantName==name)));
         }
 
+
+        [HttpGet]
+        [Route("GetUserRequests")]
+        public Global_Response_DTO<IEnumerable<ViwUsersInfo>> GetUserRequests()
+        {
+            var x = _SrvcUser.GetResturantRequestedUsers();
+            var AllUsersInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.RoleName=="sss").Result;
+
+            return _response.Global_Result(AllUsersInfo);
+        }
+
+        //[HttpPost]
+        //[Route("PromoteUseToResturant")]
+        //public Global_Response_DTO<IEnumerable<ViwUsersInfo>> PromoteUseToResturant([FromBody] Guid ID)
+        //{
+        //    var UserInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.Id == ID).Result.FirstOrDefault();
+        //    ret
+        //    if (UserInfo.RoleName == "Resturant")
+        //    {
+
+        //    }
+        //}
+
+
         // POST 
         [HttpPost]
         [Route("AddResturant")]
@@ -66,25 +98,24 @@ namespace Resturant.WebAPI.Admin.Controllers
         {
             await _UW._Base<resturant>().Insert(_Mapper.Map<resturant>(resturantdto));
             await _UW.SaveDBAsync();
-
         }
 
         // PUT  
         [HttpPut]
         [Route("UpdateResturant")]
-        public async void Put([FromBody] ResturantDTO resturantdto)
+        public void Put([FromBody] ResturantDTO resturantdto)
         {
             _UW._Base<resturant>().Update(_Mapper.Map<resturant>(resturantdto));
-            await _UW.SaveDBAsync();
+            _UW.SaveDB();
         }
 
         // DELETE 
         [HttpDelete]
         [Route("DeleteResturant")]
-        public async void Delete([FromBody] ResturantDTO resturantdto)
+        public void Delete([FromBody] ResturantDTO resturantdto)
         {
             _UW._Base<resturant>().Delete(_Mapper.Map<resturant>(resturantdto));
-            await _UW.SaveDBAsync();
+            _UW.SaveDB();
         }
 
     }

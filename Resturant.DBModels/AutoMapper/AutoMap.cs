@@ -29,6 +29,10 @@ namespace Resturant.DBModels.AutoMaping
             CreateMap<User, ViwUsersInfo>();
             CreateMap<ViwUsersInfo, User>();
 
+            CreateMap<User, ResturantDTO>();
+            CreateMap<ResturantDTO, User>();
+
+
 
 
 

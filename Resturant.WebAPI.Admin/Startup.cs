@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Resturant.StartupConfiguration.StartupInstaller;
 using Resturant.Middlewares;
 using Resturant.CoreBase.Global_Methods;
+using Resturant.Services.Srvc_Internal;
 
 namespace Resturant.WebAPI.Admin
 {
@@ -45,6 +46,7 @@ namespace Resturant.WebAPI.Admin
 
             #region Internal Injections
             services.AddScoped<GlobalMethods>();
+            services.AddScoped<IUser_Srvc,User_Srvc>(); 
             #endregion
         }
 

@@ -48,7 +48,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     return "EmptyField";
                 }
                 //checks if User Exists in DB
-                var Find_Username_In_DB = _UW._User.IsUserExists(user);
+                var Find_Username_In_DB = _UW._Base<User>().FindByConditionAsync(x=>x.PassWord == user.Password  &&  x.UserName == user.UserName).Result.FirstOrDefault();
 
 
 

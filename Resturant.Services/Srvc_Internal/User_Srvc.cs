@@ -1,33 +1,29 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Resturant.DataAccess.Context;
-using Resturant.DBModels.DTO;
-using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
-using Resturant.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
-
-
-namespace Resturant.Repository
+namespace Resturant.Services.Srvc_Internal
 {
-    public class User_Repo : IUser_Repo
+    public class User_Srvc : IUser_Srvc
     {
         private readonly ResturantContext _context;
         private readonly IMapper _Mapper;
 
-        public User_Repo(ResturantContext context, IMapper mapper)
+        public User_Srvc(ResturantContext context, IMapper mapper)
         {
             _context = context;
             _Mapper = mapper;
         }
 
-
+        public IEnumerable<User> GetResturantRequestedUsers()
+        {
+              var t =  _context.Users.Where(x=> !_context.Resturants.Any(b => b.UserId == x.Id)  &&  x.Role.RoleName=="Resturant" ).ToList() ;
+            return t;
+        }
     }
 }

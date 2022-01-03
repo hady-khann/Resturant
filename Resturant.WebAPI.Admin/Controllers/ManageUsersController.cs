@@ -77,6 +77,7 @@ namespace Resturant.WebAPI.Admin.Controllers
             }
             return _response.Global_Result<ViwUsersInfo>(null);
         }
+
         [HttpGet]
         [Route("GetUserByName")]
         public Global_Response_DTO<ViwUsersInfo> GetUserByName([FromBody] string Name)
@@ -89,6 +90,20 @@ namespace Resturant.WebAPI.Admin.Controllers
             }
             return _response.Global_Result<ViwUsersInfo>(null);
         }
+
+        [HttpGet]
+        [Route("GetUserByRole")]
+        public Global_Response_DTO<IEnumerable<ViwUsersInfo>> GetUserByRole([FromBody] Guid Id)
+        {
+            var CurrentUser = _GMethods.GETCurrentUser();
+            var User = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.RoleId == Id).Result;
+            if (CurrentUser.Level.Value < User.FirstOrDefault().AccessLevel)
+            {
+                return _response.Global_Result(User);
+            }
+            return _response.Global_Result<IEnumerable<ViwUsersInfo>>(null);
+        }
+
 
 
         [HttpGet]

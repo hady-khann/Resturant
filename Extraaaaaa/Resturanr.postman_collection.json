@@ -1,0 +1,1239 @@
+{
+	"info": {
+		"_postman_id": "91c2079d-e428-4e21-9b4c-b63565b7770d",
+		"name": "Resturanr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Guest",
+			"item": [],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Resturant",
+			"item": [],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "ManageUsers",
+					"item": [
+						{
+							"name": "Admin/ManageUsers/GetAllUserslInfo/",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"PAGENUMBER\":0,\r\n  \"ROWNUMBER\": 20\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/GetAllUserslInfo",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"GetAllUserslInfo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin/ManageUsers/GetUserByID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"15e53187-86a6-4302-bffb-2233da0f539f\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/GetUserByID",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"GetUserByID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserByName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"res2\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/GetUserByName",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"GetUserByName"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserByRole",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"d79b2084-0083-4a7f-b274-4b4c97e15f1a\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/GetUserByRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"GetUserByRole"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/GetRoles",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"GetRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUser",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n       \"id\": \"15e53187-86a6-4302-bffb-2233da0f539f\",\r\n            \"userName\": \"res2\",\r\n            \"email\": \"res2@gmail.com\",\r\n            \"passWord\": \"Hbfv0YdT-_BSkLXl-NnywQ42gpY0U_1IjLcOcopc3o4=\",\r\n            \"wallet\": 99999,\r\n            \"address\": null,\r\n            \"status\": true,\r\n            \"roleId\": \"7a3f4bdf-7b36-4acd-95a6-7af2be944254\",\r\n            \"roleName\": \"Resturant\",\r\n            \"accessLevel\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/UpdateUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"UpdateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteUser",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"id\": \"fc9f2522-89d6-4544-b43d-a11b03454e04\",\r\n            \"userName\": \"TTTT\",\r\n            \"email\": \"@gmail.com\",\r\n            \"passWord\": \"dddddddd\",\r\n            \"wallet\": 0,\r\n            \"address\": null,\r\n            \"status\": true,\r\n            \"roleId\": \"fc9f2522-89d6-4544-b43d-a11b03454e02\",\r\n            \"roleName\": \"Resturant\",\r\n            \"accessLevel\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageUsers/DeleteUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageUsers",
+										"DeleteUser"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ManageRoles",
+					"item": [
+						{
+							"name": "GetAllRoles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageRoles/GetAllRoles",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageRoles",
+										"GetAllRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRoleByID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " \"c49ff943-67cf-49e8-8382-b16916aae968\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageRoles/GetRoleByID",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageRoles",
+										"GetRoleByID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddRole",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"roleName\": \"TTT\",\r\n        \"accessLevel\": 1,\r\n        \"description\": \"TTTTTTTTTTTTTT\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageRoles/AddRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageRoles",
+										"AddRole"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateRole",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n       { \r\n                   \"id\": \"c49ff943-67cf-49e8-8382-b16916aae968\",\r\n            \"roleName\": \"TTT\",\r\n            \"accessLevel\": 555555,\r\n            \"description\": \"TTTTTTTTTTTTTT\"\r\n       }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageRoles/UpdateRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageRoles",
+										"UpdateRole"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteRole",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"Id\": \"c49ff943-67cf-49e8-8382-b16916aae968\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageRoles/DeleteRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageRoles",
+										"DeleteRole"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ManageFoods",
+					"item": [
+						{
+							"name": "GetAllFoods",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pageNumber\": 1,\r\n  \"rowNumber\": 20\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoods/GetAllFoods",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoods",
+										"GetAllFoods"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetFoodByID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"cb1c709e-d81c-4107-ab17-35bacd0ac89a\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoods/GetFoodByID",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoods",
+										"GetFoodByID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetFoodByName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"آبگوشت\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoods/GetFoodByName",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoods",
+										"GetFoodByName"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddFood",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"typeId\": \"054aca8b-aa03-4e93-897e-4ab15138d349\",\r\n  \"foodName\": \"ییییییفلافل\",\r\n  \"pic\": \"\",\r\n  \"description\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoods/AddFood",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoods",
+										"AddFood"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateFood",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "      {\r\n            \"id\": \"cb1c709e-d81c-4107-ab17-35bacd0ac89a\",\r\n        \"typeId\": \"054aca8b-aa03-4e93-897e-4ab15138d349\",\r\n        \"foodName\": \"یییی9999999ییفلافل\",\r\n        \"pic\": \"\",\r\n        \"price\": 0,\r\n        \"description\": \"\",\r\n        \"type\": \"FastFood\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoods/UpdateFood",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoods",
+										"UpdateFood"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteFood",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\"id\": \"cb1c709e-d81c-4107-ab17-35bacd0ac89a\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoods/DeleteFood",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoods",
+										"DeleteFood"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ManageResturantsFoods",
+					"item": [
+						{
+							"name": "GetResturantAllFoods",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturantsFoods/GetResturantAllFoods",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturantsFoods",
+										"GetResturantAllFoods"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetResFoodByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturantsFoods/GetResFoodByID",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturantsFoods",
+										"GetResFoodByID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetResFoodByName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturantsFoods/GetResFoodByName",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturantsFoods",
+										"GetResFoodByName"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturantsFoods/AddResFood",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturantsFoods",
+										"AddResFood"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturantsFoods/DeleteResFood",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturantsFoods",
+										"DeleteResFood"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ManageResturants",
+					"item": [
+						{
+							"name": "GetAllResturants",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pageNumber\": 1,\r\n  \"rowNumber\": 20\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/GetAllResturants",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"GetAllResturants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetResturantsByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/GetResturantsByID",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"GetResturantsByID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetResturantByName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/GetResturantByName",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"GetResturantByName"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserRequests",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/GetUserRequests",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"GetUserRequests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddResturant",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/AddResturant",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"AddResturant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateResturant",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/UpdateResturant",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"UpdateResturant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteResturant",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/DeleteResturant",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"DeleteResturant"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ManageFoodTypes",
+					"item": [
+						{
+							"name": "GetFoodTypes",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pageNumber\": 1,\r\n  \"rowNumber\": 20\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoodTypes/GetFoodTypes",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoodTypes",
+										"GetFoodTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetFoodTypesByID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Id",
+										"value": "33998552-d78c-4a49-87a8-4612eede0a99",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"367e881c-2ced-419c-92e2-1d93526cd2c7\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoodTypes/GetFoodTypesByID/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoodTypes",
+										"GetFoodTypesByID",
+										""
+									],
+									"query": [
+										{
+											"key": "Id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetFoodTypesByName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"Russian\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoodTypes/GetFoodTypesByName",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoodTypes",
+										"GetFoodTypesByName"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "FastFood",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddFoodType",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"999999\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoodTypes/AddFoodType",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoodTypes",
+										"AddFoodType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateFoodType",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"94d7b8d5-19b4-47bc-9045-f3c1ec3b0bba\",\r\n            \"type\": \"9999996666666\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoodTypes/UpdateFoodType",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoodTypes",
+										"UpdateFoodType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteFoodType",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\":\"94d7b8d5-19b4-47bc-9045-f3c1ec3b0bba\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageFoodTypes/DeleteFoodType",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageFoodTypes",
+										"DeleteFoodType"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"root\",\r\n  \"passWord\": \"root\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44384/Auth/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"Auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InJvb3QiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9vdCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlJvb3QiLCJJZCI6IjE1NjhkN2FkLWU5MzctNGYwMC1iMWVlLTNkOTVmNjI3NDljMyIsIlJlc3R1cmFudElkIjoiIiwiTmFtZSI6InJvb3QiLCJFbWFpbCI6InJvb3RAZ21haWwuY29tIiwiUm9sZSI6IlJvb3QiLCJMZXZlbCI6IjAiLCJTdGF0dXMiOiJUcnVlIiwiZXhwIjoxOTU2NzI4NDEyLCJpc3MiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigiLCJhdWQiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigifQ.tG0_tyuCnSgi9DjAn6WawZzokYhl3zK6OA18Z9Nb0Qo",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -49,9 +49,9 @@ namespace Resturant.WebAPI.Admin.Controllers
 
         [HttpGet]
         [Route("GetRoleByID")]
-        public async Task<Global_Response_DTO<RoleDTO>> GetRoleByID(Guid Id)
+        public Global_Response_DTO<RoleDTO> GetRoleByID([FromBody] Guid Id)
         {
-            return _response.Global_Result(_Mapper.Map<RoleDTO>(await _UW._Base<Role>().FindByID(Id)));
+            return _response.Global_Result(_Mapper.Map<RoleDTO>(_UW._Base<Role>().FindByConditionAsync(x=>x.Id==Id).Result.FirstOrDefault()));
         }
 
         // POST 
@@ -60,26 +60,26 @@ namespace Resturant.WebAPI.Admin.Controllers
         public async void Post([FromBody] RoleDTO role)
         {
             await _UW._Base<Role>().Insert(_Mapper.Map<Role>(role));
-            await _UW.SaveDBAsync();
+            _UW.SaveDB();
 
         }
 
         // PUT  
         [HttpPut]
         [Route("UpdateRole")]
-        public async void Put([FromBody] RoleDTO role)
+        public void Put([FromBody] RoleDTO role)
         {
-            _UW._Base<Role>().Update(_Mapper.Map<Role>(role));
-            await _UW.SaveDBAsync();
+             _UW._Base<Role>().Update(_Mapper.Map<Role>(role));
+            _UW.SaveDB();
         }
 
         // DELETE 
         [HttpDelete]
         [Route("DeleteRole")]
-        public async void Delete([FromBody] RoleDTO role)
+        public void Delete([FromBody] RoleDTO role)
         {
             _UW._Base<Role>().Delete(_Mapper.Map<Role>(role));
-            await _UW.SaveDBAsync();
+             _UW.SaveDB();
         }
 
 

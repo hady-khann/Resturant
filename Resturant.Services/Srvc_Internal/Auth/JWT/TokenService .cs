@@ -40,8 +40,9 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
 
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+                // todo : Expiration
                 var tokenDescriptor = new JwtSecurityToken(issuer, issuer, claims,
-                    expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
+                    expires: DateTime.Now.AddYears(10), signingCredentials: credentials);
                 return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
             }
             catch (Exception)

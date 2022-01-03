@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 
 /// <summary>
-/// ////////////////////////////////////////////////////////// finished  ///   TTTested 1
+/// ////////////////////////////////////////////////////////// finished / Tested 1 /
 /// </summary>
 
 
@@ -95,11 +95,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         // DELETE -
         [HttpDelete]
         [Route("DeleteFood")]
-        public async Task Delete([FromBody] FoodDTO foodDto)
+        public void Delete([FromBody] FoodDTO foodDto)
         {
-            Food food = await _UW._Base<Food>().FindByID(foodDto.Id);
-
-            _UW._Base<Food>().Delete(food);
+            _UW._Base<Food>().Delete(_Mapper.Map<Food>(foodDto));
             _UW.SaveDB();
         }
     }

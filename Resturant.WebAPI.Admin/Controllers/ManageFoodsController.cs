@@ -15,11 +15,16 @@ using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
+
+
+/// <summary>
+/// ////////////////////////////////////////////////////////// finished  ///   TTTested 1
+/// </summary>
+
+
+
 namespace Resturant.WebAPI.Admin.Controllers
 {
-    /// <summary>
-    /// ////////////////////////////////////////////////////////// finished
-    /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Manager,Owner,Root")]
@@ -54,9 +59,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         // get food by id
         [HttpGet]
         [Route("GetFoodByID")]
-        public async Task<Global_Response_DTO<ViwFood>> GetFoodByID([FromBody]Guid Id)
+        public Global_Response_DTO<ViwFood> GetFoodByID([FromBody]Guid Id)
         {
-            var resual = await _UW._Base<ViwFood>().FindByConditionAsync(x => x.Id == Id).Result.FirstOrDefault();
+            var resual = _UW._Base<ViwFood>().FindByConditionAsync(x => x.Id == Id).Result.FirstOrDefault();
             return _response.Global_Result(resual);
         }
 

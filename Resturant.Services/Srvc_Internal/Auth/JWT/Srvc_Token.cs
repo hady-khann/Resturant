@@ -14,9 +14,8 @@ using Resturant.DBModels.DTO;
 using Resturant.DBModels.Entities;
 
 namespace Resturant.Services.Srvc_Internal.Auth.JWT
-
 {
-    public class TokenService : ITokenService
+    public class Srvc_Token : ISrvc_Token
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;

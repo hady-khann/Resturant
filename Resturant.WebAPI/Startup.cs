@@ -40,7 +40,7 @@ namespace Resturant.WebAPI.Auth
 
             #region Internal Injections
             services.AddScoped<Srvc_LogReg>();
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ISrvc_Token, Srvc_Token>();
             services.AddTransient<IHasher, Hasher>();
             #endregion
 

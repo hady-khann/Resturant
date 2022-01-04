@@ -6,6 +6,7 @@ using Resturant.DBModels.DTO;
 using Resturant.DBModels.DTO.Auth;
 using Resturant.DBModels.Entities;
 using Resturant.Repository.UW;
+using Resturant.Services.Srvc;
 using Resturant.Services.Srvc_Internal.Auth.Hasher;
 using Resturant.Services.Srvc_Internal.Auth.JWT;
 using System;
@@ -22,20 +23,19 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
     public class Srvc_LogReg
     {
         private readonly IConfiguration _config;
-        private readonly ITokenService _tokenService;
         private readonly IHasher _hasher;
         private readonly _IUW _UW;
+        private readonly ISrvc _Srvc;
         private readonly IMapper _Mapper;
         private readonly HttpContextAccessor _httpContext;
 
-
-        public Srvc_LogReg(IConfiguration config, ITokenService tokenService, _IUW UW, IMapper Mapper, IHasher hasher, HttpContextAccessor httpContext)
+        public Srvc_LogReg(IConfiguration config, IHasher hasher, _IUW uW, ISrvc srvc, IMapper mapper, HttpContextAccessor httpContext)
         {
             _config = config;
             _hasher = hasher;
-            _UW = UW;
-            _Mapper = Mapper;
-            _tokenService = tokenService;
+            _UW = uW;
+            _Srvc = srvc;
+            _Mapper = mapper;
             _httpContext = httpContext;
         }
 
@@ -96,11 +96,11 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     if (usersInfo.RoleName == "Resturant")
                     {
                         var resturant = _UW._Base<resturant>().FindByConditionAsync(x => x.UserId == UserId).Result.FirstOrDefault();
-                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),user, resturant.Id);
+                        generatedToken = _Srvc._Token.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),user, resturant.Id);
                     }
                     else
                     {
-                        generatedToken = _tokenService.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), usersInfo);
+                        generatedToken = _Srvc._Token.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), usersInfo);
                     }
 
                     if (generatedToken != null)

@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Services.Srvc_Internal
+namespace Resturant.Services.Srvc_Repo
 {
-    public class User_Srvc : IUser_Srvc
+    public class Srvc_User : ISrvc_User
     {
         private readonly ResturantContext _context;
         private readonly IMapper _Mapper;
 
-        public User_Srvc(ResturantContext context, IMapper mapper)
+        public Srvc_User(ResturantContext context, IMapper mapper)
         {
             _context = context;
             _Mapper = mapper;

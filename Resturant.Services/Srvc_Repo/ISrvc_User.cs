@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resturant.Services.Srvc_Internal
+namespace Resturant.Services.Srvc_Repo
 {
-    public interface IUser_Srvc
+    public interface ISrvc_User
     {
         IEnumerable<User> GetResturantRequestedUsers();
     }

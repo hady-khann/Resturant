@@ -7,6 +7,7 @@ using Resturant.DBModels.DTO;
 using Resturant.DBModels.Entities;
 using Resturant.Repository.UW;
 using Resturant.Services.Srvc_Internal;
+using Resturant.Services.Srvc_Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,12 @@ namespace Resturant.WebAPI.Admin.Controllers
 
     public class ManageResturantsController : ControllerBase
     {
-        private readonly IUser_Srvc _SrvcUser;
+        private readonly ISrvc_User _SrvcUser;
         private readonly Response _response;
         private readonly IMapper _Mapper;
         private readonly _IUW _UW;
 
-        public ManageResturantsController(IUser_Srvc srvcUser, Response response, IMapper mapper, _IUW uW)
+        public ManageResturantsController(ISrvc_User srvcUser, Response response, IMapper mapper, _IUW uW)
         {
             _SrvcUser = srvcUser;
             _response = response;

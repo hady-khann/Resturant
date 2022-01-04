@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Resturant.Services.Srvc_Internal.Auth.JWT
 {
-    public interface ITokenService
+    public interface ISrvc_Token
     {
         string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfo, Guid? returantGUID = null);
         //string GenerateJSONWebToken(string key, string issuer, UserDTO user);

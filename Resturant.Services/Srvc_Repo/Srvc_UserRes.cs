@@ -34,21 +34,21 @@ namespace Resturant.Services.Srvc_Repo
         public async void PromoteUserToResturant(Guid Id)
         {
             var user = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x=>x.Id==Id).Result.FirstOrDefault();
-            var map = _Mapper.Map<resturant>(user);
-            map.Id = Guid.NewGuid();
-            map.ResturantType = Guid.Parse("29344b4c-86e1-4c37-9e36-38ae0ce79627");
-            map.Rate = 0;
-            map.ResturantName = "";
-            map.Status = true;
-            map.Avatar = "";
+            if (user.RoleName=="Resturant")
+            {
+                var map = _Mapper.Map<resturant>(user);
+                map.Id = Guid.NewGuid();
+                map.ResturantType = Guid.Parse("29344b4c-86e1-4c37-9e36-38ae0ce79627");
+                map.Rate = 0;
+                map.ResturantName = "";
+                map.Status = true;
+                map.Avatar = "";
 
-            map.Rated = 0;
+                map.Rated = 0;
 
-            await _UW._Base<resturant>().Insert(map);
-            _UW.SaveDB();
-
-
-
+                await _UW._Base<resturant>().Insert(map);
+                _UW.SaveDB(); 
+            }
         }
 
     }

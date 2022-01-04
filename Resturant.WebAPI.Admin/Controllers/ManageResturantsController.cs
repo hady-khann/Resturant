@@ -16,13 +16,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using resturant = Resturant.DBModels.Entities.Resturant;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+
+    /// <summary>
+    /// ////////////////////////////////////////////////////////// Finished / Tested 1 / 
+    /// </summary>
+    /// 
+
 
 namespace Resturant.WebAPI.Admin.Controllers
 {
-    /// <summary>
-    /// ////////////////////////////////////////////////////////// Finished
-    /// </summary>
     [Route("Admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Manager,Owner,Root")]
@@ -55,23 +58,23 @@ namespace Resturant.WebAPI.Admin.Controllers
         // GET: api/<ManageFoodTypesController>
         [HttpGet]
         [Route("GetAllResturants")]
-        public Global_Response_DTO<IEnumerable<ResturantDTO>> GetAllResturants(PaginationDTO page)
+        public Global_Response_DTO<IEnumerable<ViwResturant>> GetAllResturants(PaginationDTO page)
         {
-            return _response.Global_Result(_Mapper.Map<IEnumerable<ResturantDTO>>(_UW._Base<resturant>().FindAll().Skip(page.Skip).Take(page.Take).ToList()));
+            return _response.Global_Result<IEnumerable<ViwResturant>>(_UW._Base<ViwResturant>().FindAll().Skip(page.Skip).Take(page.Take).ToList());
         }
 
         [HttpGet]
         [Route("GetResturantsByID")]
-        public async Task<Global_Response_DTO<ResturantDTO>> GetResturantByID(Guid Id)
+        public Global_Response_DTO<ViwResturant> GetResturantByID([FromBody] Guid Id)
         {
-            return _response.Global_Result(_Mapper.Map<ResturantDTO>(await _UW._Base<resturant>().FindByID(Id)));
+            return _response.Global_Result(_UW._Base<ViwResturant>().FindByConditionAsync(x => x.Id == Id).Result.FirstOrDefault());
         }
 
         [HttpGet]
         [Route("GetResturantByName")]
-        public Global_Response_DTO<ResturantDTO> GetResturantByName(string name)
+        public Global_Response_DTO<ViwResturant> GetResturantByName([FromBody] string name)
         {
-            return _response.Global_Result(_Mapper.Map<ResturantDTO>(_UW._Base<resturant>().FindByConditionAsync(x=>x.ResturantName==name)));
+            return _response.Global_Result(_UW._Base<ViwResturant>().FindByConditionAsync(x=>x.ResturantName==name).Result.FirstOrDefault());
         }
 
 
@@ -83,20 +86,22 @@ namespace Resturant.WebAPI.Admin.Controllers
             return _response.Global_Result(AllUsersInfo);
         }
 
-        // POST 
-        [HttpPost]
-        [Route("AddResturant")]
-        public async void Post([FromBody] ResturantDTO resturantdto)
-        {
-            await _UW._Base<resturant>().Insert(_Mapper.Map<resturant>(resturantdto));
-            await _UW.SaveDBAsync();
-        }
-
         [HttpPost]
         [Route("PromoteUserToResturant")]
         public void PromoteUserToResturant([FromBody] Guid ID)
         {
             _Srvc._UserRes.PromoteUserToResturant(ID);
+            _Srvc.SaveDB();
+        }
+
+        [HttpPost]
+        [Route("PromoteAllUserToResturant")]
+        public void PromoteAllUserToResturant([FromBody] IEnumerable<Guid> ID)
+        {
+            foreach (var item in ID)
+            {
+                _Srvc._UserRes.PromoteUserToResturant(item);
+            }
             _Srvc.SaveDB();
         }
 

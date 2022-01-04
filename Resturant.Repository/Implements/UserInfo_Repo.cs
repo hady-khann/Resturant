@@ -24,23 +24,6 @@ namespace Resturant.Repository.Implements
             _Mapper = mapper;
         }
 
-        //public IEnumerable<ViwUserInfoDTO> GetAllUsersINFO(PaginationDTO pagination, int AccessLevel = 5)
-        //{
-        //    var skip = pagination.PageNumber * pagination.RowNumber;
-        //    var take = pagination.RowNumber;
-
-        //    var EFresult = _context.UsersInfos.Where(x => x.AccessLevel >= AccessLevel).Skip(skip).Take(take).ToList();
-
-        //    //IEnumerable<ViwUserInfoDTO> enumerable = EFresult.Select(c => _Mapper.Map<ViwUserInfoDTO>(c));
-
-        //    return _Mapper.Map<IEnumerable<ViwUserInfoDTO>>(EFresult);
-        //}
-
-        //public ViwUsersInfo GetUsersINFOByID(Guid Id)
-        //{
-        //    return _context.UsersInfos.FirstOrDefault(x => x.Id == Id) as ViwUsersInfo; ;
-            
-        //}
     }
 }
 

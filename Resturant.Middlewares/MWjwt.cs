@@ -13,6 +13,7 @@ using Resturant.DBModels.DTO.Auth;
 using Microsoft.AspNetCore.Builder;
 using Resturant.Repository.UW;
 using Resturant.DataAccess.Context;
+using Resturant.Services.Srvc;
 
 namespace Resturant.Middlewares
 {
@@ -23,21 +24,25 @@ namespace Resturant.Middlewares
         private IConfiguration _config;
 
         private _IUW _UW;
+        private ISrvc _Srvc;
 
         public MWjwt(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IConfiguration config, _IUW UW)
+        public async Task Invoke(HttpContext context, IConfiguration config, _IUW UW, ISrvc Srvc)
         {
             _config = config;
             _UW = UW;
+            _Srvc = Srvc;
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-
             if (token != null)
-                await AttachUserToContext(context, token);
+                if (_Srvc._Token.IsTokenValid(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), token))
+                {
+                    await AttachUserToContext(context, token);
+                }
 
             await _next(context);
 
@@ -72,7 +77,7 @@ namespace Resturant.Middlewares
 
 
 
-                Guid? resid=null;
+                Guid? resid = null;
                 if (jwtToken.Claims.First(x => x.Type == "ResturantId").Value != "")
                 {
                     resid = Guid.Parse(jwtToken.Claims.First(x => x.Type == "ResturantId").Value);
@@ -86,7 +91,7 @@ namespace Resturant.Middlewares
                     Status = (jwtToken.Claims.First(x => x.Type == "Status").Value) == "True" ? true : false,
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                     Level = int.Parse(jwtToken.Claims.First(x => x.Type == "Level").Value),
-                    ResturantId = resid ,
+                    ResturantId = resid,
                 };
             }
             catch (Exception x)

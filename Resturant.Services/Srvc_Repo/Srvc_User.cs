@@ -22,7 +22,8 @@ namespace Resturant.Services.Srvc_Repo
 
         public IEnumerable<User> GetResturantRequestedUsers()
         {
-              var t =  _context.Users.Where(x=> !_context.Resturants.Any(b => b.UserId == x.Id)  &&  x.Role.RoleName=="Resturant" ).ToList() ;
+            var y = _context.Users.ToList();
+            var t = _context.Users.Where(x => !_context.Resturants.Any(b => b.UserId == x.Id) && x.Role.RoleName == "Resturant").ToList();
             return t;
         }
     }

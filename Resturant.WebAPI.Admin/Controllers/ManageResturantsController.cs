@@ -5,7 +5,9 @@ using Resturant.CoreBase.Global_Methods;
 using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
 using Resturant.DBModels.Entities;
+using Resturant.Repository.Interfaces;
 using Resturant.Repository.UW;
+using Resturant.Services.Srvc;
 using Resturant.Services.Srvc_Internal;
 using Resturant.Services.Srvc_Repo;
 using System;
@@ -30,15 +32,19 @@ namespace Resturant.WebAPI.Admin.Controllers
         private readonly ISrvc_User _SrvcUser;
         private readonly Response _response;
         private readonly IMapper _Mapper;
+        private readonly ISrvc _Srvc;
         private readonly _IUW _UW;
 
-        public ManageResturantsController(ISrvc_User srvcUser, Response response, IMapper mapper, _IUW uW)
+        public ManageResturantsController(ISrvc_User srvcUser, Response response, IMapper mapper, ISrvc srvc, _IUW uW)
         {
             _SrvcUser = srvcUser;
             _response = response;
             _Mapper = mapper;
+            _Srvc = srvc;
             _UW = uW;
         }
+
+
 
 
 
@@ -73,7 +79,7 @@ namespace Resturant.WebAPI.Admin.Controllers
         [Route("GetUserRequests")]
         public Global_Response_DTO<IEnumerable<ViwUsersInfo>> GetUserRequests()
         {
-            var x = _SrvcUser.GetResturantRequestedUsers();
+            var x = _Srvc._User.GetResturantRequestedUsers();
             var AllUsersInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.RoleName=="sss").Result;
 
             return _response.Global_Result(AllUsersInfo);

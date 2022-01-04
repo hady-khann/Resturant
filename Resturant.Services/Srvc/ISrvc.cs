@@ -12,7 +12,7 @@ namespace Resturant.Services.Srvc
     public interface ISrvc
     {
         ResturantContext _context { get; }
-        ISrvc_User _User { get; }
+        ISrvc_UserRes _UserRes { get; }
         ISrvc_Token _Token { get; }
        
 

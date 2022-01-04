@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Resturant.DataAccess.Context;
+using Resturant.Repository.UW;
 using Resturant.Services.Srvc_Internal.Auth.JWT;
 using Resturant.Services.Srvc_Repo;
 using System;
@@ -14,20 +15,27 @@ namespace Resturant.Services.Srvc
     {
         public ResturantContext _context { get; }
         private readonly IMapper _Mapper;
-        private ISrvc_User _SrvcUser;
+        private ISrvc_UserRes _SrvcUserRes;
         private ISrvc_Token _SrvcToken;
+        private _IUW _IUW;
 
+        public Srvc(ResturantContext context, IMapper mapper, _IUW IUW)
+        {
+            this._context = context;
+            _IUW = IUW;
+            _Mapper = mapper;
+        }
 
-        public ISrvc_User _User
+        public ISrvc_UserRes _UserRes
         {
             get
             {
-                if (_SrvcUser == null)
+                if (_SrvcUserRes == null)
                 {
-                    _SrvcUser = new Srvc_User(_context, _Mapper);
+                    _SrvcUserRes = new Srvc_UserRes(_context, _Mapper, _IUW);
                 }
 
-                return _SrvcUser;
+                return _SrvcUserRes;
             }
         }
 

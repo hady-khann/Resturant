@@ -25,7 +25,7 @@ namespace Resturant.Repository.Base
         //IQueryable<TEntity> FindAll_Pagination(PaginationDTO pagination);
         IQueryable<TEntity> FindAll();
 
-        Task<TEntity> FindByID(Guid id);
+        Task<TEntity> FindByID(Object id);
 
         #endregion
 

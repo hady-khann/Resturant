@@ -29,20 +29,20 @@ namespace Resturant.WebAPI.Admin.Controllers
 
     public class ManageResturantsController : ControllerBase
     {
-        private readonly ISrvc_User _SrvcUser;
         private readonly Response _response;
         private readonly IMapper _Mapper;
         private readonly ISrvc _Srvc;
         private readonly _IUW _UW;
 
-        public ManageResturantsController(ISrvc_User srvcUser, Response response, IMapper mapper, ISrvc srvc, _IUW uW)
+        public ManageResturantsController(Response response, IMapper mapper, ISrvc srvc, _IUW uW)
         {
-            _SrvcUser = srvcUser;
             _response = response;
             _Mapper = mapper;
             _Srvc = srvc;
             _UW = uW;
         }
+
+
 
 
 
@@ -79,24 +79,9 @@ namespace Resturant.WebAPI.Admin.Controllers
         [Route("GetUserRequests")]
         public Global_Response_DTO<IEnumerable<ViwUsersInfo>> GetUserRequests()
         {
-            var x = _Srvc._User.GetResturantRequestedUsers();
-            var AllUsersInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.RoleName=="sss").Result;
-
+            var AllUsersInfo = _Srvc._UserRes.GetResturantRequestedUsers();
             return _response.Global_Result(AllUsersInfo);
         }
-
-        //[HttpPost]
-        //[Route("PromoteUseToResturant")]
-        //public Global_Response_DTO<IEnumerable<ViwUsersInfo>> PromoteUseToResturant([FromBody] Guid ID)
-        //{
-        //    var UserInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.Id == ID).Result.FirstOrDefault();
-        //    ret
-        //    if (UserInfo.RoleName == "Resturant")
-        //    {
-
-        //    }
-        //}
-
 
         // POST 
         [HttpPost]
@@ -105,6 +90,14 @@ namespace Resturant.WebAPI.Admin.Controllers
         {
             await _UW._Base<resturant>().Insert(_Mapper.Map<resturant>(resturantdto));
             await _UW.SaveDBAsync();
+        }
+
+        [HttpPost]
+        [Route("PromoteUserToResturant")]
+        public void PromoteUserToResturant([FromBody] Guid ID)
+        {
+            _Srvc._UserRes.PromoteUserToResturant(ID);
+            _Srvc.SaveDB();
         }
 
         // PUT  

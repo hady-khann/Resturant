@@ -63,13 +63,9 @@ namespace Resturant.Repository.Base
             return contextDB.AsNoTracking();
         }
 
-
-
-        public async Task<TEntity> FindByID(Guid id)
+        public async Task<TEntity> FindByID(Object id)
         {
-            var t = await contextDB.FindAsync(id);
-            return t;
-
+            return await contextDB.FindAsync((Guid)id);
         }
         #endregion
 

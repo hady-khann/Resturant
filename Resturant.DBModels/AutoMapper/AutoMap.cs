@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Resturant.DBModels.DTO;
+using resturant = Resturant.DBModels.Entities.Resturant;
+
 
 namespace Resturant.DBModels.AutoMaping
 {
@@ -31,6 +33,9 @@ namespace Resturant.DBModels.AutoMaping
 
             CreateMap<User, ResturantDTO>();
             CreateMap<ResturantDTO, User>();
+
+            CreateMap<ViwUsersInfo, resturant>();
+            CreateMap<resturant, ViwUsersInfo>();
 
 
 

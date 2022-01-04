@@ -784,9 +784,21 @@
 						},
 						{
 							"name": "GetResturantsByID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"85b60027-0149-48a0-b865-d8398c5515c7\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "https://localhost:44356/Admin/ManageResturants/GetResturantsByID",
 									"protocol": "https",
@@ -805,9 +817,21 @@
 						},
 						{
 							"name": "GetResturantByName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"نعمت\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "https://localhost:44356/Admin/ManageResturants/GetResturantByName",
 									"protocol": "https",
@@ -846,12 +870,21 @@
 							"response": []
 						},
 						{
-							"name": "AddResturant",
+							"name": "PromoteUserToResturant",
 							"request": {
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"18816f55-239f-4798-8da4-700817eccf6e\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "https://localhost:44356/Admin/ManageResturants/AddResturant",
+									"raw": "https://localhost:44356/Admin/ManageResturants/PromoteUserToResturant",
 									"protocol": "https",
 									"host": [
 										"localhost"
@@ -860,7 +893,7 @@
 									"path": [
 										"Admin",
 										"ManageResturants",
-										"AddResturant"
+										"PromoteUserToResturant"
 									]
 								}
 							},
@@ -903,6 +936,36 @@
 										"Admin",
 										"ManageResturants",
 										"DeleteResturant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PromoteAllUserToResturant",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\"85a65841-85bb-452a-954b-d7126d88e2eb\",\r\n\"18816f55-239f-4798-8da4-700817eccf6e\",\r\n\"15e53187-86a6-4302-bffb-2233da0f539f\"]\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44356/Admin/ManageResturants/PromoteAllUserToResturant",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44356",
+									"path": [
+										"Admin",
+										"ManageResturants",
+										"PromoteAllUserToResturant"
 									]
 								}
 							},
@@ -1211,7 +1274,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InJvb3QiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9vdCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlJvb3QiLCJJZCI6IjE1NjhkN2FkLWU5MzctNGYwMC1iMWVlLTNkOTVmNjI3NDljMyIsIlJlc3R1cmFudElkIjoiIiwiTmFtZSI6InJvb3QiLCJFbWFpbCI6InJvb3RAZ21haWwuY29tIiwiUm9sZSI6IlJvb3QiLCJMZXZlbCI6IjAiLCJTdGF0dXMiOiJUcnVlIiwiZXhwIjoxOTU2NzI4NDEyLCJpc3MiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigiLCJhdWQiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigifQ.tG0_tyuCnSgi9DjAn6WawZzokYhl3zK6OA18Z9Nb0Qo",
+				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InJvb3QiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9vdCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlJvb3QiLCJJZCI6IjE1NjhkN2FkLWU5MzctNGYwMC1iMWVlLTNkOTVmNjI3NDljMyIsIlJlc3R1cmFudElkIjoiIiwiTmFtZSI6InJvb3QiLCJFbWFpbCI6InJvb3RAZ21haWwuY29tIiwiUm9sZSI6IlJvb3QiLCJMZXZlbCI6IjAiLCJTdGF0dXMiOiJUcnVlIiwiZXhwIjoxOTU2ODExNTUxLCJpc3MiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigiLCJhdWQiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigifQ.Oa5iIiEo7roWCOm4-J8ial1fLsxD6-98QZ_8gBlpKi8",
 				"type": "string"
 			}
 		]

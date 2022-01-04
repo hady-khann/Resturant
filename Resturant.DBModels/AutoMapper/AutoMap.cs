@@ -34,7 +34,8 @@ namespace Resturant.DBModels.AutoMaping
             CreateMap<User, ResturantDTO>();
             CreateMap<ResturantDTO, User>();
 
-            CreateMap<ViwUsersInfo, resturant>();
+            CreateMap<ViwUsersInfo, resturant>()
+                .ForMember(dest => dest.UserId, op => op.MapFrom(src => src.Id));
             CreateMap<resturant, ViwUsersInfo>();
 
 

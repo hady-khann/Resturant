@@ -51,7 +51,6 @@ namespace Resturant.DataAccess.Context
 
 
 
-
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
         public virtual DbSet<resturant> Resturants { get; set; }
@@ -137,10 +136,6 @@ namespace Resturant.DataAccess.Context
                 entity.Property(e => e.Rated).HasColumnName("rated");
 
                 entity.Property(e => e.ResturantName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Status)
                     .IsRequired()
                     .HasMaxLength(50);
 
@@ -443,7 +438,6 @@ namespace Resturant.DataAccess.Context
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
 
 
 

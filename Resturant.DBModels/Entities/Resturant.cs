@@ -20,7 +20,7 @@ namespace Resturant.DBModels.Entities
         public string Avatar { get; set; }
         public double Rate { get; set; }
         public long Rated { get; set; }
-        public string Status { get; set; }
+        public bool Status { get; set; }
 
         public virtual FoodType ResturantTypeNavigation { get; set; }
         public virtual User User { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Resturant.CoreBase.Global_Methods;
 using Resturant.CoreBase.WebAPIResponse;
 using Resturant.DBModels.DTO;
@@ -27,23 +28,25 @@ namespace Resturant.WebAPI.Resturant.Controllers
         private readonly _IUW _UW;
         private GlobalMethods _GMethods;
 
-        public ManageFoodsController(Response response, IMapper mapper, _IUW UW, GlobalMethods gMethods)
+        public ManageFoodsController(Response response, IMapper mapper, _IUW uW, GlobalMethods gMethods)
         {
             _response = response;
             _Mapper = mapper;
-            _UW = UW;
+            _UW = uW;
             _GMethods = gMethods;
         }
 
 
 
 
+
+
         // GET: 
         [HttpGet]
-        [Route("GetAllRoles")]
-        public async Task<Global_Response_DTO<IEnumerable<RoleDTO>>> GetRoles()
+        [Route("GetMyTypeFoods")]
+        public async Task<Global_Response_DTO<IEnumerable<FoodDTO>>> GetMyTypeFoods([FromBody] PaginationDTO page)
         {
-            return _response.Global_Result(_Mapper.Map<IEnumerable<RoleDTO>>(await _UW._Base<Role>().FindAllAsync()));
+            return _response.Global_Result(_Mapper.Map<IEnumerable<FoodDTO>> ( await _UW._Base<Food>().FindByConditionAsync(x=>x.Type.Type == _GMethods.GETCurrentUser().ResType)));
         }
 
         [HttpGet]

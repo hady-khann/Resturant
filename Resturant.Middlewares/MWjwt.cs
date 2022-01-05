@@ -78,9 +78,12 @@ namespace Resturant.Middlewares
 
 
                 Guid? resid = null;
+#nullable enable
+                string? Type = null;
                 if (jwtToken.Claims.First(x => x.Type == "ResturantId").Value != "")
                 {
                     resid = Guid.Parse(jwtToken.Claims.First(x => x.Type == "ResturantId").Value);
+                    Type = (jwtToken.Claims.First(x => x.Type == "ResType").Value).ToString();
                 }
 
                 context.Items["ViwUserInfoDTO"] = new AuthDTO
@@ -92,6 +95,7 @@ namespace Resturant.Middlewares
                     Role = jwtToken.Claims.First(x => x.Type == "Role").Value,
                     Level = int.Parse(jwtToken.Claims.First(x => x.Type == "Level").Value),
                     ResturantId = resid,
+                    ResType = Type ,
                 };
             }
             catch (Exception)

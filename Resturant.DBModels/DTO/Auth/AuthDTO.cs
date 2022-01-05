@@ -17,5 +17,7 @@ namespace Resturant.DBModels.DTO.Auth
         public string Role { get; set; }
         public int? Level { get; set; }
         public Guid? ResturantId { get; set; }
+#nullable enable
+        public String? ResType { get; set; }
     }
 }

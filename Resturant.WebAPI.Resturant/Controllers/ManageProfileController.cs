@@ -46,7 +46,7 @@ namespace Resturant.WebAPI.Resturant.Controllers
         [Route("getMyprofile")]
         public Global_Response_DTO<ViwResturant> getMyprofile()
         {
-            return _response.Global_Result(_UW._Base<ViwResturant>().FindByConditionAsync(x => x.Id == _GMethods.GETCurrentUser().ResturantId).Result.FirstOrDefault()); ;
+            return _response.Global_Result(_UW._Base<ViwResturant>().FindByConditionAsync(x => x.Id == _GMethods.GETCurrentUser().ResturantId).Result.FirstOrDefault());
         }  
         
 

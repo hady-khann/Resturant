@@ -12,7 +12,8 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
 {
     public interface ISrvc_Token
     {
-        string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfo, Guid? returantGUID = null);
+#nullable enable
+        string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfo, Guid? returantGUID = null, String? Type = null);
         //string GenerateJSONWebToken(string key, string issuer, UserDTO user);
         bool IsTokenValid(string key, string issuer, string token);
     }

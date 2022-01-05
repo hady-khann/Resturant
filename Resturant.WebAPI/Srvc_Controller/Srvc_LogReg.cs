@@ -95,10 +95,10 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     string generatedToken="";
                     if (usersInfo.RoleName == "Resturant")
                     {
-                        var resturant = _UW._Base<resturant>().FindByConditionAsync(x => x.UserId == UserId).Result.FirstOrDefault();
+                        var resturant = _UW._Base<ViwResturant>().FindByConditionAsync(x => x.UserId == UserId).Result.FirstOrDefault();
 
                         if (resturant != null)
-                            generatedToken = _Srvc._Token.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), usersInfo, resturant.Id);
+                            generatedToken = _Srvc._Token.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), usersInfo, resturant.Id,resturant.Type);
                         else
                             return "Confirmation Progress";
                     }

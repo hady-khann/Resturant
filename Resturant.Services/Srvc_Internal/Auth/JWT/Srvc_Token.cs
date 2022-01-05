@@ -16,11 +16,14 @@ using Resturant.DBModels.Entities;
 namespace Resturant.Services.Srvc_Internal.Auth.JWT
 
 {
+
     public class Srvc_Token : ISrvc_Token
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfoDTO, Guid? returantGUID = null)
+
+
+        public string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfoDTO, Guid? returantGUID = null, String? Type = null)
         {
             try
             {
@@ -30,6 +33,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
                     new Claim(ClaimTypes.Role, userInfoDTO.RoleName),
                     new Claim("Id",userInfoDTO.Id.ToString()),
                     new Claim("ResturantId",returantGUID.ToString()),
+                    new Claim("ResType",Type),
                     new Claim("Name", userInfoDTO.UserName),
                     new Claim("Email", userInfoDTO.Email),
                     new Claim("Role", userInfoDTO.RoleName),

@@ -31,7 +31,139 @@
 		},
 		{
 			"name": "Resturant",
-			"item": [],
+			"item": [
+				{
+					"name": "ProfileManager",
+					"item": [
+						{
+							"name": "getMyprofile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44304/api/ManageProfile/getMyprofile",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44304",
+									"path": [
+										"api",
+										"ManageProfile",
+										"getMyprofile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetTypes",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"PAGE\":\"1\",\r\n\"ROW\":\"20\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44304/api/ManageProfile/GetTypes",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44304",
+									"path": [
+										"api",
+										"ManageProfile",
+										"GetTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateMyprofile",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"id\": \"2d7a4b30-49a0-4b2d-b47c-ea5bf6f6ea4b\",\r\n        \"userId\": \"980683bf-f62a-487a-85cd-7c8aef8ac8a0\",\r\n        \"resturantType\": \"33998552-d78c-4a49-87a8-4612eede0a99\",\r\n        \"userName\": \"res1\",\r\n        \"type\": \"Sonnati\",\r\n        \"resturantName\": \"خوان نمعمت\",\r\n        \"avatar\": \"C://dfhggh/sgdfhytj/shgfjbg\",\r\n        \"rate\": 7316,\r\n        \"rated\": 8532,\r\n        \"address\": \"خیابان ستاری . - \",\r\n        \"status\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44304/api/ManageProfile/UpdateMyprofile",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44304",
+									"path": [
+										"api",
+										"ManageProfile",
+										"UpdateMyprofile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ResFoodsManager",
+					"item": [
+						{
+							"name": "GetMyTypeFoods",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"PAGE\":\"1\",\r\n\"ROW\":\"20\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44304/api/ManageFoods/GetMyTypeFoods",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44304",
+									"path": [
+										"api",
+										"ManageFoods",
+										"GetMyTypeFoods"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "New Folder",
+					"item": []
+				}
+			],
 			"event": [
 				{
 					"listen": "prerequest",
@@ -876,7 +1008,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "\"18816f55-239f-4798-8da4-700817eccf6e\"",
+									"raw": "\"980683bf-f62a-487a-85cd-7c8aef8ac8a0\"",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -948,7 +1080,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "[\"85a65841-85bb-452a-954b-d7126d88e2eb\",\r\n\"18816f55-239f-4798-8da4-700817eccf6e\",\r\n\"15e53187-86a6-4302-bffb-2233da0f539f\"]\r\n",
+									"raw": "[\"f3d41775-09a8-4f9b-8c0f-f050904eb3bd\"]\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1221,7 +1353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"userName\": \"root\",\r\n  \"passWord\": \"root\"\r\n}",
+							"raw": "{\r\n  \"userName\": \"res1\",\r\n  \"passWord\": \"res1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1238,6 +1370,35 @@
 							"path": [
 								"Auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"res1@gmail.com\",\r\n  \"userName\": \"res1\",\r\n  \"password\": \"res1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44384/Auth/Register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"Auth",
+								"Register"
 							]
 						}
 					},
@@ -1274,7 +1435,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InJvb3QiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9vdCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlJvb3QiLCJJZCI6IjE1NjhkN2FkLWU5MzctNGYwMC1iMWVlLTNkOTVmNjI3NDljMyIsIlJlc3R1cmFudElkIjoiIiwiTmFtZSI6InJvb3QiLCJFbWFpbCI6InJvb3RAZ21haWwuY29tIiwiUm9sZSI6IlJvb3QiLCJMZXZlbCI6IjAiLCJTdGF0dXMiOiJUcnVlIiwiZXhwIjoxOTU2ODExNTUxLCJpc3MiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigiLCJhdWQiOiIxMWhsayk3NUAhJV5ec2Rsb0pKJigifQ.Oa5iIiEo7roWCOm4-J8ial1fLsxD6-98QZ_8gBlpKi8",
+				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InJlczEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmVzMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlJlc3R1cmFudCIsIklkIjoiOTgwNjgzYmYtZjYyYS00ODdhLTg1Y2QtN2M4YWVmOGFjOGEwIiwiUmVzdHVyYW50SWQiOiIyZDdhNGIzMC00OWEwLTRiMmQtYjQ3Yy1lYTViZjZmNmVhNGIiLCJSZXNUeXBlIjoiQ2hpbmVhc2UiLCJOYW1lIjoicmVzMSIsIkVtYWlsIjoicmVzMUBnbWFpbC5jb20iLCJSb2xlIjoiUmVzdHVyYW50IiwiTGV2ZWwiOiI0IiwiU3RhdHVzIjoiVHJ1ZSIsImV4cCI6MTk1NjkxMjAzNSwiaXNzIjoiMTFobGspNzVAISVeXnNkbG9KSiYoIiwiYXVkIjoiMTFobGspNzVAISVeXnNkbG9KSiYoIn0.2O1MlZ7JMQrNraG_wjuvv2Vt11_R6gUaAINbtivCyR8",
 				"type": "string"
 			}
 		]

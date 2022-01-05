@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
 using Resturant.DBModels.AutoMaping;
+using Resturant.CoreBase.Global_Methods;
 
 namespace Resturant.StartupConfiguration.ApiInstaller
 {
@@ -29,6 +30,7 @@ namespace Resturant.StartupConfiguration.ApiInstaller
             });
             services.AddSingleton<HttpContextAccessor>();
             services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+            services.AddScoped<GlobalMethods>();
 
             services.AddHttpContextAccessor();
 

@@ -8,48 +8,17 @@ using resturant = Resturant.DBModels.Entities.Resturant;
 
 namespace Resturant.DataAccess.Context
 {
+
     public partial class ResturantContext : DbContext
     {
         public ResturantContext()
         {
         }
 
-
-
         public ResturantContext(DbContextOptions<ResturantContext> options)
             : base(options)
         {
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<FoodType> FoodTypes { get; set; }
@@ -348,10 +317,6 @@ namespace Resturant.DataAccess.Context
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -438,66 +403,6 @@ namespace Resturant.DataAccess.Context
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
+

@@ -12,7 +12,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using resturant = Resturant.DBModels.Entities.Resturant;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+/// <summary>
+/// ////////////////////////////////////////////////////////// Finished / Tested 1 / 
+/// </summary>
+/// 
 
 namespace Resturant.WebAPI.Resturant.Controllers
 {
@@ -38,20 +42,30 @@ namespace Resturant.WebAPI.Resturant.Controllers
 
 
 
-        // GET: api/<ManageFoodTypesController>
         [HttpGet]
         [Route("getMyprofile")]
-        public Global_Response_DTO<ResturantDTO> GetRoleByID()
+        public Global_Response_DTO<ViwResturant> getMyprofile()
         {
-            return _response.Global_Result(_Mapper.Map<ResturantDTO>(_UW._Base<resturant>().FindByConditionAsync(x => x.Id == _GMethods.GETCurrentUser().ResturantId).Result.FirstOrDefault())); ;
+            return _response.Global_Result(_UW._Base<ViwResturant>().FindByConditionAsync(x => x.Id == _GMethods.GETCurrentUser().ResturantId).Result.FirstOrDefault()); ;
+        }  
+        
+
+
+        [HttpGet]
+        [Route("GetTypes")]
+        public Global_Response_DTO<IEnumerable<FoodTypeDTO>> GetTypes([FromBody] PaginationDTO page)
+        {
+            return _response.Global_Result(_Mapper.Map<IEnumerable<FoodTypeDTO>>(_UW._Base<FoodType>().FindAll().Skip(page.Skip).Take(page.Take).ToList()));
         }
 
         // POST 
-        [HttpPost]
-        public void Post([FromBody] ResturantDTO ResDto)
+        [HttpPut]
+        [Route("UpdateMyprofile")]
+        public void UpdateMyprofile([FromBody] ViwResturant ResDto)
         {
+            var b = _Mapper.Map<resturant>(ResDto);
             _UW._Base<resturant>().Update(_Mapper.Map<resturant>(ResDto));
-             _UW.SaveDBAsync();
+             _UW.SaveDB();
         }
     }
 }

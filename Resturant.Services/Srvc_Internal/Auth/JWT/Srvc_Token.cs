@@ -20,7 +20,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
     {
 
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfoDTO , Guid? returantGUID = null)
+        public string AuthenticateUser(string key, string issuer, ViwUsersInfo userInfoDTO, Guid? returantGUID = null)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
                     new Claim("Role", userInfoDTO.RoleName),
                     new Claim("Level", userInfoDTO.AccessLevel.ToString()),
                     new Claim("Status", userInfoDTO.Status.ToString()),
-                    };
+                };
 
 
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -55,10 +55,10 @@ namespace Resturant.Services.Srvc_Internal.Auth.JWT
         {
             try
             {
-            var mySecret = Encoding.UTF8.GetBytes(key);
-            var mySecurityKey = new SymmetricSecurityKey(mySecret);
+                var mySecret = Encoding.UTF8.GetBytes(key);
+                var mySecurityKey = new SymmetricSecurityKey(mySecret);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenHandler = new JwtSecurityTokenHandler();
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

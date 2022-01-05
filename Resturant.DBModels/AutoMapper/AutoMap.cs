@@ -39,6 +39,11 @@ namespace Resturant.DBModels.AutoMaping
             CreateMap<resturant, ViwUsersInfo>();
 
 
+            CreateMap<ViwResturant, resturant>()
+                .ForMember(dest => dest.ResturantType, op => op.MapFrom(src => src.ResturantType));
+            CreateMap<resturant, ViwResturant>();
+
+
 
 
 

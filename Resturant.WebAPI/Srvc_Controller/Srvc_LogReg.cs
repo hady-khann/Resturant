@@ -48,7 +48,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     return "EmptyField";
                 }
                 //checks if User Exists in DB
-                var Find_Username_In_DB = _UW._Base<User>().FindByConditionAsync(x=>x.PassWord == user.Password  &&  x.UserName == user.UserName).Result.FirstOrDefault();
+                var Find_Username_In_DB = _UW._Base<User>().FindByConditionAsync(x=>x.UserName == user.UserName || x.Email == user.Email).Result.FirstOrDefault();
 
 
 
@@ -80,6 +80,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                 }
                 //Hash , Login Pass And Replace in UserDTO
                 var Password = user.PassWord;
+                //var Password = "res1";
                 var hash = _hasher.Hash_Generator(Password);
                 if (hash == null)
                     return "Hashing Fail";
@@ -87,16 +88,19 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
                 var usersInfo = _UW._Base<ViwUsersInfo>().FindByConditionAsync(x => x.UserName == user.UserName && x.PassWord == user.PassWord).Result.FirstOrDefault();
 
-
-                if (usersInfo != null)
+                if (usersInfo != null  && usersInfo.Status == true)
                 {
                     var UserId = (Guid)usersInfo.Id;
 
-                    string generatedToken;
+                    string generatedToken="";
                     if (usersInfo.RoleName == "Resturant")
                     {
                         var resturant = _UW._Base<resturant>().FindByConditionAsync(x => x.UserId == UserId).Result.FirstOrDefault();
-                        generatedToken = _Srvc._Token.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),user, resturant.Id);
+
+                        if (resturant != null)
+                            generatedToken = _Srvc._Token.AuthenticateUser(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(), usersInfo, resturant.Id);
+                        else
+                            return "Confirmation Progress";
                     }
                     else
                     {
@@ -112,6 +116,10 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
                     {
                         return "Wrong";
                     }
+                }
+                else if (user.Status == false)
+                {
+                    return "Deactivated";
                 }
                 else
                 {
@@ -130,14 +138,15 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
             try
             {
                 //Hash , Login Pass And Replace in UserDTO
-                var Password = user.Password;
+                //var Password = user.Password;
+                var Password = "res1";
                 var hash = _hasher.Hash_Generator(Password);
                 if (hash == null)
                     return;
 
                 user.Id = Guid.NewGuid();
                 user.Password = hash;
-
+                user.Status = true;
                 //Get RoleID From Roles
                 user.RoleId = _UW._Base<Role>().FindByConditionAsync(x => x.RoleName == "Guest").Result.FirstOrDefault().Id;
                 //Insert User

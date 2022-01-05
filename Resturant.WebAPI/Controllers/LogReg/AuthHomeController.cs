@@ -74,7 +74,7 @@ namespace Resturant.WebAPI.Auth.Srvc_Controller
 
                 if (Login_Resualt_Token == "EmptyField" || Login_Resualt_Token == "Wrong" || Login_Resualt_Token == "NullDB")
                 {
-                    return _response.Global_Result<String>(null);
+                    return _response.Global_Result<String>(null,Login_Resualt_Token);
                 }
                 else
                 {

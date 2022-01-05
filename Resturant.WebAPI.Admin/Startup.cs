@@ -44,10 +44,6 @@ namespace Resturant.WebAPI.Admin
             });
             StartupConfigurationInstaller.Install_Configure_Services(services, Configuration);
 
-
-            #region Internal Injections
-            services.AddScoped<GlobalMethods>();
-            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

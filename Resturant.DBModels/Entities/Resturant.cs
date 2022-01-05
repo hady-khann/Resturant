@@ -18,7 +18,7 @@ namespace Resturant.DBModels.Entities
         public Guid ResturantType { get; set; }
         public string ResturantName { get; set; }
         public string Avatar { get; set; }
-        public double Rate { get; set; }
+        public long Rate { get; set; }
         public long Rated { get; set; }
         public bool Status { get; set; }
 

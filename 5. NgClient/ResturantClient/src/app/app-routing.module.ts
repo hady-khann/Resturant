@@ -4,15 +4,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './Components/Home/Home.component';
 
 const routes: Routes = [
-  {path:'Auth', loadChildren:()=>import('./Modules/auth/auth.module').then(x=>x.AuthModule)},
+  {path:'Auth', loadChildren:() => import('./Modules/auth/auth.module').then(x=>x.AuthModule)},
 
 
 
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: '/home' },
-
-
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: 'home', component: HomeComponent },
+  // { path: '**', redirectTo: '/home' },
 
 ];
 
